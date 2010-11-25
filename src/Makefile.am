@@ -15,5 +15,5 @@ clean-local-check:
 	cd $(classesdir)
 	find . -name *.class -execdir rm {} +
 
-check:
-	java org.junit.runner.JUnitCore com.omnicorps.global.pjdbc.InterceptingDriverTest
+# check:
+# 	java org.junit.runner.JUnitCore com.omnicorps.global.pjdbc.InterceptingDriverTest
