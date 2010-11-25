@@ -1,0 +1,14 @@
+\.in$
+^autom4te\.cache/output\.0$
+^autom4te\.cache/output\.1$
+^autom4te\.cache/requests$
+^autom4te\.cache/traces\.0$
+^autom4te\.cache/traces\.1$
+^Makefile\.in$
+\.class$
+^config\.log$
+^config\.status$
+^configure$
+^src/Makefile$
+^src/classclasses\.stamp$
+^Makefile$
