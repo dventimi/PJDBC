@@ -26,10 +26,10 @@ import java.util.Properties;
 public abstract class AbstractInterceptingDriver 
     implements InterceptingDriver {
 
-    protected static List<HookFunction> hooks = new ArrayList<HookFunction>();
+    protected static List<HookFunction<String>> hooks = new ArrayList<HookFunction<String>>();
 
-    public static void addHook (HookFunction hook) {
-	hooks = hooks==null ? new ArrayList<HookFunction>() : hooks;
+    public static void addHook (HookFunction<String> hook) {
+	hooks = hooks==null ? new ArrayList<HookFunction<String>>() : hooks;
 	hooks.add(hook);
     }
 
@@ -81,7 +81,7 @@ public abstract class AbstractInterceptingDriver
 	Class[] api = new Class[]{Connection.class};
 	Connection connection = DriverManager.getConnection("jdbc:" + (new JDBCURL(URL)).getSubname(), properties);
 	InvocationHandler handler = new ConnectionInvocationHandler(connection);
-	return (Connection)GenericProxyFactory.createProxy(api, handler);
+	return (Connection)Proxy.newProxyInstance(this.getClass().getClassLoader(), api, handler);
     }
 
     /**
@@ -164,14 +164,16 @@ public abstract class AbstractInterceptingDriver
      * @author <a href="mailto:dventimi@dventimi-laptop">David A. Ventimiglia</a>
      * @version 1.0
      */
-    public class ConnectionInvocationHandler extends AbstractInvocationHandler<Connection> {
+    public class ConnectionInvocationHandler 
+	implements InvocationHandler {
+	private Connection delegate = null;
 	/**
 	 * Creates a new <code>ConnectionInvocationHandler</code> instance.
 	 *
 	 * @param delegate a <code>Connection</code> value
 	 */
 	public ConnectionInvocationHandler (Connection delegate) {
-	    super(delegate);
+	    this.delegate = delegate;
 	}
 
 	/**
@@ -190,18 +192,18 @@ public abstract class AbstractInterceptingDriver
 	    if (method.getName().equals("createStatement")) {
 		Class[] api = new Class[]{Statement.class};
 		Statement statement = (Statement)method.invoke(this.delegate, args);
-		DelegatingInvocationHandler<Statement> handler = new StatementInvocationHandler(statement);
-		return GenericProxyFactory.createProxy(api, handler);
+		InvocationHandler handler = new StatementInvocationHandler(statement);
+		return Proxy.newProxyInstance(this.getClass().getClassLoader(), api, handler);
 	    }
 	    if (method.getName().equals("prepareStatement")) {
 		String sql = (String)args[0];
 		// transform sql
 		Class[] api = new Class[]{Statement.class};
 		PreparedStatement preparedStatement = (PreparedStatement)method.invoke(this.delegate, args);
-		DelegatingInvocationHandler<PreparedStatement> handler = new PreparedStatementInvocationHandler(preparedStatement);
-		return GenericProxyFactory.createProxy(api, handler);
+		InvocationHandler handler = new PreparedStatementInvocationHandler(preparedStatement);
+		return Proxy.newProxyInstance(this.getClass().getClassLoader(), api, handler);
 	    }
-	    return super.invoke(proxy, method, args);
+	    return method.invoke(delegate, args);
 	}
     }
 
@@ -211,7 +213,9 @@ public abstract class AbstractInterceptingDriver
      * @author <a href="mailto:dventimi@dventimi-laptop">David A. Ventimiglia</a>
      * @version 1.0
      */
-    public class StatementInvocationHandler extends AbstractInvocationHandler<Statement> {
+    public class StatementInvocationHandler 
+	implements InvocationHandler {
+	private Statement delegate = null;
 	private List<HookFunction<String>> beforeExecuteHooks = new ArrayList<HookFunction<String>>();
     
 	/**
@@ -220,7 +224,7 @@ public abstract class AbstractInterceptingDriver
 	 * @param delegate a <code>Statement</code> value
 	 */
 	public StatementInvocationHandler (Statement delegate) {
-	    super(delegate);
+	    this.delegate = delegate;
 	}
 
 	/**
@@ -245,7 +249,7 @@ public abstract class AbstractInterceptingDriver
 		}
 		args[0] = sql[0];
 	    }
-	    return super.invoke(proxy, method, args);
+	    return method.invoke(delegate, args);
 	}
     }
 
@@ -255,7 +259,9 @@ public abstract class AbstractInterceptingDriver
      * @author <a href="mailto:dventimi@dventimi-laptop">David A. Ventimiglia</a>
      * @version 1.0
      */
-    public class PreparedStatementInvocationHandler extends AbstractInvocationHandler<PreparedStatement> {
+    public class PreparedStatementInvocationHandler 
+	implements InvocationHandler {
+	private PreparedStatement delegate = null;
 	private List<HookFunction<String>> beforeExecuteHooks = new ArrayList<HookFunction<String>>();
     
 	/**
@@ -264,7 +270,7 @@ public abstract class AbstractInterceptingDriver
 	 * @param delegate a <code>PreparedStatement</code> value
 	 */
 	public PreparedStatementInvocationHandler (PreparedStatement delegate) {
-	    super(delegate);
+	    this.delegate = delegate;
 	}
 
 	/**
@@ -290,7 +296,8 @@ public abstract class AbstractInterceptingDriver
 		args[0] = sql[0];
 		return method.invoke(proxy, method, args);
 	    }
-	    return super.invoke(proxy, method, args);
+	    return method.invoke(delegate, args);
 	}
     }
 }
+
