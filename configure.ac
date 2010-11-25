@@ -7,11 +7,6 @@ AM_INIT_AUTOMAKE
 AC_CONFIG_SRCDIR([src/com/omnicorps/global/pjdbc/AutoTest.java])
 AC_PROG_JAVAC
 AC_PROG_JAVA
-dnl AC_CHECK_JUNIT
-dnl AC_CHECK_CLASS([org.antlr.stringtemplate.StringTemplate])
-dnl AC_CHECK_CLASS([org.junit.runner.JUnitCore])
-dnl AC_CHECK_CLASS([henplus.AbstractCommand])
-dnl AC_CHECK_CLASSPATH
 AC_PROG_INSTALL
-AC_CONFIG_FILES([Makefile src/Makefile])
+AC_CONFIG_FILES([Makefile])
 AC_OUTPUT
