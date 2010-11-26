@@ -17,8 +17,6 @@ import org.junit.runners.Suite;
 public class InterceptingDriverTest 
     extends AutoTest {
 
-    // ----------------- Helper Classes ---------------------------------
-
     // ----------------- Static Members ---------------------------------
 
     /**
@@ -190,7 +188,8 @@ public class InterceptingDriverTest
     public void testIdentityDriverGetConnection () {
     	new Script () {
     	    public void run () throws Exception {
-    		DriverManager.getConnection("jdbc:identity-intercepting:" + DB);}};}
+    		DriverManager
+		    .getConnection("jdbc:identity-intercepting:" + DB);}};}
 
     /**
      * Describe <code>testDevNullDriverGetConnection</code> method here.
@@ -201,7 +200,8 @@ public class InterceptingDriverTest
     public void testDevNullDriverGetConnection () {
 	new Script () {
 	    public void run () throws Exception {
-		DriverManager.getConnection("jdbc:null-intercepting:" + DB);}};}
+		DriverManager
+		    .getConnection("jdbc:null-intercepting:" + DB);}};}
 
     /**
      * Describe <code>testProxyDriverGetConnection</code> method here.
@@ -210,7 +210,8 @@ public class InterceptingDriverTest
     public void testProxyDriverGetConnection ()	{
     	new Script () {
     	    public void run () throws Exception {
-    		DriverManager.getConnection("jdbc:pjdbc:" + DB);}};}
+    		DriverManager
+		    .getConnection("jdbc:pjdbc:" + DB);}};}
 
     /**
      * Describe <code>testProxyDriverCreateStatement</code> method here.
@@ -219,7 +220,8 @@ public class InterceptingDriverTest
     public void testProxyDriverCreateStatement () {
     	new Script () {
     	    public void run () throws Exception {
-    		DriverManager.getConnection("jdbc:pjdbc:" + DB)
+    		DriverManager
+		    .getConnection("jdbc:pjdbc:" + DB)
     		    .createStatement();}};}
 
     /**
@@ -229,9 +231,20 @@ public class InterceptingDriverTest
     public void testProxyDriverWithNoHandlersExecutesPassedInQuery () {
     	new Script () {
     	    public void run () throws Exception {
-    		DriverManager.getConnection("jdbc:pjdbc:" + DB)
+    		DriverManager
+		    .getConnection("jdbc:pjdbc:" + DB)
     		    .createStatement()
     		    .execute("create table person (name varchar(30))");}};}
+
+
+    private static class CollectingHandler 
+	implements SQLHook {
+	private List<String> log = new ArrayList<String>();
+	public String[] getSQLStatements () {
+	    return log.toArray(new String[]{});}
+	public String eval (String sql) {
+	    log.add(sql);
+	    return sql;}}
 
     /**
      * Describe <code>testProxyDriverAddCollectingHandlerAndTryToCollect</code> method here.
@@ -240,13 +253,13 @@ public class InterceptingDriverTest
     public void testProxyDriverAddCollectingHandlerAndTryToCollect () {
     	new Script () {
     	    public void run () throws Exception {
-    		// CollectingHandler collector = new CollectingHandler();
-    		// DevNullHandler sink = new DevNullHandler();
-    		// ProxyDriver.addHook(collector);
-    		// ProxyDriver.addHook(sink);
-    		DriverManager.getConnection("jdbc:pjdbc:" + DB)
+    		CollectingHandler collector = new CollectingHandler();
+    		ProxyDriver.addHook(collector);
+    		DriverManager
+		    .getConnection("jdbc:pjdbc:" + DB)
     		    .createStatement()
-    		    .execute("create table person (name varchar(30))");}};}
-    		// for (String sql : collector.getSQLStatements()) System.out.println(sql);}};}
-
+    		    .execute("create table person (name varchar(30))");
+		assertNotNull(collector.getSQLStatements());
+		assertEquals(collector.getSQLStatements().length, 1);
+		assertEquals(collector.getSQLStatements()[0], "create table person (name varchar(30))");}};}
 }

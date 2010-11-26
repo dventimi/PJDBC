@@ -6,9 +6,9 @@ import java.util.ArrayList;
 public class ProxyDriver
     extends AbstractInterceptingDriver {
 
-    private List<SQLHook> hooks;
+    private static List<SQLHook> hooks;
 
-    {this.init();}
+    static {init();}
 
     static {registerDriver(new ProxyDriver());}
 
@@ -16,11 +16,11 @@ public class ProxyDriver
 	return "pjdbc";}
 
     public SQLHook[] getHooks () {
-	return this.hooks.toArray(new SQLHook[]{});}
+	return hooks.toArray(new SQLHook[]{});}
 
-    public void addHook (SQLHook hook) {
-	this.hooks.add(hook);}
+    public static void addHook (SQLHook hook) {
+	hooks.add(hook);}
 
-    public void init () {
-	this.hooks = new ArrayList<SQLHook>();}
+    public static void init () {
+	hooks = new ArrayList<SQLHook>();}
 }
