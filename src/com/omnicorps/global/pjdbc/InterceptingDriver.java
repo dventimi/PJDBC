@@ -14,4 +14,6 @@ public interface InterceptingDriver
     public String getProtocol ();
 
     public String getSubProtocol ();
+
+    public SQLHook[] getHooks ();
 }

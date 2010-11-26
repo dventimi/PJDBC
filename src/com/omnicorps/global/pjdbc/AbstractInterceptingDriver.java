@@ -26,17 +26,6 @@ import java.util.Properties;
 public abstract class AbstractInterceptingDriver 
     implements InterceptingDriver {
 
-    protected static List<HookFunction<String>> hooks = new ArrayList<HookFunction<String>>();
-
-    static {
-	System.out.println("hooks.size() = " + hooks.size());
-    }
-
-    public static void addHook (HookFunction<String> hook) {
-	System.out.println("Adding hook:  " + hook);
-	hooks.add(hook);
-    }
-
     /**
      * Describe <code>registerDriver</code> method here.
      *
@@ -245,14 +234,9 @@ public abstract class AbstractInterceptingDriver
 	    String name = method.getName();
 	    Class[] params = method.getParameterTypes();
  	    if (name.equals("execute")) {
-		String[] sql = new String[]{(String)args[0]};
-		System.out.println("hooks.size() = " + hooks.size());
-		for (HookFunction<String> fn : hooks) {
-		    sql = fn.eval(sql);
-		    System.out.println("sql[0] = " + sql[0]);
-		}
-		    System.out.println("sql[0] = " + sql[0]);
-		args[0] = sql[0];
+		String sql = (String)args[0];
+		for (SQLHook hook : getHooks()) sql = hook.eval(sql);
+		args[0] = sql;
 	    }
 	    return method.invoke(delegate, args);
 	}
@@ -294,9 +278,9 @@ public abstract class AbstractInterceptingDriver
 	    if (name.equals("execute") && 
 		params.length > 0 &&
 		params[0].getClass().equals(String.class)) {
-		String[] sql = new String[]{(String)args[0]};
-		for (HookFunction<String> fn : hooks) sql = fn.eval(sql);
-		args[0] = sql[0];
+		String sql = (String)args[0];
+		for (SQLHook hook : getHooks()) sql = hook.eval(sql);
+		args[0] = sql;
 		return method.invoke(proxy, method, args);
 	    }
 	    return method.invoke(delegate, args);

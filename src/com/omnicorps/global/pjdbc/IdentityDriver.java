@@ -11,8 +11,10 @@ import java.util.ArrayList;
  * @author <a href="mailto:dventimi@dventimi-laptop">David A. Ventimiglia</a>
  * @version 1.0
  */
-public class IdentityInterceptingDriver 
+public class IdentityDriver 
     extends AbstractInterceptingDriver {
+
+    static {registerDriver(new IdentityDriver());}
 
     /**
      * Describe <code>getSubProtocol</code> method here.
@@ -20,15 +22,12 @@ public class IdentityInterceptingDriver
      * @return a <code>String</code> value
      */
     public final String getSubProtocol () {
-	return "identity-intercepting";
-    }
+	return "identity-intercepting";}
 
-    static {
-	registerDriver(new IdentityInterceptingDriver());
-	// hooks.add(new HookFunction<String>() {
-	// 	public String[] eval (String[] sql) {
-	// 	    return sql;
-	// 	}
-	//     });
-    }
+    public SQLHook[] getHooks () {
+	return new SQLHook[]{
+	    new SQLHook () {
+		public String eval (String sql) {
+		    return sql;}}};}
+
 }

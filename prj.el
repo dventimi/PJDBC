@@ -3,6 +3,7 @@
  '(jde-global-classpath (quote ("./classes" "./lib/junit-4.8.2.jar" "./lib/derby.jar")))
  '(jde-compiler (quote ("javac" "")))
  '(jde-compile-option-directory "./classes")
+ '(jde-compile-option-sourcepath (quote ("./src")))
  '(jde-sourcepath (quote ("./src")))
  '(jde-compile-option-debug (quote ("all" (t nil nil))))
  '(jde-compile-option-hide-classpath t)

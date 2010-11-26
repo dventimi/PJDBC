@@ -19,48 +19,6 @@ public class InterceptingDriverTest
 
     // ----------------- Helper Classes ---------------------------------
 
-    /**
-     * Describe class <code>CollectingHandler</code> here.
-     *
-     */
-    public static class CollectingHandler implements HookFunction<String> {
-	private List<String> sqlStatements = new ArrayList<String>();
-	/**
-	 * Describe <code>eval</code> method here.
-	 *
-	 * @param args a <code>String</code> value
-	 * @return a <code>String[]</code> value
-	 */
-	public String[] eval (String[] args) {
-	    this.sqlStatements.add(args[0]);
-	    return args;
-	}
-	/**
-	 * Describe <code>getSQLStatements</code> method here.
-	 *
-	 * @return a <code>List<String></code> value
-	 */
-	public List<String> getSQLStatements () {
-	    return this.sqlStatements;
-	}
-    }
-
-    /**
-     * Describe class <code>DevNullHandler</code> here.
-     *
-     */
-    public static class DevNullHandler implements HookFunction<String> {
-	/**
-	 * Describe <code>eval</code> method here.
-	 *
-	 * @param args a <code>String</code> value
-	 * @return a <code>String[]</code> value
-	 */
-	public String[] eval (String[] args) {
-	    return new String[]{""};
-	}
-    }
-
     // ----------------- Static Members ---------------------------------
 
     /**
@@ -100,8 +58,8 @@ public class InterceptingDriverTest
      */
     public void setUp ()
 	throws ClassNotFoundException {
-	Class.forName("com.omnicorps.global.pjdbc.IdentityInterceptingDriver");
-	Class.forName("com.omnicorps.global.pjdbc.NullInterceptingDriver");
+	Class.forName("com.omnicorps.global.pjdbc.IdentityDriver");
+	Class.forName("com.omnicorps.global.pjdbc.DevNullDriver");
 	Class.forName("com.omnicorps.global.pjdbc.ProxyDriver");
 	Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
 	try {DriverManager.getConnection(CREATE_DB);} catch (Throwable t) {}}
@@ -207,7 +165,7 @@ public class InterceptingDriverTest
     public void testInterceptingDriverAcceptsURL () {
 	new Script () {
 	    public void run () throws Exception {
-		Driver driver = new IdentityInterceptingDriver();
+		Driver driver = new IdentityDriver();
 		assertTrue(driver.acceptsURL("jdbc:identity-intercepting:jdbc:subprotocol:subname"));}};}
 
     /**
@@ -220,27 +178,27 @@ public class InterceptingDriverTest
     public void testInterceptingDriverAcceptsRealisticURL () {
 	new Script () {
 	    public void run () throws Exception {
-		Driver driver = new IdentityInterceptingDriver();
+		Driver driver = new IdentityDriver();
 		assertTrue(driver.acceptsURL("jdbc:identity-intercepting:" + DB));}};}
 
     /**
-     * Describe <code>testIdentityInterceptingDriverGetConnection</code> method here.
+     * Describe <code>testIdentityDriverGetConnection</code> method here.
      *
      * @exception ClassNotFoundException if an error occurs
      * @exception SQLException if an error occurs
      */
-    public void testIdentityInterceptingDriverGetConnection () {
+    public void testIdentityDriverGetConnection () {
     	new Script () {
     	    public void run () throws Exception {
     		DriverManager.getConnection("jdbc:identity-intercepting:" + DB);}};}
 
     /**
-     * Describe <code>testNullInterceptingDriverGetConnection</code> method here.
+     * Describe <code>testDevNullDriverGetConnection</code> method here.
      *
      * @exception ClassNotFoundException if an error occurs
      * @exception SQLException if an error occurs
      */
-    public void testNullInterceptingDriverGetConnection () {
+    public void testDevNullDriverGetConnection () {
 	new Script () {
 	    public void run () throws Exception {
 		DriverManager.getConnection("jdbc:null-intercepting:" + DB);}};}
