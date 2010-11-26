@@ -5,7 +5,8 @@ CLEANFILES = *.class
 javadir = $(top_builddir)/src
 classesdir = $(top_builddir)/classes
 classes_JAVA = $(shell find . -name '*.java')
-CLASSPATH_ENV = export CLASSPATH=$(CLASSPATH):$(top_builddir)/lib/hsqldb.jar:$(top_builddir)/lib/junit-4.8.2.jar:$(top_builddir)/classes;
+CLASSPATH = $(top_builddir)/lib/derby.jar:$(top_builddir)/lib/junit-4.8.2.jar:$(top_builddir)/classes
+CLASSPATH_ENV = export CLASSPATH=$(CLASSPATH);
 
 .PHONY: clean-local-check
 
@@ -16,4 +17,4 @@ clean-local-check:
 	find . -name *.class -execdir rm {} +
 
 check:
-	java org.junit.runner.JUnitCore com.omnicorps.global.pjdbc.InterceptingDriverTest
+	@JAVA@ -classpath $(CLASSPATH) org.junit.runner.JUnitCore com.omnicorps.global.pjdbc.InterceptingDriverTest

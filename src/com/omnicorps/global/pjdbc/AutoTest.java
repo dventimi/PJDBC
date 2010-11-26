@@ -35,4 +35,11 @@ public abstract class AutoTest
     public static void autorun (Exception e) {
 	autorun((e.getStackTrace()[0]).getClassName());
     }
+
+    protected static abstract class Script {
+	{try {this.run();} catch (Throwable t) {t.printStackTrace(); fail();}}
+	public void run () throws Exception {
+	    fail("Script.run() has not been implemented!");
+	}
+    }
 }

@@ -13,3 +13,4 @@
 ^src/classclasses\.stamp$
 ^Makefile$
 \.stamp$
+derby.log$

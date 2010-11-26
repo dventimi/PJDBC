@@ -20,10 +20,10 @@ public class NullInterceptingDriver
     
     static {
 	registerDriver(new NullInterceptingDriver());
-	hooks.add(new HookFunction<String>() {
-		public String[] eval (String[] sql) {
-		    return new String[]{""};
-		}
-	    });
+	// hooks.add(new HookFunction<String>() {
+	// 	public String[] eval (String[] sql) {
+	// 	    return new String[]{""};
+	// 	}
+	//     });
     }
 }

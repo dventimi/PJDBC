@@ -28,8 +28,12 @@ public abstract class AbstractInterceptingDriver
 
     protected static List<HookFunction<String>> hooks = new ArrayList<HookFunction<String>>();
 
+    static {
+	System.out.println("hooks.size() = " + hooks.size());
+    }
+
     public static void addHook (HookFunction<String> hook) {
-	hooks = hooks==null ? new ArrayList<HookFunction<String>>() : hooks;
+	System.out.println("Adding hook:  " + hook);
 	hooks.add(hook);
     }
 
@@ -216,8 +220,6 @@ public abstract class AbstractInterceptingDriver
     public class StatementInvocationHandler 
 	implements InvocationHandler {
 	private Statement delegate = null;
-	private List<HookFunction<String>> beforeExecuteHooks = new ArrayList<HookFunction<String>>();
-    
 	/**
 	 * Creates a new <code>StatementInvocationHandler</code> instance.
 	 *
@@ -244,9 +246,12 @@ public abstract class AbstractInterceptingDriver
 	    Class[] params = method.getParameterTypes();
  	    if (name.equals("execute")) {
 		String[] sql = new String[]{(String)args[0]};
+		System.out.println("hooks.size() = " + hooks.size());
 		for (HookFunction<String> fn : hooks) {
 		    sql = fn.eval(sql);
+		    System.out.println("sql[0] = " + sql[0]);
 		}
+		    System.out.println("sql[0] = " + sql[0]);
 		args[0] = sql[0];
 	    }
 	    return method.invoke(delegate, args);
@@ -262,8 +267,6 @@ public abstract class AbstractInterceptingDriver
     public class PreparedStatementInvocationHandler 
 	implements InvocationHandler {
 	private PreparedStatement delegate = null;
-	private List<HookFunction<String>> beforeExecuteHooks = new ArrayList<HookFunction<String>>();
-    
 	/**
 	 * Creates a new <code>PreparedStatementInvocationHandler</code> instance.
 	 *

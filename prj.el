@@ -1,6 +1,6 @@
 (jde-project-file-version "1.0")
 (jde-set-variables
- '(jde-global-classpath (quote ("./classes" "./lib/junit-4.8.2.jar" "./lib/hsqldb.jar")))
+ '(jde-global-classpath (quote ("./classes" "./lib/junit-4.8.2.jar" "./lib/derby.jar")))
  '(jde-compiler (quote ("javac" "")))
  '(jde-compile-option-directory "./classes")
  '(jde-sourcepath (quote ("./src")))

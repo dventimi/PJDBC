@@ -1,19 +1,12 @@
 package com.omnicorps.global.pjdbc; // Generated package name
 
-import java.sql.Connection;
 import java.sql.Driver;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-
-import org.hsqldb.Server;
-import org.junit.runner.RunWith;
-import org.junit.runners.Suite;
-import org.junit.runners.Suite.SuiteClasses;
-import java.sql.Statement;
-import java.util.List;
 import java.util.ArrayList;
-import org.junit.Ignore;
-import org.junit.Test;
+import java.util.List;
+
+import org.junit.runners.Suite;
 
 /**
  * Describe class <code>InterceptingDriverTest</code> here.
@@ -24,30 +17,67 @@ import org.junit.Test;
 public class InterceptingDriverTest 
     extends AutoTest {
 
-    Server hsqlServer = null;
-    Connection connection = null;
-
     // ----------------- Helper Classes ---------------------------------
 
-
+    /**
+     * Describe class <code>CollectingHandler</code> here.
+     *
+     */
     public static class CollectingHandler implements HookFunction<String> {
 	private List<String> sqlStatements = new ArrayList<String>();
+	/**
+	 * Describe <code>eval</code> method here.
+	 *
+	 * @param args a <code>String</code> value
+	 * @return a <code>String[]</code> value
+	 */
 	public String[] eval (String[] args) {
 	    this.sqlStatements.add(args[0]);
 	    return args;
 	}
+	/**
+	 * Describe <code>getSQLStatements</code> method here.
+	 *
+	 * @return a <code>List<String></code> value
+	 */
 	public List<String> getSQLStatements () {
 	    return this.sqlStatements;
 	}
     }
 
+    /**
+     * Describe class <code>DevNullHandler</code> here.
+     *
+     */
     public static class DevNullHandler implements HookFunction<String> {
+	/**
+	 * Describe <code>eval</code> method here.
+	 *
+	 * @param args a <code>String</code> value
+	 * @return a <code>String[]</code> value
+	 */
 	public String[] eval (String[] args) {
 	    return new String[]{""};
 	}
     }
 
     // ----------------- Static Members ---------------------------------
+
+    /**
+     * Describe variable <code>DB</code> here.
+     *
+     */
+    public static String DB = "derby:memory:testdb";
+    /**
+     * Describe variable <code>CREATE_DB</code> here.
+     *
+     */
+    public static String CREATE_DB = "jdbc:" + DB + ";create=true";
+    /**
+     * Describe variable <code>REMOVE_DB</code> here.
+     *
+     */
+    public static String REMOVE_DB = "jdbc:" + DB + ";drop=true";
     
     /**
      * <code>main</code>
@@ -64,42 +94,24 @@ public class InterceptingDriverTest
 
     /**
      * Every test generally needs to work with a registered driver
-     * so go ahead and register the drivers.  Also, try to start a running
-     * HSQLDB Server.  Check to see if one is running first, and try to
-     * nuke it if it is.
+     * so go ahead and register the drivers.
      *
      * @exception ClassNotFoundException if an error occurs
      */
     public void setUp ()
 	throws ClassNotFoundException {
-	if (this.hsqlServer!=null) {
-	    try {
-		this.hsqlServer.stop();
-		this.hsqlServer = null;
-	    }
-	    catch (Exception e) {
-		fail("Server already running and could not be stopped.");
-	    }
-	}
-	this.hsqlServer = new Server();
-	this.hsqlServer.setLogWriter(null);
-	this.hsqlServer.setSilent(true);
-	this.hsqlServer.setDatabaseName(0, "database");
-	this.hsqlServer.setDatabasePath(0, "mem:database");
-	this.hsqlServer.start();
 	Class.forName("com.omnicorps.global.pjdbc.IdentityInterceptingDriver");
 	Class.forName("com.omnicorps.global.pjdbc.NullInterceptingDriver");
-	Class.forName("com.omnicorps.global.pjdbc.GenericInterceptingDriver");
-	Class.forName("org.hsqldb.jdbcDriver");
-    }
+	Class.forName("com.omnicorps.global.pjdbc.ProxyDriver");
+	Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
+	try {DriverManager.getConnection(CREATE_DB);} catch (Throwable t) {}}
 
     /**
-     * Try to stop the running HSSQLDB server instance.
+     * Describe <code>tearDown</code> method here.
      *
      */
     public void tearDown () {
-	this.hsqlServer.stop();
-    }
+	try {DriverManager.getConnection(REMOVE_DB);} catch (Throwable t) {}}
 
     // --------------------- Tests ----------------------------------
     
@@ -110,13 +122,14 @@ public class InterceptingDriverTest
      * colons.
      */
     public void testJDBCURLParsesThreePartURLs () {
-	String [] parsedURL = JDBCURL.parseURL("jdbc:intercepting:jdbc");
-	assertNotNull(parsedURL);
-	assertEquals(3, parsedURL.length);
-	assertEquals("jdbc", parsedURL[0]);
-	assertEquals("intercepting", parsedURL[1]);
-	assertEquals("jdbc", parsedURL[2]);
-    }
+	new Script () {
+	    public void run () throws Exception {
+		String [] parsedURL = JDBCURL.parseURL("jdbc:intercepting:jdbc");
+		assertNotNull(parsedURL);
+		assertEquals(3, parsedURL.length);
+		assertEquals("jdbc", parsedURL[0]);
+		assertEquals("intercepting", parsedURL[1]);
+		assertEquals("jdbc", parsedURL[2]);}};}
 
     /**
      * <code>testJDBCURLParsesFivePartURLs</code>
@@ -128,13 +141,14 @@ public class InterceptingDriverTest
      * itself split into three parts.
      */
     public void testJDBCURLParsesFivePartURLs () {
-	String [] parsedURL = JDBCURL.parseURL("jdbc:intercepting:jdbc:subprotocol:subname");
-	assertNotNull(parsedURL);
-	assertEquals(3, parsedURL.length);
-	assertEquals("jdbc", parsedURL[0]);
-	assertEquals("intercepting", parsedURL[1]);
-	assertEquals("jdbc:subprotocol:subname", parsedURL[2]);
-    }
+	new Script () {
+	    public void run () throws Exception {
+		String [] parsedURL = JDBCURL.parseURL("jdbc:intercepting:jdbc:subprotocol:subname");
+		assertNotNull(parsedURL);
+		assertEquals(3, parsedURL.length);
+		assertEquals("jdbc", parsedURL[0]);
+		assertEquals("intercepting", parsedURL[1]);
+		assertEquals("jdbc:subprotocol:subname", parsedURL[2]);}};}
 
     /**
      * <code>testJDBCURLRefusesFewerThanThreePartURLs</code>
@@ -144,15 +158,13 @@ public class InterceptingDriverTest
      *
      */
     public void testJDBCURLRefusesFewerThanThreePartURLs () {
-    	try {
-    	    new JDBCURL("jdbc:intercepting");
-    	}
-    	catch (SQLException e) {
-    	    assertNotNull(e);
-    	    return;
-    	}
-    	fail("JDBCURL should not have accepted a URL with only 2 parts.");
-    }
+	new Script () {
+	    public void run () throws Exception {
+		try {
+		    new JDBCURL("jdbc:intercepting");}
+		catch (SQLException e) {
+		    return;}
+		fail("URL should have been refused!!");}};}
 
     /**
      * <code>testJDBDURLAcceptsThreePartURLs</code>
@@ -161,13 +173,13 @@ public class InterceptingDriverTest
      *
      * @exception SQLException if an error occurs
      */
-    public void testJDBDURLAcceptsThreePartURLs () 
-	throws SQLException {
-	JDBCURL url = new JDBCURL("jdbc:intercepting:protocol");
-	assertEquals("jdbc", url.getProtocol());
-	assertEquals("intercepting", url.getSubprotocol());
-	assertEquals("protocol", url.getSubname());
-    }
+    public void testJDBDURLAcceptsThreePartURLs () {
+	new Script () {
+	    public void run () throws Exception {
+		JDBCURL url = new JDBCURL("jdbc:intercepting:protocol");
+		assertEquals("jdbc", url.getProtocol());
+		assertEquals("intercepting", url.getSubprotocol());
+		assertEquals("protocol", url.getSubname());}};}
     
     /**
      * <code>testJDBDURLAcceptsMoreThanThreePartURLs</code>
@@ -177,13 +189,13 @@ public class InterceptingDriverTest
      *
      * @exception SQLException if an error occurs
      */
-    public void testJDBDURLAcceptsMoreThanThreePartURLs () 
-	throws SQLException {
-	JDBCURL url = new JDBCURL("jdbc:intercepting:jdbc:subprotocol:subname:extra");
-	assertEquals("jdbc", url.getProtocol());
-	assertEquals("intercepting", url.getSubprotocol());
-	assertEquals("jdbc:subprotocol:subname:extra", url.getSubname());
-    }
+    public void testJDBDURLAcceptsMoreThanThreePartURLs () {
+	new Script () {
+	    public void run () throws Exception {
+		JDBCURL url = new JDBCURL("jdbc:intercepting:jdbc:subprotocol:subname:extra");
+		assertEquals("jdbc", url.getProtocol());
+		assertEquals("intercepting", url.getSubprotocol());
+		assertEquals("jdbc:subprotocol:subname:extra", url.getSubname());}};}
 
     /**
      * <code>testInterceptingDriverAcceptsURL</code>
@@ -192,25 +204,11 @@ public class InterceptingDriverTest
      *
      * @exception SQLException if an error occurs
      */
-    public void testInterceptingDriverAcceptsURL () 
-    	throws SQLException {
-    	Driver driver = new IdentityInterceptingDriver();
-    	assertTrue(driver.acceptsURL("jdbc:identity-intercepting:jdbc:subprotocol:subname"));
-    }
-
-    /**
-     * <code>testHSQLDBServerStart</code>
-     * Perform a sanity check just to make sure we actually can start a server
-     * for HSSQLDB and connect to it using its own driver.
-     *
-     * @exception ClassNotFoundException if an error occurs
-     * @exception SQLException if an error occurs
-     */
-    public void testHSQLDBServerStart () 
-	throws ClassNotFoundException, SQLException {
-        Server hsqlServer = null;
-	Connection connection = DriverManager.getConnection("jdbc:hsqldb:hsql://localhost/database", "sa", "");
-    }
+    public void testInterceptingDriverAcceptsURL () {
+	new Script () {
+	    public void run () throws Exception {
+		Driver driver = new IdentityInterceptingDriver();
+		assertTrue(driver.acceptsURL("jdbc:identity-intercepting:jdbc:subprotocol:subname"));}};}
 
     /**
      * <code>testInterceptingDriverAcceptsURL</code>
@@ -219,11 +217,11 @@ public class InterceptingDriverTest
      *
      * @exception SQLException if an error occurs
      */
-    public void testInterceptingDriverAcceptsRealisticURL () 
-    	throws SQLException {
-    	Driver driver = new IdentityInterceptingDriver();
-    	assertTrue(driver.acceptsURL("jdbc:identity-intercepting:hsqldb:hsql://localhost/database"));
-    }
+    public void testInterceptingDriverAcceptsRealisticURL () {
+	new Script () {
+	    public void run () throws Exception {
+		Driver driver = new IdentityInterceptingDriver();
+		assertTrue(driver.acceptsURL("jdbc:identity-intercepting:" + DB));}};}
 
     /**
      * Describe <code>testIdentityInterceptingDriverGetConnection</code> method here.
@@ -231,68 +229,66 @@ public class InterceptingDriverTest
      * @exception ClassNotFoundException if an error occurs
      * @exception SQLException if an error occurs
      */
-    public void testIdentityInterceptingDriverGetConnection ()
-    	throws ClassNotFoundException, SQLException {
-    	DriverManager.getConnection("jdbc:identity-intercepting:hsqldb:hsql://localhost/database", "sa", "");
-    }
+    public void testIdentityInterceptingDriverGetConnection () {
+    	new Script () {
+    	    public void run () throws Exception {
+    		DriverManager.getConnection("jdbc:identity-intercepting:" + DB);}};}
+
     /**
      * Describe <code>testNullInterceptingDriverGetConnection</code> method here.
      *
      * @exception ClassNotFoundException if an error occurs
      * @exception SQLException if an error occurs
      */
-    public void testNullInterceptingDriverGetConnection ()
-    	throws ClassNotFoundException, SQLException {
-    	DriverManager.getConnection("jdbc:null-intercepting:hsqldb:hsql://localhost/database", "sa", "");
-    }
+    public void testNullInterceptingDriverGetConnection () {
+	new Script () {
+	    public void run () throws Exception {
+		DriverManager.getConnection("jdbc:null-intercepting:" + DB);}};}
 
     /**
-     * Describe <code>testGenericInterceptingDriverGetConnection</code> method here.
+     * Describe <code>testProxyDriverGetConnection</code> method here.
      *
-     * @exception ClassNotFoundException if an error occurs
-     * @exception SQLException if an error occurs
      */
-    public void testGenericInterceptingDriverGetConnection ()
-    	throws ClassNotFoundException, SQLException {
-	GenericInterceptingDriver.addHook(new HookFunction<String>() {
-		public String[] eval (String[] args) {
-		    return args;
-		}
-	    });
-	DriverManager.getConnection("jdbc:generic-intercepting:hsqldb:hsql://localhost/database", "sa", "");
-    }
+    public void testProxyDriverGetConnection ()	{
+    	new Script () {
+    	    public void run () throws Exception {
+    		DriverManager.getConnection("jdbc:pjdbc:" + DB);}};}
 
-    public void testGenericInterceptingDriverCreateStatement ()
-	throws SQLException {
-	GenericInterceptingDriver.addHook(new HookFunction<String>() {
-		public String[] eval (String[] args) {
-		    return args;
-		}
-	    });
-	Connection connection = DriverManager.getConnection("jdbc:generic-intercepting:hsqldb:hsql://localhost/database", "sa", "");
-	connection.createStatement();
-    }
+    /**
+     * Describe <code>testProxyDriverCreateStatement</code> method here.
+     *
+     */
+    public void testProxyDriverCreateStatement () {
+    	new Script () {
+    	    public void run () throws Exception {
+    		DriverManager.getConnection("jdbc:pjdbc:" + DB)
+    		    .createStatement();}};}
 
-    public void testGenericInterceptingDriverAddCollectingHandler ()
-	throws SQLException {
-	GenericInterceptingDriver.addHook(new CollectingHandler());
-	Connection connection = DriverManager.getConnection("jdbc:generic-intercepting:hsqldb:hsql://localhost/database", "sa", "");
-	connection.createStatement();
-    }
+    /**
+     * Describe <code>testProxyDriverWithNoHandlersExecutesPassedInQuery</code> method here.
+     *
+     */
+    public void testProxyDriverWithNoHandlersExecutesPassedInQuery () {
+    	new Script () {
+    	    public void run () throws Exception {
+    		DriverManager.getConnection("jdbc:pjdbc:" + DB)
+    		    .createStatement()
+    		    .execute("create table person (name varchar(30))");}};}
 
-    public void failingtestGenericInterceptingDriverAddCollectingHandlerAndTryToCollect () {
-	try {
-	    CollectingHandler collector = new CollectingHandler();
-	    DevNullHandler sink = new DevNullHandler();
-	    GenericInterceptingDriver.addHook(collector);
-	    // GenericInterceptingDriver.addHook(sink);
-	    Connection connection = DriverManager.getConnection("jdbc:generic-intercepting:hsqldb:hsql://localhost/database", "sa", "");
-	    Statement statement = connection.createStatement();
-	    statement.execute("create table person (name varchar(30))");
-	    for (String sql : collector.getSQLStatements()) System.out.println(sql);
-	}
-	catch (Exception e) {
-	    e.printStackTrace();
-	}
-    }
+    /**
+     * Describe <code>testProxyDriverAddCollectingHandlerAndTryToCollect</code> method here.
+     *
+     */
+    public void testProxyDriverAddCollectingHandlerAndTryToCollect () {
+    	new Script () {
+    	    public void run () throws Exception {
+    		// CollectingHandler collector = new CollectingHandler();
+    		// DevNullHandler sink = new DevNullHandler();
+    		// ProxyDriver.addHook(collector);
+    		// ProxyDriver.addHook(sink);
+    		DriverManager.getConnection("jdbc:pjdbc:" + DB)
+    		    .createStatement()
+    		    .execute("create table person (name varchar(30))");}};}
+    		// for (String sql : collector.getSQLStatements()) System.out.println(sql);}};}
+
 }

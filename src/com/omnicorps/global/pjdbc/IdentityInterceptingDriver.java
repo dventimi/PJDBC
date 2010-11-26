@@ -25,10 +25,10 @@ public class IdentityInterceptingDriver
 
     static {
 	registerDriver(new IdentityInterceptingDriver());
-	hooks.add(new HookFunction<String>() {
-		public String[] eval (String[] sql) {
-		    return sql;
-		}
-	    });
+	// hooks.add(new HookFunction<String>() {
+	// 	public String[] eval (String[] sql) {
+	// 	    return sql;
+	// 	}
+	//     });
     }
 }
