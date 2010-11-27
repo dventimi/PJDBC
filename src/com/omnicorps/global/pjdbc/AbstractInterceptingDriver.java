@@ -72,7 +72,7 @@ public abstract class AbstractInterceptingDriver
     public final Connection connect(final String URL, final Properties properties) throws SQLException {
 	if (!this.acceptsURL(URL)) throw new SQLException("Malformed JDBC URL.");
 	Class[] api = new Class[]{Connection.class};
-	Connection connection = DriverManager.getConnection("jdbc:" + (new JDBCURL(URL)).getSubname(), properties);
+	Connection connection = DriverManager.getConnection("jdbc:" + (new JDBCUrl(URL)).getSubname(), properties);
 	InvocationHandler handler = new ConnectionInvocationHandler(connection);
 	return (Connection)Proxy.newProxyInstance(this.getClass().getClassLoader(), api, handler);
     }
@@ -94,7 +94,7 @@ public abstract class AbstractInterceptingDriver
      * @exception SQLException if an error occurs
      */
     public final boolean acceptsURL(final String URL) throws SQLException {
-	JDBCURL parsedURL = new JDBCURL(URL);
+	JDBCUrl parsedURL = new JDBCUrl(URL);
 	if (!parsedURL.getProtocol().equals(this.getProtocol())) return false;
 	if (!parsedURL.getSubprotocol().equals(this.getSubProtocol())) return false;
 	if (parsedURL.getSubname()==null) return false;
@@ -188,14 +188,14 @@ public abstract class AbstractInterceptingDriver
 		InvocationHandler handler = new StatementInvocationHandler(statement);
 		return Proxy.newProxyInstance(this.getClass().getClassLoader(), api, handler);
 	    }
-	    if (method.getName().equals("prepareStatement")) {
-		String sql = (String)args[0];
-		// transform sql
-		Class[] api = new Class[]{Statement.class};
-		PreparedStatement preparedStatement = (PreparedStatement)method.invoke(this.delegate, args);
-		InvocationHandler handler = new PreparedStatementInvocationHandler(preparedStatement);
-		return Proxy.newProxyInstance(this.getClass().getClassLoader(), api, handler);
-	    }
+	    // if (method.getName().equals("prepareStatement")) {
+	    // 	String sql = (String)args[0];
+	    // 	// transform sql
+	    // 	Class[] api = new Class[]{Statement.class};
+	    // 	PreparedStatement preparedStatement = (PreparedStatement)method.invoke(this.delegate, args);
+	    // 	InvocationHandler handler = new PreparedStatementInvocationHandler(preparedStatement);
+	    // 	return Proxy.newProxyInstance(this.getClass().getClassLoader(), api, handler);
+	    // }
 	    return method.invoke(delegate, args);
 	}
     }
@@ -233,60 +233,63 @@ public abstract class AbstractInterceptingDriver
 	    throws Throwable {
 	    String name = method.getName();
 	    Class[] params = method.getParameterTypes();
+	    Object retVal = null;
  	    if (name.equals("execute")) {
-		String sql = (String)args[0];
+		String[] sql = new String[]{(String)args[0]};
 		for (SQLHook hook : getHooks()) 
 		    sql = hook.eval(sql, this.delegate.getConnection());
-		args[0] = sql;
-	    }
-	    return method.invoke(delegate, args);
+		for (String stmt : sql)
+		    retVal = method.invoke(delegate, new Object[]{stmt});
+		return retVal;}
+	    else
+		return method.invoke(delegate, args);
 	}
     }
 
-    /**
-     * Describe class <code>PreparedStatementInvocationHandler</code> here.
-     *
-     * @author <a href="mailto:dventimi@dventimi-laptop">David A. Ventimiglia</a>
-     * @version 1.0
-     */
-    public class PreparedStatementInvocationHandler 
-	implements InvocationHandler {
-	private PreparedStatement delegate = null;
-	/**
-	 * Creates a new <code>PreparedStatementInvocationHandler</code> instance.
-	 *
-	 * @param delegate a <code>PreparedStatement</code> value
-	 */
-	public PreparedStatementInvocationHandler (PreparedStatement delegate) {
-	    this.delegate = delegate;
-	}
+    // /**
+    //  * Describe class <code>PreparedStatementInvocationHandler</code> here.
+    //  *
+    //  * @author <a href="mailto:dventimi@dventimi-laptop">David A. Ventimiglia</a>
+    //  * @version 1.0
+    //  */
+    // public class PreparedStatementInvocationHandler 
+    // 	implements InvocationHandler {
+    // 	private PreparedStatement delegate = null;
+    // 	/**
+    // 	 * Creates a new <code>PreparedStatementInvocationHandler</code> instance.
+    // 	 *
+    // 	 * @param delegate a <code>PreparedStatement</code> value
+    // 	 */
+    // 	public PreparedStatementInvocationHandler (PreparedStatement delegate) {
+    // 	    this.delegate = delegate;
+    // 	}
 
-	/**
-	 * Describe <code>invoke</code> method here.
-	 *
-	 * @param proxy an <code>Object</code> value
-	 * @param method a <code>Method</code> value
-	 * @param args an <code>Object</code> value
-	 * @return an <code>Object</code> value
-	 * @exception Throwable if an error occurs
-	 */
-	public Object invoke (Object proxy,
-			      Method method,
-			      Object[] args)
-	    throws Throwable {
-	    String name = method.getName();
-	    Class[] params = method.getParameterTypes();
-	    if (name.equals("execute") && 
-		params.length > 0 &&
-		params[0].getClass().equals(String.class)) {
-		String sql = (String)args[0];
-		for (SQLHook hook : getHooks()) 
-		    sql = hook.eval(sql, this.delegate.getConnection());
-		args[0] = sql;
-		return method.invoke(proxy, method, args);
-	    }
-	    return method.invoke(delegate, args);
-	}
-    }
+    // 	/**
+    // 	 * Describe <code>invoke</code> method here.
+    // 	 *
+    // 	 * @param proxy an <code>Object</code> value
+    // 	 * @param method a <code>Method</code> value
+    // 	 * @param args an <code>Object</code> value
+    // 	 * @return an <code>Object</code> value
+    // 	 * @exception Throwable if an error occurs
+    // 	 */
+    // 	public Object invoke (Object proxy,
+    // 			      Method method,
+    // 			      Object[] args)
+    // 	    throws Throwable {
+    // 	    String name = method.getName();
+    // 	    Class[] params = method.getParameterTypes();
+    // 	    if (name.equals("execute") && 
+    // 		params.length > 0 &&
+    // 		params[0].getClass().equals(String.class)) {
+    // 		String sql = (String)args[0];
+    // 		for (SQLHook hook : getHooks()) 
+    // 		    sql = hook.eval(sql, this.delegate.getConnection());
+    // 		args[0] = sql;
+    // 		return method.invoke(proxy, method, args);
+    // 	    }
+    // 	    return method.invoke(delegate, args);
+    // 	}
+    // }
 }
 

@@ -10,7 +10,7 @@ public class ProxyDriver
 
     static {registerDriver(new ProxyDriver());}
 
-    public final String getSubProtocol () {
+    public String getSubProtocol () {
 	return "pjdbc";}
 
     public SQLHook[] getHooks () {

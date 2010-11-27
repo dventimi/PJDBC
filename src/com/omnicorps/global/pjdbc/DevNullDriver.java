@@ -24,6 +24,6 @@ public class DevNullDriver
     public SQLHook[] getHooks () {
 	return new SQLHook[]{
 	    new SQLHook () {
-		public String eval (String sql, Connection connection) {
-		    return null;}}};}
+		public String[] eval (String[] sql, Connection connection) {
+		    return new String[]{};}}};}
 }

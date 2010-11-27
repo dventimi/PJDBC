@@ -73,15 +73,15 @@ public class InterceptingDriverTest
     // --------------------- Tests ----------------------------------
     
     /**
-     * <code>testJDBCURLParsesThreePartURLs</code>
-     * JDBCURL is a helper class.  Verify that it accepts a JDBC URL
+     * <code>testJDBCUrlParsesThreePartURLs</code>
+     * JDBCUrl is a helper class.  Verify that it accepts a JDBC URL
      * that has the protocol, subprotocol, and subname, separated by
      * colons.
      */
-    public void testJDBCURLParsesThreePartURLs () {
+    public void testJDBCUrlParsesThreePartURLs () {
 	new Script () {
 	    public void run () throws Exception {
-		String [] parsedURL = JDBCURL.parseURL("jdbc:intercepting:jdbc");
+		String [] parsedURL = JDBCUrl.parseURL("jdbc:intercepting:jdbc");
 		assertNotNull(parsedURL);
 		assertEquals(3, parsedURL.length);
 		assertEquals("jdbc", parsedURL[0]);
@@ -89,18 +89,18 @@ public class InterceptingDriverTest
 		assertEquals("jdbc", parsedURL[2]);}};}
 
     /**
-     * <code>testJDBCURLParsesFivePartURLs</code>
-     * Verify that JDBCURL accepts a JDBCURL that has
+     * <code>testJDBCUrlParsesFivePartURLs</code>
+     * Verify that JDBCUrl accepts a JDBCUrl that has
      * the protocol, subprotocol, and subname, separated by
      * colons, but in which the subname also is itself a valid
      * JDBC URL, complete with its own protocol, subprotocol, and
      * subname.  The subname should be left intact and not
      * itself split into three parts.
      */
-    public void testJDBCURLParsesFivePartURLs () {
+    public void testJDBCUrlParsesFivePartURLs () {
 	new Script () {
 	    public void run () throws Exception {
-		String [] parsedURL = JDBCURL.parseURL("jdbc:intercepting:jdbc:subprotocol:subname");
+		String [] parsedURL = JDBCUrl.parseURL("jdbc:intercepting:jdbc:subprotocol:subname");
 		assertNotNull(parsedURL);
 		assertEquals(3, parsedURL.length);
 		assertEquals("jdbc", parsedURL[0]);
@@ -108,17 +108,17 @@ public class InterceptingDriverTest
 		assertEquals("jdbc:subprotocol:subname", parsedURL[2]);}};}
 
     /**
-     * <code>testJDBCURLRefusesFewerThanThreePartURLs</code>
-     * Verify that JDBCURL throws a SQLException if 
+     * <code>testJDBCUrlRefusesFewerThanThreePartURLs</code>
+     * Verify that JDBCUrl throws a SQLException if 
      * a three-part (protocol, subprotocol, subname) URL 
      * is not provided.
      *
      */
-    public void testJDBCURLRefusesFewerThanThreePartURLs () {
+    public void testJDBCUrlRefusesFewerThanThreePartURLs () {
 	new Script () {
 	    public void run () throws Exception {
 		try {
-		    new JDBCURL("jdbc:intercepting");}
+		    new JDBCUrl("jdbc:intercepting");}
 		catch (SQLException e) {
 		    return;}
 		fail("URL should have been refused!!");}};}
@@ -126,21 +126,21 @@ public class InterceptingDriverTest
     /**
      * <code>testJDBDURLAcceptsThreePartURLs</code>
      * Verify that a three-part URL can be passed into
-     * the JDBCURL constructor.
+     * the JDBCUrl constructor.
      *
      * @exception SQLException if an error occurs
      */
     public void testJDBDURLAcceptsThreePartURLs () {
 	new Script () {
 	    public void run () throws Exception {
-		JDBCURL url = new JDBCURL("jdbc:intercepting:protocol");
+		JDBCUrl url = new JDBCUrl("jdbc:intercepting:protocol");
 		assertEquals("jdbc", url.getProtocol());
 		assertEquals("intercepting", url.getSubprotocol());
 		assertEquals("protocol", url.getSubname());}};}
     
     /**
      * <code>testJDBDURLAcceptsMoreThanThreePartURLs</code>
-     * Verify that JDBCURL can be passed a URL whose
+     * Verify that JDBCUrl can be passed a URL whose
      * subname is itself a JDBC URL.  Note that it should
      * not parse the subnname itself into separate pieces.
      *
@@ -149,7 +149,7 @@ public class InterceptingDriverTest
     public void testJDBDURLAcceptsMoreThanThreePartURLs () {
 	new Script () {
 	    public void run () throws Exception {
-		JDBCURL url = new JDBCURL("jdbc:intercepting:jdbc:subprotocol:subname:extra");
+		JDBCUrl url = new JDBCUrl("jdbc:intercepting:jdbc:subprotocol:subname:extra");
 		assertEquals("jdbc", url.getProtocol());
 		assertEquals("intercepting", url.getSubprotocol());
 		assertEquals("jdbc:subprotocol:subname:extra", url.getSubname());}};}
@@ -243,9 +243,9 @@ public class InterceptingDriverTest
 	private List<String> log = new ArrayList<String>();
 	public String[] getSQLStatements () {
 	    return log.toArray(new String[]{});}
-	public String eval (String sql, Connection connection) {
-	    log.add(sql);
-	    return sql;}}
+	public String[] eval (String[] sql, Connection connection) {
+	    log.add(sql[0]);
+	    return new String[]{sql[0]};}}
 
     /**
      * Describe <code>testProxyDriverAddCollectingHandlerAndTryToCollect</code> method here.

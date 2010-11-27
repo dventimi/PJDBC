@@ -5,10 +5,10 @@ import java.util.LinkedList;
 import java.util.Arrays;
 
 /**
- * Describe class <code>JDBCURL</code> here.
+ * Describe class <code>JDBCUrl</code> here.
  *
  */
-public class JDBCURL {
+public class JDBCUrl {
     /**
      * Describe variable <code>SEP</code> here.
      *
@@ -19,16 +19,17 @@ public class JDBCURL {
     private String subname = "";
 
     /**
-     * Creates a new <code>JDBCURL</code> instance.
+     * Creates a new <code>JDBCUrl</code> instance.
      *
      * @param URL a <code>String</code> value
      * @exception SQLException if an error occurs
      */
-    public JDBCURL (final String URL) 
+    public JDBCUrl (final String URL) 
 	throws SQLException {
 	if (URL==null) throw new SQLException("JDBC URL cannot be null.");
 	String[] parts = parseURL(URL);
-	for (String part : parts) if (part==null) throw new SQLException("Malformed JDBC URL.");
+	for (String part : parts) 
+	    if (part==null) throw new SQLException("Malformed JDBC URL." + parts);
 	this.protocol += parts[0];
 	this.subprotocol += parts[1];
 	this.subname += parts[2];

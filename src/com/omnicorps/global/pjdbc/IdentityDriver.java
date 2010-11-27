@@ -28,7 +28,7 @@ public class IdentityDriver
     public SQLHook[] getHooks () {
 	return new SQLHook[]{
 	    new SQLHook () {
-		public String eval (String sql, Connection connection) {
+		public String[] eval (String[] sql, Connection connection) {
 		    return sql;}}};}
 
 }
