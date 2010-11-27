@@ -6,9 +6,7 @@ import java.util.ArrayList;
 public class ProxyDriver
     extends AbstractInterceptingDriver {
 
-    private static List<SQLHook> hooks;
-
-    static {init();}
+    private static List<SQLHook> hooks = new ArrayList<SQLHook>();
 
     static {registerDriver(new ProxyDriver());}
 

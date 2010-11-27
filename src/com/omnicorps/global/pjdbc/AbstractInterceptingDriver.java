@@ -235,7 +235,8 @@ public abstract class AbstractInterceptingDriver
 	    Class[] params = method.getParameterTypes();
  	    if (name.equals("execute")) {
 		String sql = (String)args[0];
-		for (SQLHook hook : getHooks()) sql = hook.eval(sql);
+		for (SQLHook hook : getHooks()) 
+		    sql = hook.eval(sql, this.delegate.getConnection());
 		args[0] = sql;
 	    }
 	    return method.invoke(delegate, args);
@@ -279,7 +280,8 @@ public abstract class AbstractInterceptingDriver
 		params.length > 0 &&
 		params[0].getClass().equals(String.class)) {
 		String sql = (String)args[0];
-		for (SQLHook hook : getHooks()) sql = hook.eval(sql);
+		for (SQLHook hook : getHooks()) 
+		    sql = hook.eval(sql, this.delegate.getConnection());
 		args[0] = sql;
 		return method.invoke(proxy, method, args);
 	    }
