@@ -4,6 +4,7 @@ JAVAROOT=$(top_builddir)/classes
 CLEANFILES = *.class
 javadir = $(top_builddir)/src
 classesdir = $(top_builddir)/classes
+jardir = $(prefix)
 classes_JAVA = $(shell find . -name '*.java')
 CLASSPATH = $(top_builddir)/lib/derby.jar:$(top_builddir)/lib/junit-4.8.2.jar:$(top_builddir)/classes
 CLASSPATH_ENV = export CLASSPATH=$(CLASSPATH);
