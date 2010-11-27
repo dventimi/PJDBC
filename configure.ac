@@ -7,6 +7,7 @@ AM_INIT_AUTOMAKE
 AC_CONFIG_SRCDIR([src/com/omnicorps/global/pjdbc/AutoTest.java])
 AC_PROG_JAVAC
 AC_PROG_JAVA
+AC_PROG_JAR
 AC_PROG_INSTALL
 AC_CONFIG_FILES([Makefile])
 AC_OUTPUT
