@@ -6,7 +6,7 @@ AC_INIT([project-x], [0.9], [dventimi@gmail.com])
 AM_INIT_AUTOMAKE
 AC_CONFIG_SRCDIR([src/com/omnicorps/global/pjdbc/AutoTest.java])
 AC_CANONICAL_HOST
-AS_CASE([$host_os], [cygwin], [CYGPATH_PW="cygpath -pw"], [CYGPATH_PW=""])
+AS_CASE([$host_os], [cygwin], [CYGPATH_PW="cygpath -pw"], [CYGPATH_PW="echo"])
 AC_SUBST([CYGPATH_PW])
 AC_PROG_JAVAC
 AC_PROG_JAVA

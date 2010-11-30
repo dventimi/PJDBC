@@ -16,3 +16,4 @@
 \.stamp$
 derby.log$
 ^.*\.jar$
+aclocal.m4
