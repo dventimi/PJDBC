@@ -6,7 +6,7 @@ javadir = $(top_builddir)/src
 classesdir = $(top_builddir)/classes
 jardir = $(prefix)/java
 classes_JAVA = $(shell find . -name '*.java')
-CLASSPATH := "$(shell $(CYGPATH_PW) $(top_builddir)/lib/derby.jar:$(top_builddir)/lib/junit-4.8.2.jar:$(top_builddir)/classes)"
+CLASSPATH = "$(shell $(CYGPATH_PW) $(top_builddir)/lib/derby.jar:$(top_builddir)/lib/junit-4.8.2.jar:$(top_builddir)/classes)"
 CLASSPATH_ENV = export CLASSPATH=$(CLASSPATH);
 JARFILE = pjdbc.jar
 
@@ -19,7 +19,7 @@ install-data-local: $(JARFILE)
 	cp $(JARFILE) $(jardir)
 
 uninstall-local:
-	rm $(jardir)/$(JARFILE)
+	rm -f $(jardir)/$(JARFILE)
 
 $(JARFILE): $(classes_JAVA)
 	cd
@@ -28,7 +28,7 @@ $(JARFILE): $(classes_JAVA)
 clean-local: clean-local-check
 
 clean-local-check:
-	rm $(JARFILE)
+	rm -f $(JARFILE)
 	cd $(classesdir)
 	find . -name *.class -execdir rm {} +
 
