@@ -35,3 +35,4 @@ clean-local-check:
 
 check:
 	@JAVA@ -classpath $(CLASSPATH) org.junit.runner.JUnitCore com.omnicorps.global.pjdbc.InterceptingDriverTest
+	@JAVA@ -classpath $(CLASSPATH) org.junit.runner.JUnitCore com.omnicorps.global.pjdbc.SQLMacroProcessorTest
