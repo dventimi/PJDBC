@@ -4,27 +4,26 @@ import java.util.LinkedList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.regex.Pattern;
+import java.util.regex.Matcher;
 
 public class SQLMacroProcessor {
-    public static String[] expand (String sql) {
-	LinkedList<String> tokens = new LinkedList<String>(Arrays.asList(("" + sql).split(" ")));
-	if (tokens!=null) {
-	    // tokens.size()=10 &&
-	    // tokens.get(0).equalsIgnoreCase("create") &&
-	    // tokens.get(1).equalsIgnoreCase("domain") &&
-	    // tokens.get(2).equalsIgnoreCase("key") &&
-	    // tokens.get(4).equalsIgnoreCase("on") &&
-	    // tokens.get(6).equalsIgnoreCase("references") &&
-	    // tokens.get(8).equalsIgnoreCase("with")) {
-	    String keyName = tokens.get(3);
-	    String tableAndColumn = tokens.get(5);
-	    String referencingTable = tableAndColumn.split(".")[0];
-	    String referencingColumn = tableAndColumn.split(".")[1];
-	    String viewAndColumn = tokens.get(7);
-	    String referencedView = viewAndColumn.split(".")[0];
-	    String referencedColumn = viewAndColumn.split(".")[1];
-	    String errorMsg = tokens.get(9);
-	}
+    public static Pattern PATTERN = 
+	Pattern.compile("create domain key on (\\w+).(\\w+) references (\\w+).(\\w+) with message '(.+)'");
+
+    public static boolean acceptsStatement (String sql) {
+	return PATTERN.matcher(sql).matches();}
+
+    public static String[] expand (String sql) 
+	throws Exception {
+	if (!SQLMacroProcessor.acceptsStatement(sql)) throw new Exception();
+	Matcher m = PATTERN.matcher(sql);
+	m.matches();
+	String table = m.group(1);
+	String tableColumn = m.group(2);
+	String view = m.group(3);
+	String viewColumn = m.group(4);
+	String message = m.group(5);
 	// Need:
 	// - table we're constraining (eg., phone).  not named in view
 	// - column we're constraining (eg., phone.person_id).  not named in view
@@ -36,24 +35,21 @@ public class SQLMacroProcessor {
 	// - domain key trigger on constrained (referencing) table
 	// - complementary triggers on all source view tables (eg., person)
 	String[] stmts = new String[]{
-	    "drop view if exists broken_key",
-	    "create view if not exists broken_key as select * from phone p left outer join adult a on p.person_id = a.id where a.id is null",
-	    "drop trigger if exists phone_insert",
-	    "create trigger if not exists phone_insert after insert on phone when exists (select * from broken_key)\n" +
-	    "begin\n" +
-	    "  select raise(rollback, 'Only persons older than 18 can have a telephone.')\n" +
-	    "end",
-	    "drop trigger if exists person_update",
-	    "create trigger if not exists person_update after update on person when exists (select * from broken_key)\n" +
-	    "begin\n" +
-	    "  select raise(rollback, 'Only persons older than 18 can have a telephone.')\n" + 
-	    "end\n"};
+	    String.format("drop view if exists %1$s_broken_key", table),
+	    String.format("create view if not exists %1$s_broken_key as\n" + 
+			  "select * from %1$s p\n" + 
+			  "left outer join %3$s a on p.%2$s = a.%4$s\n" + 
+			  "where a.%4$s is null", table, tableColumn, view, viewColumn),
+	    String.format("drop trigger if exists %1$s_insert", table),
+	    String.format("create trigger if not exists %1$s_insert after insert on %1$s when exists (select * from %1$s_broken_key)\n" +
+			  "begin\n" +
+			  "  select raise(rollback, '%5$s')\n" +
+			  "end",
+			  "drop trigger if exists person_update",
+			  "create trigger if not exists %1$s_update after update on %1$s when exists (select * from %1$s_broken_key)\n" +
+			  "begin\n" +
+			  "  select raise(rollback, '%5$s')\n" + 
+			  "end\n", table, tableColumn, view, viewColumn, message)};
 	return stmts;
     }
-
-    public static String[] expand (String[] sql) {
-	List<String> retVal = new ArrayList<String>();
-	for (String stmt : sql) retVal.addAll(Arrays.asList(expand(stmt)));
-	return retVal.toArray(new String[]{});}
-	
 }
