@@ -8,3 +8,10 @@
  '(jde-compile-option-debug (quote ("all" (t nil nil))))
  '(jde-compile-option-hide-classpath t)
  '(jde-compile-option-command-line-args (quote ("-Xlint:unchecked"))))
+
+(defun jde-cygwin-path-converter-custom (path)
+  (if (string= (getenv "QMAKESPEC") "cygwin-g++") (jde-cygwin-path-converter-cygpath path) path))
+
+(customize-set-variable 'jde-cygwin-path-converter '(jde-cygwin-path-converter-custom))
+
+

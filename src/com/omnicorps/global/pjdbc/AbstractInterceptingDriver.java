@@ -32,19 +32,13 @@ public abstract class AbstractInterceptingDriver
      * @param driver a <code>Driver</code> value
      */
     public static void registerDriver (Driver driver) {
-	try {
-	    DriverManager.registerDriver(driver);
-	}
-	catch (SQLException se) {
-	    throw new RuntimeException(se);
-	}
-    }
+	try {DriverManager.registerDriver(driver);}
+	catch (SQLException se) {throw new RuntimeException(se);}}
 
     // Implementation of java.sql.Driver
 
     public final String getProtocol () {
-	return "jdbc";
-    }
+	return "jdbc";}
 
     /**
      * <code>connect</code>
@@ -74,8 +68,7 @@ public abstract class AbstractInterceptingDriver
 	Class[] api = new Class[]{Connection.class};
 	Connection connection = DriverManager.getConnection("jdbc:" + (new JDBCUrl(URL)).getSubname(), properties);
 	InvocationHandler handler = new ConnectionInvocationHandler(connection);
-	return (Connection)Proxy.newProxyInstance(this.getClass().getClassLoader(), api, handler);
-    }
+	return (Connection)Proxy.newProxyInstance(this.getClass().getClassLoader(), api, handler);}
 
     /**
      * <code>acceptsURL</code>
@@ -98,8 +91,7 @@ public abstract class AbstractInterceptingDriver
 	if (!parsedURL.getProtocol().equals(this.getProtocol())) return false;
 	if (!parsedURL.getSubprotocol().equals(this.getSubProtocol())) return false;
 	if (parsedURL.getSubname()==null) return false;
-	return true;
-    }
+	return true;}
 
     /**
      * <code>getMajorVersion</code>
@@ -108,8 +100,7 @@ public abstract class AbstractInterceptingDriver
      * @return an <code>int</code> value, this driver's major version number.
      */
     public final int getMajorVersion() {
-	return 1;
-    }
+	return 1;}
 
     /**
      * <code>getMinorVersion</code>
@@ -118,8 +109,7 @@ public abstract class AbstractInterceptingDriver
      * @return an <code>int</code> value, this driver's minor version number.
      */
     public final int getMinorVersion() {
-	return 0;
-    }
+	return 0;}
 
     /**
      * <code>getPropertyInfo</code>
@@ -133,8 +123,7 @@ public abstract class AbstractInterceptingDriver
     public final DriverPropertyInfo[] getPropertyInfo(final String URL, 
 						      final Properties properties) 
 	throws SQLException {
-	return DriverManager.getDriver(URL).getPropertyInfo(URL, properties);
-    }
+	return DriverManager.getDriver(URL).getPropertyInfo(URL, properties);}
 
     /**
      * <code>jdbcCompliant</code>
@@ -148,8 +137,7 @@ public abstract class AbstractInterceptingDriver
      * @return a <code>boolean</code> value
      */
     public final boolean jdbcCompliant() {
-	return false;
-    }
+	return false;}
 
     /**
      * Describe class <code>ConnectionInvocationHandler</code> here.
@@ -166,8 +154,7 @@ public abstract class AbstractInterceptingDriver
 	 * @param delegate a <code>Connection</code> value
 	 */
 	public ConnectionInvocationHandler (Connection delegate) {
-	    this.delegate = delegate;
-	}
+	    this.delegate = delegate;}
 
 	/**
 	 * Describe <code>invoke</code> method here.
@@ -186,19 +173,8 @@ public abstract class AbstractInterceptingDriver
 		Class[] api = new Class[]{Statement.class};
 		Statement statement = (Statement)method.invoke(this.delegate, args);
 		InvocationHandler handler = new StatementInvocationHandler(statement);
-		return Proxy.newProxyInstance(this.getClass().getClassLoader(), api, handler);
-	    }
-	    // if (method.getName().equals("prepareStatement")) {
-	    // 	String sql = (String)args[0];
-	    // 	// transform sql
-	    // 	Class[] api = new Class[]{Statement.class};
-	    // 	PreparedStatement preparedStatement = (PreparedStatement)method.invoke(this.delegate, args);
-	    // 	InvocationHandler handler = new PreparedStatementInvocationHandler(preparedStatement);
-	    // 	return Proxy.newProxyInstance(this.getClass().getClassLoader(), api, handler);
-	    // }
-	    return method.invoke(delegate, args);
-	}
-    }
+		return Proxy.newProxyInstance(this.getClass().getClassLoader(), api, handler);}
+	    return method.invoke(delegate, args);}}
 
     /**
      * Describe class <code>StatementInvocationHandler</code> here.
@@ -215,8 +191,7 @@ public abstract class AbstractInterceptingDriver
 	 * @param delegate a <code>Statement</code> value
 	 */
 	public StatementInvocationHandler (Statement delegate) {
-	    this.delegate = delegate;
-	}
+	    this.delegate = delegate;}
 
 	/**
 	 * Describe <code>invoke</code> method here.
@@ -242,9 +217,7 @@ public abstract class AbstractInterceptingDriver
 		    retVal = method.invoke(delegate, new Object[]{stmt});
 		return retVal;}
 	    else
-		return method.invoke(delegate, args);
-	}
-    }
+		return method.invoke(delegate, args);}}
 
     // /**
     //  * Describe class <code>PreparedStatementInvocationHandler</code> here.
