@@ -33,7 +33,7 @@ public class SQLMacroProcessorTest extends AutoTest {
     public void testExpandProducesCorrectExpansion () {
 	try {
 	    for (String s : SQLMacroProcessor.expand("create domain key on phone.person_id references adult.id with message 'Only persons older than 18 can have a telephone'"))
-		System.out.println(s+"\n");}
+		System.out.println("\n" + s);}
 	catch (Exception e) {
 	    e.printStackTrace();
 	    fail("Exception should not have been thrown.");}}

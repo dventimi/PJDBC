@@ -9,7 +9,7 @@ import java.util.regex.Matcher;
 
 public class SQLMacroProcessor {
     public static Pattern PATTERN = 
-	Pattern.compile("create\\s+domain\\s+key\\s+on\\s+(\\w+).(\\w+)\\s+references\\s+(\\w+).(\\w+)\\s+with\\s+message\\s+'(.+)'");
+	Pattern.compile("\\s*create\\s+domain\\s+key\\s+on\\s+(\\w+).(\\w+)\\s+references\\s+(\\w+).(\\w+)\\s+with\\s+message\\s+'(.+)'\\s*");
 
     public static boolean acceptsStatement (String sql) {
 	return PATTERN.matcher(sql).matches();}
@@ -25,12 +25,15 @@ public class SQLMacroProcessor {
 	String viewColumn = m.group(4);
 	String message = m.group(5);
 	String[] stmts = new String[]{
-	    String.format("drop view if exists %1$s_broken_key", table),
+	    String.format("drop view if exists %1$s_broken_key", 
+			  table),
 	    String.format("create view if not exists %1$s_broken_key as\n" + 
 			  "select * from %1$s p\n" + 
 			  "left outer join %3$s a on p.%2$s = a.%4$s\n" + 
-			  "where a.%4$s is null", table, tableColumn, view, viewColumn),
-	    String.format("drop trigger if exists %1$s_insert", table),
+			  "where a.%4$s is null", 
+			  table, tableColumn, view, viewColumn),
+	    String.format("drop trigger if exists %1$s_insert", 
+			  table),
 	    String.format("create trigger if not exists %1$s_insert\n" + 
 			  "after insert on %1$s\n" + 
 			  "when exists (select * from %1$s_broken_key)\n" +
@@ -43,7 +46,8 @@ public class SQLMacroProcessor {
 			  "when exists (select * from %1$s_broken_key)\n" +
 			  "begin\n" +
 			  "  select raise(rollback, '%5$s')\n" + 
-			  "end\n", table, tableColumn, view, viewColumn, message)};
+			  "end\n", 
+			  table, tableColumn, view, viewColumn, message)};
 	return stmts;
     }
 }
