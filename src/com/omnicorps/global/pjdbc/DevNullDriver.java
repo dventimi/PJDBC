@@ -1,6 +1,7 @@
 package com.omnicorps.global.pjdbc; // Generated package name
 
 import java.sql.Connection;
+import java.sql.ResultSet;
 
 /**
  * Describe class <code>DevNullDriver</code> here.
@@ -24,6 +25,6 @@ public class DevNullDriver
     public SQLHook[] getHooks () {
 	return new SQLHook[]{
 	    new SQLHook () {
-		public String[] eval (String[] sql, Connection connection) {
-		    return new String[]{};}}};}
+		public ResultSet execute (String sql, Connection connection) {
+		    return null;}}};}
 }

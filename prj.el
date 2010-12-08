@@ -6,9 +6,9 @@
  '(jde-compile-option-sourcepath (quote ("./src")))
  '(jde-sourcepath (quote ("./src")))
  '(jde-compile-option-debug (quote ("all" (t nil nil))))
- '(jde-compile-option-hide-classpath t)
+ '(jde-compile-option-hide-classpath nil)
+ '(jde-cygwin-path-converter (quote (jde-cygwin-path-converter-custom)))
  '(jde-compile-option-command-line-args (quote ("-Xlint:unchecked"))))
-
 (defun jde-cygwin-path-converter-custom (path)
   (if (string= (getenv "QMAKESPEC") "cygwin-g++") (jde-cygwin-path-converter-cygpath path) path))
 

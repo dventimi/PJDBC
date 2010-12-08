@@ -8,6 +8,7 @@ import java.util.List;
 
 import org.junit.runners.Suite;
 import java.sql.Connection;
+import java.sql.ResultSet;
 
 /**
  * Describe class <code>InterceptingDriverTest</code> here.
@@ -243,9 +244,9 @@ public class InterceptingDriverTest
 	private List<String> log = new ArrayList<String>();
 	public String[] getSQLStatements () {
 	    return log.toArray(new String[]{});}
-	public String[] eval (String[] sql, Connection connection) {
-	    log.add(sql[0]);
-	    return new String[]{sql[0]};}}
+	public ResultSet execute (String sql, Connection connection) {
+	    log.add(sql);
+	    return null;}}
 
     /**
      * Describe <code>testProxyDriverAddCollectingHandlerAndTryToCollect</code> method here.

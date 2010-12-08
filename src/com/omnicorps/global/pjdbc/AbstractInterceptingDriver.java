@@ -16,6 +16,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
+import java.sql.ResultSet;
 
 /**
  * Describe class <code>InterceptingDriver</code> here.
@@ -208,13 +209,11 @@ public abstract class AbstractInterceptingDriver
 	    throws Throwable {
 	    String name = method.getName();
 	    Class[] params = method.getParameterTypes();
-	    Object retVal = null;
+	    ResultSet retVal = null;
  	    if (name.equals("execute")) {
-		String[] sql = new String[]{(String)args[0]};
+		String sql = (String)args[0];
 		for (SQLHook hook : getHooks()) 
-		    sql = hook.eval(sql, this.delegate.getConnection());
-		for (String stmt : sql)
-		    retVal = method.invoke(delegate, new Object[]{stmt});
+		    retVal = hook.execute(sql, this.delegate.getConnection());
 		return retVal;}
 	    else
 		return method.invoke(delegate, args);}}
@@ -257,7 +256,7 @@ public abstract class AbstractInterceptingDriver
     // 		params[0].getClass().equals(String.class)) {
     // 		String sql = (String)args[0];
     // 		for (SQLHook hook : getHooks()) 
-    // 		    sql = hook.eval(sql, this.delegate.getConnection());
+    // 		    sql = hook.execute(sql, this.delegate.getConnection());
     // 		args[0] = sql;
     // 		return method.invoke(proxy, method, args);
     // 	    }

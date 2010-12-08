@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.util.List;
 import java.util.ArrayList;
 import java.sql.Connection;
+import java.sql.ResultSet;
 
 /**
  * Describe class <code>IdentityInterceptingDriver</code> here.
@@ -28,7 +29,7 @@ public class IdentityDriver
     public SQLHook[] getHooks () {
 	return new SQLHook[]{
 	    new SQLHook () {
-		public String[] eval (String[] sql, Connection connection) {
-		    return sql;}}};}
+		public ResultSet execute (String sql, Connection connection) {
+		    return null;}}};}
 
 }

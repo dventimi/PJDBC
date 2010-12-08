@@ -33,14 +33,14 @@ create table if not exists phone (
 insert into phone (person_id, phone_number) select id, '517-575-7086' from person where first_name = 'David' and last_name = 'Ventimiglia';
 insert into phone (person_id, phone_number) select id, '415-244-6112' from person where first_name = 'Julie' and last_name = 'Hata';
 
+-- Create a view, UPON WHICH THE DOMAIN KEY WILL BE BASED
+drop view if exists adult;
+create view if not exists adult as select id from person where age > 18;
+
 -- Here's where the actual domain key stuff starts
 -- It will look something like this
 -- create domain key <name> on <tablename>.<columnname> references <foreign table or view name>.<columnname> with <error string>
    -- 0	  1	 2   3	    4  5			6	   7	    	     	  		     8	  9
-
--- Create a domain key view.
-drop view if exists adult;
-create view if not exists adult as select id from person where age > 18;
 
 -- Create the complementary domain key view.
 drop view if exists broken_key;
