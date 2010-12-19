@@ -18,3 +18,4 @@ derby.log$
 ^.*\.jar$
 aclocal.m4
 .*~
+Test.java
