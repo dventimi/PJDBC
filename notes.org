@@ -1,9 +1,21 @@
-* Project-X
+* RadiumSalt
 *** General Description
-    A tool to create and manage special "domain" constraints on
-    columns in a relational database.  A domain constraint is one that
-    restricts valid data in a column just to the domain defined by a
-    special kind of view.
+    RadiumSalt is a new kind of database programming environment.
+    Designed specifically for Relational DataBase Management Systems
+    (RDBMSs), it creates the appearance of augmenting a database with
+    additional, enriching new "features".  
+    - SQL interface
+    - Tables
+    - Views
+    - Foreign Key Constraints
+    - Triggers
+*** Components
+***** pJDBC
+      pJDBC provides a suite of Java JDBC drivers, as well as a
+      library for building new drivers, that seamlessly intercept or
+      "proxy" calls to the underlying database.
+******* AbstractInterceptingDriver
+	
 *** Feature List
 ***** Actions
 ******* Create domain constraint
