@@ -6,7 +6,8 @@ javadir = $(top_builddir)/src
 classesdir = $(top_builddir)/classes
 jardir = $(prefix)/java
 classes_JAVA = $(shell find . -name '*.java')
-CLASSPATH = "$(shell $(CYGPATH_PW) $(top_builddir)/lib/derby.jar:$(top_builddir)/lib/junit-4.8.2.jar:$(top_builddir)/classes)"
+JARS = $(shell find lib -name '*.jar' -printf '%p:')
+CLASSPATH = "$(shell $(CYGPATH_PW) $(JARS)$(top_builddir)/classes)"
 CLASSPATH_ENV = export CLASSPATH=$(CLASSPATH);
 JARFILE = pjdbc.jar
 
