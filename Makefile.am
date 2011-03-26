@@ -35,5 +35,5 @@ clean-local-check:
 
 
 check:
-	time @JAVA@ -classpath $(CLASSPATH) org.junit.runner.JUnitCore com.omnicorps.global.pjdbc.InterceptingDriverTest
-	time @JAVA@ -classpath $(CLASSPATH) org.junit.runner.JUnitCore com.omnicorps.global.pjdbc.SQLMacroProcessorTest
+	@JAVA@ -classpath $(CLASSPATH) org.junit.runner.JUnitCore com.omnicorps.global.pjdbc.InterceptingDriverTest
+	@JAVA@ -classpath $(CLASSPATH) org.junit.runner.JUnitCore com.omnicorps.global.pjdbc.SQLMacroProcessorTest

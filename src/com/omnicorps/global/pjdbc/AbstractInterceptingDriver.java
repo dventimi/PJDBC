@@ -25,8 +25,12 @@ import java.sql.ResultSet;
  * @version 1.0
  */
 public abstract class AbstractInterceptingDriver implements InterceptingDriver {
-    private static String PROTOCOL = "jdbc";
-    private static String SEPARATOR = "jdbc";
+
+    private static List<SQLHandler> handlers = new ArrayList<SQLHandler>();
+
+    public static void setHandler (SQLHandler handler) {
+	handlers.clear();
+	if (handler!=null) handlers.add(handler);}
 
     /**
      * <code>registerDriver</code> is a convenience method 
@@ -62,9 +66,8 @@ public abstract class AbstractInterceptingDriver implements InterceptingDriver {
      * @exception SQLException if an error occurs
      */
     public final Connection connect(final String URL, final Properties properties) throws SQLException {
-	if (!this.acceptsURL(URL)) throw new SQLException("Malformed JDBC URL:  " + URL);
 	Class[] api = new Class[]{Connection.class};
-	Connection connection = DriverManager.getConnection("jdbc:" + (new JDBCURL(URL)).getSubName(), properties);
+	Connection connection = DriverManager.getConnection("jdbc:" + (new ProxyUrl(URL)).getSubName(), properties);
 	InvocationHandler handler = new ConnectionInvocationHandler(connection);
 	return (Connection)Proxy.newProxyInstance(this.getClass().getClassLoader(), api, handler);}
 
@@ -83,43 +86,11 @@ public abstract class AbstractInterceptingDriver implements InterceptingDriver {
      * @return a <code>boolean</code> value
      * @exception SQLException if an error occurs
      */
-    public final boolean acceptsURL(final String jdbcUrl) throws SQLException {
-	JDBCURL url = JDBCURL(jdbcURL);
-	if (url.getProtocol()!=PROTOCOL) return false;
-	if (url.getSubProtocol()!=this.getSubProtocol()) return false;
-	if (DriverManager.getDriver(parsedURL.getSubname())==null) return false;
+    public final boolean acceptsURL (final String jdbcUrl) throws SQLException {
+	ProxyUrl url = new ProxyUrl(jdbcUrl);
+	if (!url.getSubProtocol().equals(this.getSubProtocol())) return false;
+	if (DriverManager.getDriver(url.getUrl())==null) return false;
 	return true;}
-
-    private static class JDBCURL {
-	private String protocol;
-	private String subProtocol;
-	private String subName;
-
-	public String getProtocol () {
-	    return this.protocol;}
-
-	public String getSubProtocol () {
-	    return this.subProtocol;}
-
-	public String getSubName () {
-	    return this.subName;}
-
-	public JDBCURL (final String URL) {
-	    String[] parts = parseURL(URL);
-	    this.protocol = parts[0];
-	    this.subProtocol = parts[1];
-	    this.subName = parts[2];}
-	
-	private String[] parseURL (final String URL) throws SQLException {
-	    LinkedList<String> components = new LinkedList<String>(Arrays.asList(("" + URL).split(SEPARATOR)));
-	    if (components.size() < 3) throw new SQLException("Invalid JDBC URL:  " + URL);
-	    String[] parts = new String[3];
-	    parts[0] = components.poll();
-	    parts[1] = components.poll();
-	    parts[2] = components.poll();
-	    for (String token : components) parts[2] += SEPARATOR + token;
-	    return parts;}
-    }
 
     /**
      * <code>getMajorVersion</code>
@@ -254,9 +225,10 @@ public abstract class AbstractInterceptingDriver implements InterceptingDriver {
 	 * @exception Throwable if an error occurs
 	 */
 	public Object invoke (Object proxy, Method method, Object[] args) throws Throwable {
-	    return method.getName().equals("execute") ? 
-		getHandler().execute((String)args[0], this.delegate.getConnection()) :
-		method.invoke(delegate, args);}}
+	    if (method.getName().equals("execute"))
+		for (SQLHandler handler : handlers) 
+		    handler.execute((String)args[0], this.delegate.getConnection());
+	    return method.invoke(delegate, args);}}
 
 }
 

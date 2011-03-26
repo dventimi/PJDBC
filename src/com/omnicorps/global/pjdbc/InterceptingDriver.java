@@ -9,7 +9,5 @@ import java.sql.Driver;
  * @version 1.0
  */
 public interface InterceptingDriver extends Driver {
-    public SQLHandler getHandler ();
-
     public String getSubProtocol ();
 }
