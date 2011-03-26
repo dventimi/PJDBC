@@ -14,6 +14,7 @@ public class JDBCUrl {
      *
      */
     public static String SEP = ":";
+
     private String protocol = "";
     private String subprotocol = "";
     private String subname = "";
@@ -41,8 +42,7 @@ public class JDBCUrl {
      * @return a <code>String</code> value
      */
     public String getProtocol () {
-	return this.protocol.trim();
-    }
+	return this.protocol.trim();}
 
     /**
      * Describe <code>getSubprotocol</code> method here.
@@ -50,8 +50,7 @@ public class JDBCUrl {
      * @return a <code>String</code> value
      */
     public String getSubprotocol () {
-	return this.subprotocol;
-    }
+	return this.subprotocol;}
 
     /**
      * Describe <code>getSubname</code> method here.
@@ -59,8 +58,7 @@ public class JDBCUrl {
      * @return a <code>String</code> value
      */
     public String getSubname () {
-	return this.subname;
-    }
+	return this.subname;}
 
     /**
      * Describe <code>parseURL</code> method here.
@@ -75,7 +73,6 @@ public class JDBCUrl {
 	parts[1] = tokens.poll();
 	parts[2] = tokens.poll();
 	for (String token : tokens) parts[2] += SEP + token;
-	return parts;
-    }
+	return parts;}
 }
 

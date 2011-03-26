@@ -25,7 +25,6 @@ import java.sql.ResultSet;
  * @version 1.0
  */
 public abstract class AbstractInterceptingDriver implements InterceptingDriver {
-
     private static String PROTOCOL = "jdbc";
 
     /**
@@ -62,7 +61,7 @@ public abstract class AbstractInterceptingDriver implements InterceptingDriver {
      * @exception SQLException if an error occurs
      */
     public final Connection connect(final String URL, final Properties properties) throws SQLException {
-	if (!this.acceptsURL(URL)) throw new SQLException("Malformed JDBC URL.");
+	if (!this.acceptsURL(URL)) throw new SQLException("Malformed JDBC URL:  " + URL);
 	Class[] api = new Class[]{Connection.class};
 	Connection connection = DriverManager.getConnection("jdbc:" + (new JDBCUrl(URL)).getSubname(), properties);
 	InvocationHandler handler = new ConnectionInvocationHandler(connection);
@@ -86,8 +85,8 @@ public abstract class AbstractInterceptingDriver implements InterceptingDriver {
     public final boolean acceptsURL(final String URL) throws SQLException {
 	JDBCUrl parsedURL = new JDBCUrl(URL);
 	if (!parsedURL.getProtocol().equals(PROTOCOL)) return false;
-	if (DriverManager.getDriver(URL)==null) return false;
-	if (parsedURL.getSubname()==null) return false;
+	if (!parsedURL.getSubprotocol().equals(this.getSubProtocol())) return false;
+	if (DriverManager.getDriver(parsedURL.getSubname())==null) return false;
 	return true;}
 
     /**
@@ -213,7 +212,7 @@ public abstract class AbstractInterceptingDriver implements InterceptingDriver {
 	 * <code>ResultSet</code>, all methods save for
 	 * <code>execute</code> are forwarded directly to the delegate
 	 * proxy.  A call to <code>execute</code>, however, will
-	 * execute in order each of any <code>SQLHook</code> set in
+	 * execute in order each of any <code>SQLHandler</code> set in
 	 * this driver.  
 	 *
 	 * @param proxy an <code>Object</code> value
@@ -223,14 +222,11 @@ public abstract class AbstractInterceptingDriver implements InterceptingDriver {
 	 * @exception Throwable if an error occurs
 	 */
 	public Object invoke (Object proxy, Method method, Object[] args) throws Throwable {
-	    String name = method.getName();
-	    Class[] params = method.getParameterTypes();
-	    ResultSet retVal = null;
- 	    if (name.equals("execute")) {
-		for (SQLHook hook : getHooks()) retVal = hook.execute((String)args[0], this.delegate.getConnection());
-		return retVal;}
-	    else
-		return method.invoke(delegate, args);}}
+	    return method.getName().equals("execute") ? 
+		getHandler().execute((String)args[0], this.delegate.getConnection()) :
+		method.invoke(delegate, args);}}
 
 }
+
+
 

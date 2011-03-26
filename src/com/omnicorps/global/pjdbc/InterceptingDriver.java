@@ -8,12 +8,8 @@ import java.sql.Driver;
  * @author <a href="mailto:dventimi@gmail.com">David A. Ventimiglia</a>
  * @version 1.0
  */
-public interface InterceptingDriver 
-    extends Driver {
-    /**
-     * Describe <code>getHooks</code> method here.
-     *
-     * @return a <code>SQLHook[]</code> value
-     */
-    public SQLHook[] getHooks ();
+public interface InterceptingDriver extends Driver {
+    public SQLHandler getHandler ();
+
+    public String getSubProtocol ();
 }

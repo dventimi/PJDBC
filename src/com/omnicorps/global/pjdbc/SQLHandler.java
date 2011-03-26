@@ -4,7 +4,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.ResultSet;
 
-public interface SQLHook {
+public interface SQLHandler {
     public ResultSet execute (String sql, Connection connection)
 	throws SQLException;
 }

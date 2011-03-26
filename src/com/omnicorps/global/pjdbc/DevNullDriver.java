@@ -6,12 +6,10 @@ import java.sql.ResultSet;
 /**
  * Describe class <code>DevNullDriver</code> here.
  *
- * @author <a href="mailto:dventimi@dventimi-laptop">David A. Ventimiglia</a>
+ * @author <a href="mailto:dventimi@gmail.com">David A. Ventimiglia</a>
  * @version 1.0
  */
-public class DevNullDriver
-    extends AbstractInterceptingDriver {
-
+public class DevNullDriver extends AbstractInterceptingDriver {
     static {registerDriver(new DevNullDriver());}
 
     /**
@@ -22,9 +20,8 @@ public class DevNullDriver
     public final String getSubProtocol () {
 	return "null-intercepting";}
 
-    public SQLHook[] getHooks () {
-	return new SQLHook[]{
-	    new SQLHook () {
-		public ResultSet execute (String sql, Connection connection) {
-		    return null;}}};}
+    public SQLHandler getHandler () {
+	return new SQLHandler () {
+	    public ResultSet execute (String sql, Connection connection) {
+		return null;}};}
 }

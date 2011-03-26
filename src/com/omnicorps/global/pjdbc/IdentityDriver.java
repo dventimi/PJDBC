@@ -10,12 +10,10 @@ import java.sql.ResultSet;
 /**
  * Describe class <code>IdentityInterceptingDriver</code> here.
  *
- * @author <a href="mailto:dventimi@dventimi-laptop">David A. Ventimiglia</a>
+ * @author <a href="mailto:dventimi@gmail.com">David A. Ventimiglia</a>
  * @version 1.0
  */
-public class IdentityDriver 
-    extends AbstractInterceptingDriver {
-
+public class IdentityDriver extends AbstractInterceptingDriver {
     static {registerDriver(new IdentityDriver());}
 
     /**
@@ -26,10 +24,9 @@ public class IdentityDriver
     public final String getSubProtocol () {
 	return "identity-intercepting";}
 
-    public SQLHook[] getHooks () {
-	return new SQLHook[]{
-	    new SQLHook () {
-		public ResultSet execute (String sql, Connection connection) {
-		    return null;}}};}
+    public SQLHandler getHandler () {
+	return new SQLHandler() {
+	    public ResultSet execute (String sql, Connection connection) {
+		return null;}};}
 
 }
