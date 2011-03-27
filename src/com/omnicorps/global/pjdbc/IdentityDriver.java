@@ -8,7 +8,9 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 
 /**
- * Describe class <code>IdentityInterceptingDriver</code> here.
+ * <code>IdentityInterceptingDriver</code> sets a
+ * <code>SQLHandler</code> that transparently passes the
+ * <code>execute</code> on to the delegate, unmolested.
  *
  * @author <a href="mailto:dventimi@gmail.com">David A. Ventimiglia</a>
  * @version 1.0
@@ -17,13 +19,20 @@ public class IdentityDriver extends AbstractInterceptingDriver {
     static {registerDriver(new IdentityDriver());}
 
     /**
-     * Describe <code>getSubProtocol</code> method here.
+     * <code>getSubProtocol</code> should return
+     * "identity-intercepting".
      *
      * @return a <code>String</code> value
      */
     public final String getSubProtocol () {
 	return "identity-intercepting";}
 
+    /**
+     * <code>getHandler</code> supplies a handler that doesn't touch
+     * the <code>execute</code> call.
+     *
+     * @return a <code>SQLHandler</code> value
+     */
     public SQLHandler getHandler () {
 	return new SQLHandler() {
 	    public ResultSet execute (String sql, Connection connection) {

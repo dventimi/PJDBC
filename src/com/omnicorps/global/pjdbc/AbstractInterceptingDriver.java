@@ -7,19 +7,33 @@ import java.sql.Connection;
 import java.sql.Driver;
 import java.sql.DriverManager;
 import java.sql.DriverPropertyInfo;
-import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Properties;
-import java.sql.ResultSet;
 
 /**
- * <code>AbstractInterceptingDriver</code> 
+ * <code>AbstractInterceptingDriver</code> is a subclassable instance
+ * of <code>InterceptingDriver</code> that supplies most of the
+ * functionality needed by such a driver.  New kinds of
+ * <code>InterceptingDriver</code> always should subclass this class.  
+ *
+ * This particular <code>InterceptingDriver</code> accepts a
+ * <code>SQLHandler</code> by way of a static method
+ * <code>setHandler</code>, and produces <code>Statement</code>
+ * objects (by way of a special <code>Connection</code> object).
+ * These <code>Statement</code> objects invoke the Driver's
+ * <code>SQLHandler</code>.  The handler may then transparently pass
+ * the SQL to the delegate.  In most cases, however, it should do
+ * something more interesting, such as:
+ *
+ * <ul>
+ *   <li>log queries</li>
+ *   <li>filter certain queries</li>
+ *   <li>transform queries</li>
+ * </ul>
  *
  * @author <a href="mailto:dventimi@gmail.com">David A. Ventimiglia</a>
  * @version 1.0
@@ -28,14 +42,23 @@ public abstract class AbstractInterceptingDriver implements InterceptingDriver {
 
     private static List<SQLHandler> handlers = new ArrayList<SQLHandler>();
 
+    /**
+     * <code>setHandler</code> registers a single
+     * <code>SQLHandler</code> for intercepting
+     * <code>Statement.execute()</code>.
+     *
+     * @param handler a <code>SQLHandler</code> value
+     */
     public static void setHandler (SQLHandler handler) {
 	handlers.clear();
 	if (handler!=null) handlers.add(handler);}
 
     /**
-     * <code>registerDriver</code> is a convenience method 
+     * <code>registerDriver</code> is a convenience method for
+     * registering the given <code>Driver</code> with the
+     * <code>DriverManager</code>.
      *
-     * @param driver a <code>Driver</code> value
+     * @param driver a JDBC <code>Driver</code>
      */
     public static void registerDriver (Driver driver) {
 	try {DriverManager.registerDriver(driver);}
@@ -82,7 +105,7 @@ public abstract class AbstractInterceptingDriver implements InterceptingDriver {
      * Note that the subname itself, for this driver, should itself
      * be a valid JDBC URL, though this driver will not check that directly.
      *
-     * @param URL a <code>String</code> value
+     * @param jdbcUrl a <code>String</code> value
      * @return a <code>boolean</code> value
      * @exception SQLException if an error occurs
      */

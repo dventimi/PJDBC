@@ -84,7 +84,8 @@ public class InterceptingDriverTest extends AutoTest {
     public void testJDBCUrlParsesThreePartURLs () {
 	new Script () {
 	    public void run () throws Exception {
-		String [] parsedURL = JDBCUrl.parseURL("jdbc:intercepting:jdbc");
+		JDBCUrl url = new JDBCUrl("jdbc:intercepting:jdbc");
+		String [] parsedURL = url.getComponents();
 		assertNotNull(parsedURL);
 		assertEquals(3, parsedURL.length);
 		assertEquals("jdbc", parsedURL[0]);
@@ -103,12 +104,14 @@ public class InterceptingDriverTest extends AutoTest {
     public void testJDBCUrlParsesFivePartURLs () {
 	new Script () {
 	    public void run () throws Exception {
-		String [] parsedURL = JDBCUrl.parseURL("jdbc:intercepting:jdbc:subprotocol:subname");
+		String [] parsedURL = (new JDBCUrl("jdbc:intercepting:jdbc:subprotocol:subname")).getComponents();
 		assertNotNull(parsedURL);
-		assertEquals(3, parsedURL.length);
+		assertEquals(5, parsedURL.length);
 		assertEquals("jdbc", parsedURL[0]);
 		assertEquals("intercepting", parsedURL[1]);
-		assertEquals("jdbc:subprotocol:subname", parsedURL[2]);}};}
+		assertEquals("jdbc", parsedURL[2]);
+		assertEquals("subprotocol", parsedURL[3]);
+		assertEquals("subname", parsedURL[4]);}};}
 
     /**
      * <code>testJDBCUrlRefusesFewerThanThreePartURLs</code>
