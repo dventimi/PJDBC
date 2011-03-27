@@ -10,7 +10,6 @@ public class SQLMacroManager {
 	macros.add(macro);}
     
     public static SQLMacro getSQLMacro (String str) {
-	for (SQLMacro macro : macros)
-	    if (macro.accepts(str)) return macro;
+	for (SQLMacro macro : macros) if (macro.accepts(str)) return macro;
 	return null;}
 }

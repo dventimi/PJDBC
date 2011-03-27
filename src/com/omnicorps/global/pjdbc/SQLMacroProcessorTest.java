@@ -1,7 +1,7 @@
 package com.omnicorps.global.pjdbc; // Generated package name
 
 public class SQLMacroProcessorTest extends AutoTest {
-    public static void main(String[] args){autorun(new Exception());}
+    public static void main (String[] args) {autorun(new Exception());}
 
     public void testAcceptsStatementReturnsTrueForValidStatement () {
 	assertTrue(SQLMacroProcessor.acceptsStatement("create     domain key on foo.bar references foo.bar with message 'foo'"));}
