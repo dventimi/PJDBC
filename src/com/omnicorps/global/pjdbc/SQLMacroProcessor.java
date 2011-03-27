@@ -48,6 +48,5 @@ public class SQLMacroProcessor {
 			  "  select raise(rollback, '%5$s')\n" + 
 			  "end\n", 
 			  table, tableColumn, view, viewColumn, message)};
-	return stmts;
-    }
+	return stmts;}
 }

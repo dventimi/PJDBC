@@ -13,11 +13,7 @@ public interface SQLMacroBackend {
 
     public int getDatabaseProductMinorVersion ();
 
-    public boolean supportsDatabaseProduct (String productName,
-					    String productVersion,
-					    int majorVersion,
-					    int minorVersion);
+    public boolean supportsDatabaseProduct (String productName, String productVersion, int majorVersion, int minorVersion);
 
-    public ResultSet deliver (Connection connection,
-			      Map<String, String> macroData);
+    public ResultSet deliver (Connection connection, Map<String, String> macroData);
 }
