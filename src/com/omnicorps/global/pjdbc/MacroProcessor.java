@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
 
-public class SQLMacroProcessor {
+public class MacroProcessor {
     public static Pattern PATTERN = 
 	Pattern.compile("\\s*create\\s+domain\\s+key\\s+on\\s+(\\w+).(\\w+)\\s+references\\s+(\\w+).(\\w+)\\s+with\\s+message\\s+'(.+)'\\s*");
 
@@ -16,7 +16,7 @@ public class SQLMacroProcessor {
 
     public static String[] expand (String sql) 
 	throws Exception {
-	if (!SQLMacroProcessor.acceptsStatement(sql)) throw new Exception();
+	if (!MacroProcessor.acceptsStatement(sql)) throw new Exception();
 	Matcher m = PATTERN.matcher(sql);
 	m.matches();
 	String table = m.group(1);
