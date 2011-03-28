@@ -1,16 +1,16 @@
-package com.omnicorps.global.pjdbc; // Generated package name
+package org.pjdbc; // Generated package name
 
+import java.sql.Connection;
 import java.sql.Driver;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.List;
 
-import org.junit.runners.Suite;
-import java.sql.Connection;
-import java.sql.ResultSet;
 import org.junit.Ignore;
-import java.util.Enumeration;
+import org.junit.runners.Suite;
 
 /**
  * Describe class <code>InterceptingDriverTest</code> here.

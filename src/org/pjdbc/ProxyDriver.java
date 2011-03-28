@@ -1,4 +1,4 @@
-package com.omnicorps.global.pjdbc; // Generated package name
+package org.pjdbc; // Generated package name
 
 /**
  * <code>ProxyDriver</code> is a concrete

@@ -1,4 +1,4 @@
-package com.omnicorps.global.pjdbc; // Generated package name
+package org.pjdbc; // Generated package name
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;

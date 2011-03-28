@@ -1,8 +1,8 @@
-package com.omnicorps.global.pjdbc; // Generated package name
+package org.pjdbc; // Generated package name
 
 import java.sql.SQLException;
-import java.util.LinkedList;
 import java.util.Arrays;
+import java.util.LinkedList;
 
 /**
  * <code>ProxyUrl</code> is a <code>JDBCUrl</code> specifically used

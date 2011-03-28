@@ -1,12 +1,14 @@
-package com.omnicorps.global.pjdbc; // Generated package name
+package org.radiumsalt; // Generated package name
 
 import java.sql.Connection;
-import java.sql.SQLException;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+
+import org.pjdbc.SQLHandler;
 
 public class MacroExpandingSQLHandler implements SQLHandler {
     public ResultSet execute (String sql, Connection connection) throws SQLException {
-	SQLMacro macro = SQLMacroManager.getSQLMacro(sql);
+	Macro macro = MacroManager.getMacro(sql);
 	if (macro==null) return null;
-	return macro.run(connection, sql);}
+	return macro.expand(sql, connection);}
 }

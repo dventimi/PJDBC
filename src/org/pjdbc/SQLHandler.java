@@ -1,8 +1,8 @@
-package com.omnicorps.global.pjdbc; // Generated package name
+package org.pjdbc; // Generated package name
 
 import java.sql.Connection;
-import java.sql.SQLException;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 /**
  * <code>SQLHandler</code> determines the contract for a handler that

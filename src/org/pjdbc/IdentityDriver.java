@@ -1,11 +1,11 @@
-package com.omnicorps.global.pjdbc; // Generated package name
+package org.pjdbc; // Generated package name
 
-import java.sql.SQLException;
-import java.sql.DriverManager;
-import java.util.List;
-import java.util.ArrayList;
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * <code>IdentityInterceptingDriver</code> sets a

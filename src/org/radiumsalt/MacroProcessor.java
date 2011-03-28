@@ -1,4 +1,4 @@
-package com.omnicorps.global.pjdbc; // Generated package name
+package org.radiumsalt; // Generated package name
 
 import java.util.LinkedList;
 import java.util.Arrays;

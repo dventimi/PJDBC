@@ -1,4 +1,6 @@
-package com.omnicorps.global.pjdbc; // Generated package name
+package org.radiumsalt; // Generated package name
+
+import org.pjdbc.AutoTest;
 
 public class MacroProcessorTest extends AutoTest {
     public static void main (String[] args) {autorun(new Exception());}
