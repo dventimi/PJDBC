@@ -18,7 +18,7 @@ public class ProtoSalt implements Salt {
     public Pattern getPattern () {
 	return Pattern.compile("\\s*create\\s+domain\\s+key\\s+on\\s+(\\w+).(\\w+)\\s+references\\s+(\\w+).(\\w+)\\s+with\\s+message\\s+'(.+)'\\s*");}
 
-    public String[] dissolve () {
+    public String[] getQueries () {
 	Matcher m = this.getPattern().matcher(this.input);
 	m.matches();
 	String table = m.group(1);

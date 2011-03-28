@@ -13,6 +13,6 @@ public class SaltedSQLHandler implements SQLHandler {
 	ResultSet res = null;
 	Salt salt = SaltBin.getSalt(sql);
 	if (salt==null) res = stmt.executeQuery(sql);
-	for (String query : salt.dissolve()) res = stmt.executeQuery(query);
+	for (String query : salt.getQueries()) res = stmt.executeQuery(query);
 	return res;}
 }
