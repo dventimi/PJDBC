@@ -58,11 +58,10 @@ public class InterceptingDriverTest extends AutoTest {
      *
      * @exception ClassNotFoundException if an error occurs
      */
-    public void setUp ()
-	throws ClassNotFoundException {
-	Class.forName("com.omnicorps.global.pjdbc.IdentityDriver");
-	Class.forName("com.omnicorps.global.pjdbc.DevNullDriver");
-	Class.forName("com.omnicorps.global.pjdbc.ProxyDriver");
+    public void setUp () throws ClassNotFoundException {
+	Class.forName("org.pjdbc.IdentityDriver");
+	Class.forName("org.pjdbc.DevNullDriver");
+	Class.forName("org.pjdbc.ProxyDriver");
 	Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
 	try {DriverManager.getConnection(CREATE_DB);} catch (Throwable t) {}}
 

@@ -7,6 +7,7 @@ classesdir = $(top_builddir)/classes
 jardir = $(prefix)/java
 classes_JAVA = $(shell find . -name '*.java')
 JARS = $(shell find lib -name '*.jar' -printf '%p:')
+AUTOTESTS = $(shell find src -name '*Test.java')
 CLASSPATH = "$(shell $(CYGPATH_PW) $(JARS)$(top_builddir)/classes)"
 CLASSPATH_ENV = export CLASSPATH=$(CLASSPATH);
 JARFILE = pjdbc.jar
@@ -35,5 +36,6 @@ clean-local-check:
 
 
 check:
-	@JAVA@ -classpath $(CLASSPATH) org.junit.runner.JUnitCore com.omnicorps.global.pjdbc.InterceptingDriverTest
-	@JAVA@ -classpath $(CLASSPATH) org.junit.runner.JUnitCore com.omnicorps.global.pjdbc.SQLMacroProcessorTest
+	@JAVA@ -classpath $(CLASSPATH) org.junit.runner.JUnitCore org.pjdbc.InterceptingDriverTest
+	@JAVA@ -classpath $(CLASSPATH) org.junit.runner.JUnitCore org.radiumsalt.ProtoSaltTest
+

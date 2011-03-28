@@ -7,17 +7,19 @@ import java.util.ArrayList;
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
 
-public class MacroProcessor {
-    public static Pattern PATTERN = 
-	Pattern.compile("\\s*create\\s+domain\\s+key\\s+on\\s+(\\w+).(\\w+)\\s+references\\s+(\\w+).(\\w+)\\s+with\\s+message\\s+'(.+)'\\s*");
+public class ProtoSalt implements Salt {
+    private String input = "";
 
-    public static boolean acceptsStatement (String sql) {
-	return PATTERN.matcher(sql).matches();}
+    public ProtoSalt () {}
 
-    public static String[] expand (String sql) 
-	throws Exception {
-	if (!MacroProcessor.acceptsStatement(sql)) throw new Exception();
-	Matcher m = PATTERN.matcher(sql);
+    public ProtoSalt (String input) {
+	this.input = input;}
+
+    public Pattern getPattern () {
+	return Pattern.compile("\\s*create\\s+domain\\s+key\\s+on\\s+(\\w+).(\\w+)\\s+references\\s+(\\w+).(\\w+)\\s+with\\s+message\\s+'(.+)'\\s*");}
+
+    public String[] dissolve () {
+	Matcher m = this.getPattern().matcher(this.input);
 	m.matches();
 	String table = m.group(1);
 	String tableColumn = m.group(2);
