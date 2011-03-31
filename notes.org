@@ -1,4 +1,4 @@
-* RadiumSalt
+* NeptuneStation
 *** General Description
     RadiumSalt is a new kind of database programming environment.
     Designed specifically for Relational DataBase Management Systems
@@ -15,7 +15,6 @@
       library for building new drivers, that seamlessly intercept or
       "proxy" calls to the underlying database.
 ******* AbstractInterceptingDriver
-	
 *** Feature List
 ***** Actions
 ******* Create domain constraint
