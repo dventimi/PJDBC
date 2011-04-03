@@ -4,6 +4,7 @@ JAVAROOT=$(top_builddir)/classes
 CLEANFILES = *.class
 javadir = $(top_builddir)/src
 classesdir = $(top_builddir)/classes
+depdir = $(top_builddir)/deps
 jardir = $(prefix)/java
 classes_JAVA = $(shell find . -name '*.java')
 JARS = $(shell find lib -name '*.jar' -printf '%p:')

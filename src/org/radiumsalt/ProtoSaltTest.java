@@ -9,27 +9,27 @@ public class ProtoSaltTest extends AutoTest {
 	SaltBin.init();}
 
     public void testFoundSaltForValidStatement () {
-	SaltBin.register(new ProtoSalt());
+	SaltBin.addSalt(new ProtoSalt());
 	assertNotNull(SaltBin.getSalt("create     domain key on foo.bar references foo.bar with message 'foo'"));}
 
     public void testFoundNoSaltForInValidStatement1 () {
-	SaltBin.register(new ProtoSalt());
+	SaltBin.addSalt(new ProtoSalt());
 	assertNull(SaltBin.getSalt("create domain key on foo. references foo.bar with message 'foo'"));}
 
     public void testFoundNoSaltForInValidStatement2 () {
-	SaltBin.register(new ProtoSalt());
+	SaltBin.addSalt(new ProtoSalt());
 	assertNull(SaltBin.getSalt("create domain key on .bar references foo.bar with message 'foo'"));}
 
     public void testFoundNoSaltForInValidStatement3 () {
-	SaltBin.register(new ProtoSalt());
+	SaltBin.addSalt(new ProtoSalt());
 	assertNull(SaltBin.getSalt("create domain key on foo.bar references foo. with message 'foo'"));}
 
     public void testFoundNoSaltForInValidStatement4 () {
-	SaltBin.register(new ProtoSalt());
+	SaltBin.addSalt(new ProtoSalt());
 	assertNull(SaltBin.getSalt("create domain key on foo.bar references .bar with message 'foo'"));}
 
     public void testFoundNoSaltForInValidStatement5 () {
-	SaltBin.register(new ProtoSalt());
+	SaltBin.addSalt(new ProtoSalt());
 	assertNull(SaltBin.getSalt("create domain key on foo.bar references foo.bar with message ''"));}
 
     // public void testExpandThrowsExceptionForInvalidStatement () {
