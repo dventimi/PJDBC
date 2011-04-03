@@ -1,14 +1,14 @@
 package org.radiumsalt; // Generated package name
 
-import java.util.LinkedList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.ArrayList;
-import java.util.regex.Pattern;
-import java.util.regex.Matcher;
 import java.sql.Connection;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
-public class ProtoSalt implements Salt {
+import org.stringtemplate.v4.STGroup;
+import org.stringtemplate.v4.STGroupFile;
+import org.stringtemplate.v4.ST;
+
+public class ProtoSalt extends AbstractSalt {
     private String input = "";
 
     public ProtoSalt () {}
@@ -27,6 +27,14 @@ public class ProtoSalt implements Salt {
 	String view = m.group(3);
 	String viewColumn = m.group(4);
 	String message = m.group(5);
+
+	STGroup g = new STGroupFile("salt.stg");
+	ST dropTrigger = g.getInstanceOf(DROP_TRIGGER);
+	ST createInsertTrigger = g.getInstanceOf(CREATE_INSERT_TRIGGER);
+	ST createUpdateTrigger = g.getInstanceOf(CREATE_UPDATE_TRIGGER);
+
+	dropTrigger.add("name", table + "_broken_key");
+	
 	String[] stmts = new String[]{
 	    String.format("drop view if exists %1$s_broken_key", 
 			  table),
@@ -35,8 +43,9 @@ public class ProtoSalt implements Salt {
 			  "left outer join %3$s a on p.%2$s = a.%4$s\n" + 
 			  "where a.%4$s is null", 
 			  table, tableColumn, view, viewColumn),
-	    String.format("drop trigger if exists %1$s_insert", 
-			  table),
+	    dropTrigger.render(),
+	    // String.format("drop trigger if exists %1$s_insert", 
+	    // 		  table),
 	    String.format("create trigger if not exists %1$s_insert\n" + 
 			  "after insert on %1$s\n" + 
 			  "when exists (select * from %1$s_broken_key)\n" +
