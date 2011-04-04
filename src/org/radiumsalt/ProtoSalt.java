@@ -9,18 +9,15 @@ import org.stringtemplate.v4.STGroupFile;
 import org.stringtemplate.v4.ST;
 
 public class ProtoSalt extends AbstractSalt {
-    private String input = "";
-
     public ProtoSalt () {}
 
-    public ProtoSalt (String input) {
-	this.input = input;}
 
     public Pattern getPattern () {
 	return Pattern.compile("\\s*create\\s+domain\\s+key\\s+on\\s+(\\w+).(\\w+)\\s+references\\s+(\\w+).(\\w+)\\s+with\\s+message\\s+'(.+)'\\s*");}
 
-    public String[] getSQL (Connection conn) {
-	Matcher m = this.getPattern().matcher(this.input);
+
+    public String[] getSQL (Connection conn, String input) {
+	Matcher m = this.getPattern().matcher(input);
 	m.matches();
 	String table = m.group(1);
 	String tableColumn = m.group(2);
@@ -28,7 +25,7 @@ public class ProtoSalt extends AbstractSalt {
 	String viewColumn = m.group(4);
 	String message = m.group(5);
 
-	STGroup g = new STGroupFile("salt.stg");
+	STGroup g = AbstractSalt.getSTGroup();
 	ST dropTrigger = g.getInstanceOf(DROP_TRIGGER);
 	ST createInsertTrigger = g.getInstanceOf(CREATE_INSERT_TRIGGER);
 	ST createUpdateTrigger = g.getInstanceOf(CREATE_UPDATE_TRIGGER);

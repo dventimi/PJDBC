@@ -1,36 +1,67 @@
 package org.radiumsalt; // Generated package name
 
 import org.pjdbc.AutoTest;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import org.stringtemplate.v4.STGroup;
+import org.stringtemplate.v4.STGroupString;
 
 public class ProtoSaltTest extends AutoTest {
+    public static String DB = "derby:memory:testdb";
+    public static String CREATE_DB = "jdbc:" + DB + ";create=true";
+    public static String REMOVE_DB = "jdbc:" + DB + ";drop=true";
+
     public static void main (String[] args) {autorun(new Exception());}
 
-    public void setUp () {
-	SaltBin.init();}
+    public void setUp () throws ClassNotFoundException {
+	SaltBin.init();
+	Class.forName("org.pjdbc.IdentityDriver");
+	Class.forName("org.pjdbc.DevNullDriver");
+	Class.forName("org.pjdbc.ProxyDriver");
+	Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
+	try {DriverManager.getConnection(CREATE_DB);} catch (Throwable t) {}}
+
+    public void tearDown () {
+	try {DriverManager.getConnection(REMOVE_DB);} catch (Throwable t) {}}
 
     public void testFoundSaltForValidStatement () {
 	SaltBin.addSalt(new ProtoSalt());
-	assertNotNull(SaltBin.getSalt("create     domain key on foo.bar references foo.bar with message 'foo'"));}
+	assertNotNull(SaltBin.hasSalt("create     domain key on foo.bar references foo.bar with message 'foo'"));}
 
     public void testFoundNoSaltForInValidStatement1 () {
 	SaltBin.addSalt(new ProtoSalt());
-	assertNull(SaltBin.getSalt("create domain key on foo. references foo.bar with message 'foo'"));}
+	assertFalse(SaltBin.hasSalt("create domain key on foo. references foo.bar with message 'foo'"));}
 
     public void testFoundNoSaltForInValidStatement2 () {
 	SaltBin.addSalt(new ProtoSalt());
-	assertNull(SaltBin.getSalt("create domain key on .bar references foo.bar with message 'foo'"));}
+	assertFalse(SaltBin.hasSalt("create domain key on .bar references foo.bar with message 'foo'"));}
 
     public void testFoundNoSaltForInValidStatement3 () {
 	SaltBin.addSalt(new ProtoSalt());
-	assertNull(SaltBin.getSalt("create domain key on foo.bar references foo. with message 'foo'"));}
+	assertFalse(SaltBin.hasSalt("create domain key on foo.bar references foo. with message 'foo'"));}
 
     public void testFoundNoSaltForInValidStatement4 () {
 	SaltBin.addSalt(new ProtoSalt());
-	assertNull(SaltBin.getSalt("create domain key on foo.bar references .bar with message 'foo'"));}
+	assertFalse(SaltBin.hasSalt("create domain key on foo.bar references .bar with message 'foo'"));}
 
     public void testFoundNoSaltForInValidStatement5 () {
 	SaltBin.addSalt(new ProtoSalt());
-	assertNull(SaltBin.getSalt("create domain key on foo.bar references foo.bar with message ''"));}
+	assertFalse(SaltBin.hasSalt("create domain key on foo.bar references foo.bar with message ''"));}
+
+    public void testProtoSaltEmitsDropTriggerSQL () {
+	new Script () {
+	    public void run () throws Exception {
+		String g = 
+		    "drop_trigger(name) ::= <<\n" +
+		    "  drop trigger if exists <name>\n" +
+		    ">>";
+		STGroup group = new STGroupString(g);
+		AbstractSalt.setSTGroup(group);
+		Connection conn = DriverManager.getConnection("jdbc:" + DB);
+		SaltBin.addSalt(new ProtoSalt());
+		for (String s : SaltBin.getSaltedSQL(conn, "create domain key on foo.bar references foo.bar with message 'foo'"))
+		    System.out.println(s);
+		assertNotNull(SaltBin.getSaltedSQL(conn, "create domain key on foo.bar references foo.bar with message 'foo'"));}};}
 
     // public void testExpandThrowsExceptionForInvalidStatement () {
     // 	try {MacroProcessor.expand("create domain key on foo.bar references foo.bar with message ''");}

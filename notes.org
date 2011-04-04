@@ -142,10 +142,7 @@
 	- Is a DelegatingInvocationHandler
 	- Automatically delegates all method calls to the delegate, save for ONE.
 	- For that ONE METHOD, it does something else.
-
-
-
-
 *** Tasks
 ***** TODO Get jdep or something like it to help with compilation
 ***** TODO Get Radium Salt's macro expansion to work recursively.
+***** TODO Move PJDBC and RadiumSalt into completely seperate projects.

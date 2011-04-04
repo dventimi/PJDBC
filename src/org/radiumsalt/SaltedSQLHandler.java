@@ -11,8 +11,6 @@ public class SaltedSQLHandler implements SQLHandler {
     public ResultSet execute (String sql, Connection conn) throws SQLException {
 	Statement stmt = conn.createStatement();
 	ResultSet res = null;
-	Salt salt = SaltBin.getSalt(sql);
-	if (salt==null) res = stmt.executeQuery(sql);
-	for (String query : salt.getSQL(conn)) res = stmt.executeQuery(query);
+	for (String query : SaltBin.getSaltedSQL(conn, sql)) res = stmt.executeQuery(query);
 	return res;}
 }

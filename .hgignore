@@ -19,3 +19,4 @@ derby.log$
 aclocal.m4
 .*~
 Test.java
+semantic\.cache
