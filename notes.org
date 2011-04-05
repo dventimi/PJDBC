@@ -1,20 +1,42 @@
 * NeptuneStation
-*** General Description
-    RadiumSalt is a new kind of database programming environment.
-    Designed specifically for Relational DataBase Management Systems
-    (RDBMSs), it creates the appearance of augmenting a database with
-    additional, enriching new "features".  
-    - SQL interface
-    - Tables
-    - Views
-    - Foreign Key Constraints
-    - Triggers
-*** Components
-***** pJDBC
-      pJDBC provides a suite of Java JDBC drivers, as well as a
-      library for building new drivers, that seamlessly intercept or
-      "proxy" calls to the underlying database.
-******* AbstractInterceptingDriver
+*** PJDBC
+    PJDBC provides a suite of Java JDBC drivers, as well as a library
+    for building new drivers, that seamlessly intercept or "proxy"
+    calls to the underlying database.
+***** AbstractInterceptingDriver
+*** RadiumSalt
+***** General Description
+      RadiumSalt is a new kind of database programming environment.
+      Designed specifically for Relational DataBase Management Systems
+      (RDBMSs), it creates the appearance of augmenting a database with
+      additional, enriching new "features".  
+      - SQL interface
+      - Tables
+      - Views
+      - Foreign Key Constraints
+      - Triggers
+***** Tasks
+******* TODO Rename Salt to something brand-agnostic.
+******* TODO Move STGroup storage out of AbstractSalt.
+******* TODO Store multiple STGroups.
+******* TODO Associate STGroups with database products.
+********* m Salts
+********* n Databases
+********* m x n mapping
+******* TODO Make database product names into String constants (or enums).
+******* TODO Should be able to set STGroup contents with a String.
+******* TODO Or an STGroup.
+******* TODO Or loaded from a file.
+******* TODO Database product names ultimately should come from a .properties file.
+******* TODO As should the Group file names and locations.
+******* TODO Have GOT to find a way to make macro expansion re-entrant.
+******* TODO Should abstract out the command recognition, so it's pluggable.
+	- Simple regex based.
+	- ANTLR parser based.
+******* TODO getSTGroup() should return a db-specific group.
+******* TODO Read about java.util.Properties
+******* TODO Read about Java enumerations.
+*** Atomic
 *** Feature List
 ***** Actions
 ******* Create domain constraint
@@ -67,7 +89,7 @@
 	  - Related tables parsed out of the view
 	  - Error code
 ********* Serialization Module
-	  Probably using StringTemplate templates which essential
+	  Probably using StringTemplate templates which essentially
           provide output grammars.  In essence, each particular
           template/grammar is sort of a "dialect" corresponding to a
           particular database product.  Probably don't need to get

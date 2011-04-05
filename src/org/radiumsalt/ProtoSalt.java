@@ -16,7 +16,7 @@ public class ProtoSalt extends AbstractSalt {
 	return Pattern.compile("\\s*create\\s+domain\\s+key\\s+on\\s+(\\w+).(\\w+)\\s+references\\s+(\\w+).(\\w+)\\s+with\\s+message\\s+'(.+)'\\s*");}
 
 
-    public String[] getSQL (Connection conn, String input) {
+    public String[] getSQL (Connection conn, String input) throws Exception {
 	Matcher m = this.getPattern().matcher(input);
 	m.matches();
 	String table = m.group(1);
@@ -25,10 +25,9 @@ public class ProtoSalt extends AbstractSalt {
 	String viewColumn = m.group(4);
 	String message = m.group(5);
 
-	STGroup g = AbstractSalt.getSTGroup();
-	ST dropTrigger = g.getInstanceOf(DROP_TRIGGER);
-	ST createInsertTrigger = g.getInstanceOf(CREATE_INSERT_TRIGGER);
-	ST createUpdateTrigger = g.getInstanceOf(CREATE_UPDATE_TRIGGER);
+	ST dropTrigger = getTemplate(conn, DROP_TRIGGER);
+	ST createInsertTrigger = getTemplate(conn, CREATE_INSERT_TRIGGER);
+	ST createUpdateTrigger = getTemplate(conn, CREATE_UPDATE_TRIGGER);
 
 	dropTrigger.add("name", table + "_broken_key");
 	

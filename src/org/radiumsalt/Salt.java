@@ -6,5 +6,5 @@ import java.sql.Connection;
 public interface Salt {
     public Pattern getPattern ();
     public boolean acceptsInput (String str);
-    public String[] getSQL (Connection conn, String str);
+    public String[] getSQL (Connection conn, String str) throws Exception;
 }

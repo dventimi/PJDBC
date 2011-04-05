@@ -56,7 +56,7 @@ public class ProtoSaltTest extends AutoTest {
 		    "  drop trigger if exists <name>\n" +
 		    ">>";
 		STGroup group = new STGroupString(g);
-		AbstractSalt.setSTGroup(group);
+		AbstractSalt.setSTGroup("Apache Derby Embedded JDBC Driver", group);
 		Connection conn = DriverManager.getConnection("jdbc:" + DB);
 		SaltBin.addSalt(new ProtoSalt());
 		for (String s : SaltBin.getSaltedSQL(conn, "create domain key on foo.bar references foo.bar with message 'foo'"))
