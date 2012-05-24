@@ -15,6 +15,13 @@
       - Views
       - Foreign Key Constraints
       - Triggers
+      - Translation between SQL dialects
+      - Understands different SQL dialects
+      - Provides ANSI SQL as a "lingua franca" among dialects
+      - SQL convenience features
+      - Reversed SQL (e.g. from <table> where <predicates> select <fields>)
+      - QUEL support
+      - Auto-joining in queries
 ***** Tasks
 ******* TODO Rename Salt to something brand-agnostic.
 ******* TODO Move STGroup storage out of AbstractSalt.
@@ -36,6 +43,16 @@
 ******* TODO getSTGroup() should return a db-specific group.
 ******* TODO Read about java.util.Properties
 ******* TODO Read about Java enumerations.
+***** Design Aspects
+******* Fundamentally, a translator (or translators)
+******* Collection of translators
+******* Not tied to PJDBC
+******* Not tied to ANTLR/StringTemplate
+******* But, all of my translators will use ANTLR/StringTemplate
+******* Has a Java API
+******* Has interfaces
+******* Has a command-line interface
+******* Coupling to PJDB is another interface (or, a bridge)
 *** Atomic
 *** Feature List
 ***** Actions

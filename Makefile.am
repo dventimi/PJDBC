@@ -1,42 +1,65 @@
-## Process this file with automake to produce Makefile.in
-AM_JAVACFLAGS=-Xlint:unchecked -g
-JAVAROOT=$(top_builddir)/classes
-CLEANFILES = *.class
-javadir = $(top_builddir)/src
-classesdir = $(top_builddir)/classes
-depdir = $(top_builddir)/deps
-jardir = $(prefix)/java
-classes_JAVA = $(shell find . -name '*.java')
-JARS = $(shell find lib -name '*.jar' -printf '%p:')
-AUTOTESTS = $(shell find src -name '*Test.java')
-CLASSPATH = "$(shell $(CYGPATH_PW) $(JARS)$(top_builddir)/classes)"
-CLASSPATH_ENV = export CLASSPATH=$(CLASSPATH);
+################################################################################
+# CONFIGURABLE PART
+################################################################################
+
 JARFILE = pjdbc.jar
+SRCDIR = src
+LIBDIR = lib
+CLASSESDIR = classes
+BINFILES = $(JARFILE)
+JAVAC_FLAGS = -g -w
 
-.PHONY: clean-local-check
+################################################################################
+# NON-CONFIGURABLE PART
+################################################################################
 
-all-local: $(JARFILE)
+# Automake `primary' says to compile *.java files and put results in `classesdir'
+javadir = $(top_builddir)/$(CLASSESDIR)
+JAVAROOT = $(javadir)
+dist_java_JAVA = $(shell find $(SRCDIR) -name '*.java')
 
-install-data-local: $(JARFILE)
-	@MKDIR_P@ $(jardir)
-	cp $(JARFILE) $(jardir)
+# Debug flags, no warnings, for javac and gcj
+AM_JAVACFLAGS = $(JAVAC_FLAGS)
+
+# Automake variable with supplemental items to clean
+CLEANFILES = *.class $(JARFILE) pjdbc
+
+# Automake variables needed by java and javac
+JARS = $(shell find $(LIBDIR) -name '*.jar' -printf '%p:')
+CLASSPATH = "$(shell $(CYGPATH_PW) $(JARS)$(top_builddir)/$(CLASSESDIR))"
+CLASSPATH_ENV = export CLASSPATH=$(CLASSPATH);
+
+# Automake `primary' says to put these `scripts' into the ../bin directory
+dist_bin_SCRIPTS = $(BINFILES)
+
+# We need this for substitution in sed commands
+pjdbcdir := $(pkgdatadir)
+
+# Build the main jar file.
+$(JARFILE): classdist_java.stamp $(dist_data_DATA)
+	if ! test -d scratch ; then \
+	  mkdir scratch ; \
+	  cd scratch ; \
+	  find ../lib/*.jar -exec jar -xf {} \; ; \
+	  find . -iname manifest.mf -exec rm {} + ; fi
+	if ! test -f $(JARFILE) ; then \
+	  touch $(JARFILE) ; \
+	  touch ./scratch/ZIPCREATED ; \
+	  @JAR@ -uf $(JARFILE) -C ./scratch . ; fi
+	@JAR@ -uf $(JARFILE) -C $(javadir) .
+
+# Supplemental cleaning rule
+clean-local:
+	rm -rf scratch
+	rm -rf $(javadir)
+
+install-data-local:
+	mkdir -p $(pkgdatadir)
+	mkdir -p $(pkgdatadir)/lib
+	cp $(JARFILE) $(pkgdatadir)/lib
 
 uninstall-local:
-	rm -f $(jardir)/$(JARFILE)
+	rm -rf $(pkgdatadir)
 
-$(JARFILE): $(classes_JAVA)
-	cd
-	@JAR@ -cf $(JARFILE) -C $(classesdir) .
-
-clean-local: clean-local-check
-
-clean-local-check:
-	rm -f $(JARFILE)
-	cd $(classesdir)
-	find . -name *.class -execdir rm {} +
-
-
-check:
-	@JAVA@ -classpath $(CLASSPATH) org.junit.runner.JUnitCore org.pjdbc.InterceptingDriverTest
-	@JAVA@ -classpath $(CLASSPATH) org.junit.runner.JUnitCore org.radiumsalt.ProtoSaltTest
-
+# Phony targets have no dependencies.
+.PHONY: distclean-local clean-local all

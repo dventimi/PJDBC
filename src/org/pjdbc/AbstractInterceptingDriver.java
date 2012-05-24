@@ -14,6 +14,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
+import java.util.Map;
+import java.util.HashMap;
+
 /**
  * <code>AbstractInterceptingDriver</code> is a subclassable instance
  * of <code>InterceptingDriver</code> that supplies most of the
@@ -39,7 +42,6 @@ import java.util.Properties;
  * @version 1.0
  */
 public abstract class AbstractInterceptingDriver implements InterceptingDriver {
-
     private static List<SQLHandler> handlers = new ArrayList<SQLHandler>();
 
     /**
@@ -61,8 +63,7 @@ public abstract class AbstractInterceptingDriver implements InterceptingDriver {
      * @param driver a JDBC <code>Driver</code>
      */
     public static void registerDriver (Driver driver) {
-	try {DriverManager.registerDriver(driver);}
-	catch (SQLException se) {throw new RuntimeException(se);}}
+	try {DriverManager.registerDriver(driver);} catch (SQLException se) {throw new RuntimeException(se);}}
 
     // Implementation of java.sql.Driver
 
@@ -88,7 +89,7 @@ public abstract class AbstractInterceptingDriver implements InterceptingDriver {
      * @return a <code>Connection</code> value
      * @exception SQLException if an error occurs
      */
-    public final Connection connect(final String URL, final Properties properties) throws SQLException {
+    public final Connection connect (final String URL, final Properties properties) throws SQLException {
 	Class[] api = new Class[]{Connection.class};
 	Connection connection = DriverManager.getConnection("jdbc:" + (new ProxyUrl(URL)).getSubName(), properties);
 	InvocationHandler handler = new ConnectionInvocationHandler(connection);
@@ -121,8 +122,7 @@ public abstract class AbstractInterceptingDriver implements InterceptingDriver {
      *
      * @return an <code>int</code> value, this driver's major version number.
      */
-    public final int getMajorVersion() {
-	return 1;}
+    public final int getMajorVersion () {return 1;}
 
     /**
      * <code>getMinorVersion</code> returns the driver's minor version
@@ -130,8 +130,7 @@ public abstract class AbstractInterceptingDriver implements InterceptingDriver {
      *
      * @return an <code>int</code> value, this driver's minor version number.
      */
-    public final int getMinorVersion() {
-	return 0;}
+    public final int getMinorVersion () {return 0;}
 
     /**
      * <code>getPropertyInfo</code> returns information about the
@@ -142,8 +141,7 @@ public abstract class AbstractInterceptingDriver implements InterceptingDriver {
      * @return a <code>DriverPropertyInfo[]</code> value
      * @exception SQLException if an error occurs
      */
-    public final DriverPropertyInfo[] getPropertyInfo(final String URL, final Properties properties) 
-	throws SQLException {
+    public final DriverPropertyInfo[] getPropertyInfo (final String URL, final Properties properties) throws SQLException {
 	return DriverManager.getDriver(URL).getPropertyInfo(URL, properties);}
 
     /**
@@ -157,8 +155,7 @@ public abstract class AbstractInterceptingDriver implements InterceptingDriver {
      *
      * @return a <code>boolean</code> value
      */
-    public final boolean jdbcCompliant() {
-	return false;}
+    public final boolean jdbcCompliant() {return false;}
 
     /**
      * <code>ConnectionInvocationHandler</code> is an
