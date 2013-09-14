@@ -1,4 +1,4 @@
-package org.pjdbc; // Generated package name
+package org.pjdbc.lib;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -23,5 +23,4 @@ public interface SQLHandler {
      * @exception SQLException if an error occurs
      */
     public ResultSet execute (String sql, Connection connection)
-	throws SQLException;
-}
+	throws SQLException;}

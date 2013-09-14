@@ -1,4 +1,4 @@
-package org.pjdbc; // Generated package name
+package org.pjdbc.lib;
 
 import java.sql.Driver;
 
@@ -43,5 +43,4 @@ public interface InterceptingDriver extends Driver {
      *
      * @return a <code>String</code> value
      */
-    public String getSubProtocol ();
-}
+    public String getSubProtocol ();}

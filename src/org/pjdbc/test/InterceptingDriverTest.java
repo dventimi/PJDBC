@@ -1,4 +1,4 @@
-package org.pjdbc; // Generated package name
+package org.pjdbc;
 
 import java.sql.Connection;
 import java.sql.Driver;
@@ -8,9 +8,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
-
 import org.junit.Ignore;
 import org.junit.runners.Suite;
+import org.pjdbc.lib.*;
 
 /**
  * Describe class <code>InterceptingDriverTest</code> here.
@@ -19,9 +19,6 @@ import org.junit.runners.Suite;
  * @version 1.0
  */
 public class InterceptingDriverTest extends AutoTest {
-
-    // ----------------- Static Members ---------------------------------
-
     /**
      * Describe variable <code>DB</code> here.
      *
@@ -47,10 +44,8 @@ public class InterceptingDriverTest extends AutoTest {
      *
      * @param args a <code>String</code> value
      */
-    public static void main(String[] args){
+    public static void main (String[] args){
 	autorun(new Exception());}
-
-    // ----------------- Setup & Teardown ------------------------------
 
     /**
      * Every test generally needs to work with a registered driver
@@ -72,8 +67,6 @@ public class InterceptingDriverTest extends AutoTest {
     public void tearDown () {
 	try {DriverManager.getConnection(REMOVE_DB);} catch (Throwable t) {}}
 
-    // --------------------- Tests ----------------------------------
-    
     /**
      * <code>testJDBCUrlParsesThreePartURLs</code>
      * JDBCUrl is a helper class.  Verify that it accepts a JDBC URL
@@ -263,5 +256,4 @@ public class InterceptingDriverTest extends AutoTest {
     		    .execute("create table person (name varchar(30))");
     		assertNotNull(collector.getSQLStatements());
     		assertEquals(collector.getSQLStatements().length, 1);
-    		assertEquals(collector.getSQLStatements()[0], "create table person (name varchar(30))");}};}
-}
+    		assertEquals(collector.getSQLStatements()[0], "create table person (name varchar(30))");}};}}

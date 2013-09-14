@@ -1,4 +1,4 @@
-package org.pjdbc; // Generated package name
+package org.pjdbc;
 
 import junit.framework.TestCase;
 import org.junit.runner.JUnitCore;
@@ -33,11 +33,8 @@ public abstract class AutoTest extends TestCase {
      * @param className <code>String</code> the test to run
      */
     public static void autorun (String className) {
-	try {
-	    for (Failure failure : JUnitCore.runClasses(Class.forName(className)).getFailures())
-		System.out.println(failure);}
-	catch (ClassNotFoundException e) {
-	    fail("JUnit test class " + className + " could not be found.");}}
+	try {for (Failure failure : JUnitCore.runClasses(Class.forName(className)).getFailures()) System.out.println(failure);}
+	catch (ClassNotFoundException e) {fail("JUnit test class " + className + " could not be found.");}}
 
     /**
      * <code>autorun</code> runs the given test using the
@@ -51,6 +48,4 @@ public abstract class AutoTest extends TestCase {
 
     protected static abstract class Script {
 	{try {this.run();} catch (Throwable t) {t.printStackTrace(); fail();}}
-	public void run () throws Exception {
-	    fail("Script.run() has not been implemented!");}}
-}
+	public void run () throws Exception {fail("Script.run() has not been implemented!");}}}

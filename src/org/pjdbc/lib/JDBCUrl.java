@@ -1,4 +1,4 @@
-package org.pjdbc; // Generated package name
+package org.pjdbc.lib;
 
 import java.sql.SQLException;
 import java.util.Arrays;
@@ -110,7 +110,10 @@ public class JDBCUrl {
      * @exception SQLException if an error occurs
      */
     public JDBCUrl (final String URL) throws SQLException {
-	parseURL(URL);}
+	String[] parts = parseURL(URL);
+	this.protocol = parts[0];
+	this.subProtocol = parts[1];
+	this.subName = parts[2];}
 	
     /**
      * <code>parseURL</code> is a convenience method for parsing URL.
@@ -118,19 +121,14 @@ public class JDBCUrl {
      * @param URL a <code>String</code> value
      * @exception SQLException if an error occurs
      */
-    public void parseURL (final String URL) throws SQLException {
-	LinkedList<String> components = new LinkedList<String>(Arrays.asList(("" + URL).split(SEPARATOR)));
-	this.components = components.toArray(new String[0]);
-	if (components.size() < 3) throw new SQLException("Invalid JDBC URL:  " + URL);
-	String[] parts = new String[3];
-	parts[0] = components.poll();
-	parts[1] = components.poll();
-	parts[2] = components.poll();
-	for (String token : components) parts[2] += SEPARATOR + token;
-	this.protocol = parts[0];
-	if (!this.protocol.equals(PROTOCOL)) 
-	    throw new SQLException("Invalid JDBC URL. Protocol in " + URL + " is " + this.protocol + " instead of jdbc.");
-	this.subProtocol = parts[1];
-	this.subName = parts[2];}
-}
+    public String[] parseURL (final String URL) throws SQLException {
+	String[] tokens = URL.split(SEPARATOR);
+	if (tokens.length<3) throw new SQLException("Invalid JDBC URL: " + URL);
+	if (!tokens[0].equals(PROTOCOL)) throw new SQLException("Invalid JDBC URL. Protocol: " + URL);
+	String[] parts = new String[]{"", "", ""};
+	parts[0] = tokens[0];
+	parts[1] = tokens[1];
+	for (int i = 2; i<parts.length; i++) parts[3] += SEPARATOR + parts[i];
+	return parts;}}
+
 

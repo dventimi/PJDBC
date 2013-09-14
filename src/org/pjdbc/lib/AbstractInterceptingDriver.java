@@ -1,4 +1,4 @@
-package org.pjdbc; // Generated package name
+package org.pjdbc.lib;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
@@ -9,13 +9,14 @@ import java.sql.DriverManager;
 import java.sql.DriverPropertyInfo;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.SQLFeatureNotSupportedException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Properties;
-
-import java.util.Map;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Properties;
+import java.util.logging.Logger;
 
 /**
  * <code>AbstractInterceptingDriver</code> is a subclassable instance
@@ -65,8 +66,6 @@ public abstract class AbstractInterceptingDriver implements InterceptingDriver {
     public static void registerDriver (Driver driver) {
 	try {DriverManager.registerDriver(driver);} catch (SQLException se) {throw new RuntimeException(se);}}
 
-    // Implementation of java.sql.Driver
-
     /**
      * The <code>connect</code> gets a connection for the provided URL
      * and connection Properties.  Note that the subname is treated as
@@ -115,6 +114,14 @@ public abstract class AbstractInterceptingDriver implements InterceptingDriver {
 	if (!url.getSubProtocol().equals(this.getSubProtocol())) return false;
 	if (DriverManager.getDriver(url.getUrl())==null) return false;
 	return true;}
+
+    /**
+     * <code>getParentLogger</code>
+     *
+     * @return a <code>Logger</code>, the parent <code>Logger<code> of all the loggers used by this driver
+     */
+    public final Logger getParentLogger () throws SQLFeatureNotSupportedException {
+	throw new SQLFeatureNotSupportedException();}
 
     /**
      * <code>getMajorVersion</code>
@@ -248,7 +255,5 @@ public abstract class AbstractInterceptingDriver implements InterceptingDriver {
 	    if (method.getName().equals("execute"))
 		for (SQLHandler handler : handlers) 
 		    handler.execute((String)args[0], this.delegate.getConnection());
-	    return method.invoke(delegate, args);}}
-
-}
+	    return method.invoke(delegate, args);}}}
 

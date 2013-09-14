@@ -1,4 +1,4 @@
-package org.pjdbc; // Generated package name
+package org.pjdbc;
 
 /**
  * <code>ProxyDriver</code> is a concrete
@@ -7,7 +7,7 @@ package org.pjdbc; // Generated package name
  * @author <a href="mailto:dventimi@gmail.com">David A. Ventimiglia</a>
  * @version 1.0
  */
-public class ProxyDriver extends AbstractInterceptingDriver {
+public class ProxyDriver extends org.pjdbc.lib.AbstractInterceptingDriver {
     static {registerDriver(new ProxyDriver());}
 
     /**
@@ -16,6 +16,4 @@ public class ProxyDriver extends AbstractInterceptingDriver {
      * @return a <code>String</code> value
      */
     public String getSubProtocol () {
-	return "pjdbc";}
-
-}
+	return "pjdbc";}}

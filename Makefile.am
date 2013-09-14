@@ -1,65 +1,24 @@
-################################################################################
-# CONFIGURABLE PART
-################################################################################
+SRC_DIR = src
+LIB_DIR = lib
+BIN_DIR = bin
+OBJ_DIR = classes
 
-JARFILE = pjdbc.jar
-SRCDIR = src
-LIBDIR = lib
-CLASSESDIR = classes
-BINFILES = $(JARFILE)
-JAVAC_FLAGS = -g -w
+dist_pkgdata_DATA = @PACKAGE@.jar $(shell find $(srcdir)/$(LIB_DIR) -type f -iname '*.jar') 
+dist_java_JAVA = $(shell find $(srcdir)/$(SRC_DIR) -type f -iname '*.java')
+javadir = $(datadir)/java
+JAVAROOT = $(OBJ_DIR)
+CLASSPATH_ENV = export CLASSPATH=$(shell find $(srcdir)/$(LIB_DIR) -name '*.jar' -printf '%p:');
+AM_JAVACFLAGS = -sourcepath $(srcdir)/$(SRC_DIR)
+EXTRA_DIST = $(LIB_DIR) $(BIN_DIR)/@PACKAGE@.in
+EXTRA_SCRIPTS = $(BIN_DIR)
+CLEANFILES =  @PACKAGE@ @PACKAGE@.jar
 
-################################################################################
-# NON-CONFIGURABLE PART
-################################################################################
+$(shell mkdir -p $(OBJ_DIR))
 
-# Automake `primary' says to compile *.java files and put results in `classesdir'
-javadir = $(top_builddir)/$(CLASSESDIR)
-JAVAROOT = $(javadir)
-dist_java_JAVA = $(shell find $(SRCDIR) -name '*.java')
+@PACKAGE@.jar: classjava.stamp $(shell find $(srcdir)/$(SRC_DIR) -type f ! -iname '*.java')
+	cd $(srcdir)/$(SRC_DIR) ; find . -type f ! -iname '*.java' -exec cp --parents -u {} ../$(OBJ_DIR) \;
+	touch $@
+	@JAR@ -uf $@ -C $(OBJ_DIR) .
 
-# Debug flags, no warnings, for javac and gcj
-AM_JAVACFLAGS = $(JAVAC_FLAGS)
-
-# Automake variable with supplemental items to clean
-CLEANFILES = *.class $(JARFILE) pjdbc
-
-# Automake variables needed by java and javac
-JARS = $(shell find $(LIBDIR) -name '*.jar' -printf '%p:')
-CLASSPATH = "$(shell $(CYGPATH_PW) $(JARS)$(top_builddir)/$(CLASSESDIR))"
-CLASSPATH_ENV = export CLASSPATH=$(CLASSPATH);
-
-# Automake `primary' says to put these `scripts' into the ../bin directory
-dist_bin_SCRIPTS = $(BINFILES)
-
-# We need this for substitution in sed commands
-pjdbcdir := $(pkgdatadir)
-
-# Build the main jar file.
-$(JARFILE): classdist_java.stamp $(dist_data_DATA)
-	if ! test -d scratch ; then \
-	  mkdir scratch ; \
-	  cd scratch ; \
-	  find ../lib/*.jar -exec jar -xf {} \; ; \
-	  find . -iname manifest.mf -exec rm {} + ; fi
-	if ! test -f $(JARFILE) ; then \
-	  touch $(JARFILE) ; \
-	  touch ./scratch/ZIPCREATED ; \
-	  @JAR@ -uf $(JARFILE) -C ./scratch . ; fi
-	@JAR@ -uf $(JARFILE) -C $(javadir) .
-
-# Supplemental cleaning rule
 clean-local:
-	rm -rf scratch
-	rm -rf $(javadir)
-
-install-data-local:
-	mkdir -p $(pkgdatadir)
-	mkdir -p $(pkgdatadir)/lib
-	cp $(JARFILE) $(pkgdatadir)/lib
-
-uninstall-local:
-	rm -rf $(pkgdatadir)
-
-# Phony targets have no dependencies.
-.PHONY: distclean-local clean-local all
+	rm -rf $(OBJ_DIR)
