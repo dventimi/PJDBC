@@ -1,4 +1,4 @@
-package org.pjdbc;
+package org.pjdbc.test;
 
 import junit.framework.TestCase;
 import org.junit.runner.JUnitCore;

@@ -1,7 +1,9 @@
-package org.pjdbc;
+package org.pjdbc.test;
 
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import org.pjdbc.lib.*;
 
 /**
@@ -13,7 +15,7 @@ import org.pjdbc.lib.*;
  * @version 1.0
  */
 public class DevNullDriver extends AbstractInterceptingDriver {
-    static {registerDriver(new DevNullDriver());}
+    static {try{DriverManager.registerDriver(new DevNullDriver());} catch(SQLException e) {throw new RuntimeException();}}
 
     /**
      * <code>getSubProtocol</code> should return "null-intercepting".

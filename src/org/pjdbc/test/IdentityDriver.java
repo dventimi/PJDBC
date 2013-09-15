@@ -1,4 +1,4 @@
-package org.pjdbc;
+package org.pjdbc.test;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -17,7 +17,7 @@ import org.pjdbc.lib.*;
  * @version 1.0
  */
 public class IdentityDriver extends AbstractInterceptingDriver {
-    static {registerDriver(new IdentityDriver());}
+    static {try{DriverManager.registerDriver(new IdentityDriver());} catch(SQLException e) {throw new RuntimeException();}}
 
     /**
      * <code>getSubProtocol</code> should return

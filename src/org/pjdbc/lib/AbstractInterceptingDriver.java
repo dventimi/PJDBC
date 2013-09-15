@@ -44,6 +44,26 @@ import java.util.logging.Logger;
  */
 public abstract class AbstractInterceptingDriver implements InterceptingDriver {
     private static List<SQLHandler> handlers = new ArrayList<SQLHandler>();
+    private class ConnectionInvocationHandler implements InvocationHandler {
+	private Connection delegate = null;
+	public ConnectionInvocationHandler (Connection delegate) {
+	    this.delegate = delegate;}
+	public Object invoke (Object proxy, Method method, Object[] args) throws Throwable {
+	    if (method.getName().equals("createStatement")) {
+		Class[] api = new Class[]{Statement.class};
+		Statement statement = (Statement)method.invoke(this.delegate, args);
+		InvocationHandler handler = new StatementInvocationHandler(statement);
+		return Proxy.newProxyInstance(this.getClass().getClassLoader(), api, handler);}
+	    return method.invoke(delegate, args);}}
+    private class StatementInvocationHandler implements InvocationHandler {
+	private Statement delegate = null;
+	public StatementInvocationHandler (Statement delegate) {
+	    this.delegate = delegate;}
+	public Object invoke (Object proxy, Method method, Object[] args) throws Throwable {
+	    if (method.getName().equals("execute"))
+		for (SQLHandler handler : handlers) 
+		    handler.execute((String)args[0], this.delegate.getConnection());
+	    return method.invoke(delegate, args);}}
 
     /**
      * <code>setHandler</code> registers a single
@@ -55,16 +75,6 @@ public abstract class AbstractInterceptingDriver implements InterceptingDriver {
     public static void setHandler (SQLHandler handler) {
 	handlers.clear();
 	if (handler!=null) handlers.add(handler);}
-
-    /**
-     * <code>registerDriver</code> is a convenience method for
-     * registering the given <code>Driver</code> with the
-     * <code>DriverManager</code>.
-     *
-     * @param driver a JDBC <code>Driver</code>
-     */
-    public static void registerDriver (Driver driver) {
-	try {DriverManager.registerDriver(driver);} catch (SQLException se) {throw new RuntimeException(se);}}
 
     /**
      * The <code>connect</code> gets a connection for the provided URL
@@ -162,98 +172,4 @@ public abstract class AbstractInterceptingDriver implements InterceptingDriver {
      *
      * @return a <code>boolean</code> value
      */
-    public final boolean jdbcCompliant() {return false;}
-
-    /**
-     * <code>ConnectionInvocationHandler</code> is an
-     * <code>InvocationHandler</code> for a Dynamic Proxy to a JDBC
-     * <code>Connection</code>.
-     *
-     * @author <a href="mailto:dventimi@gmail.com">David A. Ventimiglia</a>
-     * @version 1.0
-     */
-    public class ConnectionInvocationHandler implements InvocationHandler {
-	private Connection delegate = null;
-
-	/**
-	 * Creates a new <code>ConnectionInvocationHandler</code>
-	 * instance that will forward calls to the target
-	 * <code>delegate</code>.
-	 *
-	 * @param delegate a <code>Connection</code> value
-	 */
-	public ConnectionInvocationHandler (Connection delegate) {
-	    this.delegate = delegate;}
-
-	/**
-	 * Dispatches a generic method call in the Dynamic Proxy
-	 * supported by this <code>InvocationHandler</code> to the
-	 * proxied target.  In practice, because this proxy exists
-	 * specifically as a factory for further proxies in the call
-	 * chain from <code>DriverManager</code> -->
-	 * <code>Connection</code> --> <code>Statement</code> -->
-	 * <code>ResultSet</code>, all methods save for
-	 * <code>createStatement</code> are forwarded directly to the
-	 * delegate proxy.  A call to <code>createStatement</code>,
-	 * however, will return a Dynamic Proxy to a JDBC
-	 * <code>Statement</code>.
-	 *
-	 * @param proxy an <code>Object</code> value
-	 * @param method a <code>Method</code> value
-	 * @param args an <code>Object</code> value
-	 * @return an <code>Object</code> value
-	 * @exception Throwable if an error occurs
-	 */
-	public Object invoke (Object proxy, Method method, Object[] args) throws Throwable {
-	    if (method.getName().equals("createStatement")) {
-		Class[] api = new Class[]{Statement.class};
-		Statement statement = (Statement)method.invoke(this.delegate, args);
-		InvocationHandler handler = new StatementInvocationHandler(statement);
-		return Proxy.newProxyInstance(this.getClass().getClassLoader(), api, handler);}
-	    return method.invoke(delegate, args);}}
-
-    /**
-     * <code>StatementInvocationHandler</code> is an
-     * <code>InvocationHandler</code> for a Dynamic Proxy to a JDBC
-     * <code>Statement</code>.
-     *
-     * @author <a href="mailto:dventimi@gmail.com">David A. Ventimiglia</a>
-     * @version 1.0
-     */
-    public class StatementInvocationHandler implements InvocationHandler {
-	private Statement delegate = null;
-
-	/**
-	 * Creates a new <code>StatementInvocationHandler</code>
-	 * instance that will forward calls to the target
-	 * <code>delegate</code>.
-	 *
-	 * @param delegate a <code>Statement</code> value
-	 */
-	public StatementInvocationHandler (Statement delegate) {
-	    this.delegate = delegate;}
-
-	/**
-	 * Dispatches a generic method call in the Dynamic Proxy
-	 * supported by this <code>InvocationHandler</code> to the
-	 * proxied target.  In practice, because this proxy exists
-	 * chain from <code>DriverManager</code> -->
-	 * <code>Connection</code> --> <code>Statement</code> -->
-	 * <code>ResultSet</code>, all methods save for
-	 * <code>execute</code> are forwarded directly to the delegate
-	 * proxy.  A call to <code>execute</code>, however, will
-	 * execute in order each of any <code>SQLHandler</code> set in
-	 * this driver.  
-	 *
-	 * @param proxy an <code>Object</code> value
-	 * @param method a <code>Method</code> value
-	 * @param args an <code>Object</code> value
-	 * @return an <code>Object</code> value
-	 * @exception Throwable if an error occurs
-	 */
-	public Object invoke (Object proxy, Method method, Object[] args) throws Throwable {
-	    if (method.getName().equals("execute"))
-		for (SQLHandler handler : handlers) 
-		    handler.execute((String)args[0], this.delegate.getConnection());
-	    return method.invoke(delegate, args);}}}
-
+    public final boolean jdbcCompliant() {return false;}}

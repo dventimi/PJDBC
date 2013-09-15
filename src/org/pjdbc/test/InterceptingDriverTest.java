@@ -1,4 +1,4 @@
-package org.pjdbc;
+package org.pjdbc.test;
 
 import java.sql.Connection;
 import java.sql.Driver;
@@ -11,6 +11,7 @@ import java.util.List;
 import org.junit.Ignore;
 import org.junit.runners.Suite;
 import org.pjdbc.lib.*;
+import org.pjdbc.*;
 
 /**
  * Describe class <code>InterceptingDriverTest</code> here.
@@ -19,51 +20,20 @@ import org.pjdbc.lib.*;
  * @version 1.0
  */
 public class InterceptingDriverTest extends AutoTest {
-    /**
-     * Describe variable <code>DB</code> here.
-     *
-     */
     public static String DB = "derby:memory:testdb";
-
-    /**
-     * Describe variable <code>CREATE_DB</code> here.
-     *
-     */
     public static String CREATE_DB = "jdbc:" + DB + ";create=true";
-
-    /**
-     * Describe variable <code>REMOVE_DB</code> here.
-     *
-     */
     public static String REMOVE_DB = "jdbc:" + DB + ";drop=true";
     
-    /**
-     * <code>main</code>
-     * Bootstrap code to call the superclass's autorun static method.
-     * This makes a TestCase a stand-alone runnable class.
-     *
-     * @param args a <code>String</code> value
-     */
     public static void main (String[] args){
 	autorun(new Exception());}
 
-    /**
-     * Every test generally needs to work with a registered driver
-     * so go ahead and register the drivers.
-     *
-     * @exception ClassNotFoundException if an error occurs
-     */
     public void setUp () throws ClassNotFoundException {
-	Class.forName("org.pjdbc.IdentityDriver");
-	Class.forName("org.pjdbc.DevNullDriver");
+	Class.forName("org.pjdbc.test.IdentityDriver");
+	Class.forName("org.pjdbc.test.DevNullDriver");
 	Class.forName("org.pjdbc.ProxyDriver");
 	Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
 	try {DriverManager.getConnection(CREATE_DB);} catch (Throwable t) {}}
 
-    /**
-     * Describe <code>tearDown</code> method here.
-     *
-     */
     public void tearDown () {
 	try {DriverManager.getConnection(REMOVE_DB);} catch (Throwable t) {}}
 
@@ -230,7 +200,6 @@ public class InterceptingDriverTest extends AutoTest {
     		    .getConnection("jdbc:pjdbc:" + DB)
     		    .createStatement()
     		    .execute("create table person (name varchar(30))");}};}
-
 
     private static class CollectingHandler 
 	implements SQLHandler {
