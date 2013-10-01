@@ -10,3 +10,4 @@ config.status
 configure
 pjdbc.jar
 *.stamp
+*.log
