@@ -11,14 +11,12 @@ import java.util.Random;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.logging.Logger;
 
-public class ConnectionPoolDriver implements Driver {
+import org.pjdbc.lib.AbstractProxyDriver;
+
+public class ConnectionPoolDriver extends AbstractProxyDriver {
     private static final ConcurrentHashMap<Properties, Connection> pool = new ConcurrentHashMap<Properties, Connection>();
     private static final Random rand = new Random();
     private static final String size = System.getProperty("org.pjdbc.ConnectionPoolDriver.size", "10");
-
-    public boolean acceptsURL (String URL) {
-	String[] parts = URL.split(":");
-	return parts[0].equals("jdbc") && parts[1].equals("pjdbc");}
 
     public Connection connect (final String URL, final Properties properties) throws SQLException {
 	if (!acceptsURL(URL)) return null;
@@ -47,6 +45,3 @@ public class ConnectionPoolDriver implements Driver {
     
     public Logger getParentLogger () throws SQLFeatureNotSupportedException {
 	throw new SQLFeatureNotSupportedException();}}
-
-
-
