@@ -26,3 +26,4 @@ clean-local:
 
 check: @PACKAGE@.jar
 	@JAVA@ -cp $(CLASSPATH):@PACKAGE@.jar org.junit.runner.JUnitCore org.pjdbc.test.BasicDriverTest
+
