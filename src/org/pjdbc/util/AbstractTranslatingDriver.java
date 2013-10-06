@@ -1,4 +1,4 @@
-package org.pjdbc.lib;
+package org.pjdbc.util;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Proxy;
@@ -13,7 +13,6 @@ import java.sql.SQLFeatureNotSupportedException;
 import java.util.Properties;
 import java.util.Random;
 import java.util.logging.Logger;
-import org.pjdbc.lib.Translator;
 
 public abstract class AbstractTranslatingDriver extends AbstractProxyDriver implements TranslatingDriver {
     public Connection connect (String url, Properties info) throws SQLException {

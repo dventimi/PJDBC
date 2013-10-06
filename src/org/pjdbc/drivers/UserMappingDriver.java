@@ -4,7 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Properties;
-import org.pjdbc.lib.AbstractProxyDriver;
+import org.pjdbc.util.AbstractProxyDriver;
 
 public class UserMappingDriver extends AbstractProxyDriver {
     private Properties p = new Properties();

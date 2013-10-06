@@ -1,4 +1,4 @@
-package org.pjdbc.test;
+package org.pjdbc.util;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
@@ -9,7 +9,6 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import org.pjdbc.lib.AbstractProxyDriver;
 
 public abstract class AutoMockTest extends AutoTest {
     protected interface ScratchLog {

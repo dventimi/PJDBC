@@ -5,7 +5,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Properties;
 
-import org.pjdbc.lib.AbstractProxyDriver;
+import org.pjdbc.util.AbstractProxyDriver;
 
 public class BasicDriver extends AbstractProxyDriver {
     static {try {DriverManager.registerDriver(new BasicDriver());} catch (Exception e) {throw new RuntimeException(e);}}

@@ -1,4 +1,4 @@
-package org.pjdbc.lib;
+package org.pjdbc.util;
 
 import java.sql.Driver;
 

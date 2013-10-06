@@ -3,8 +3,8 @@ package org.pjdbc.drivers;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import org.pjdbc.lib.AbstractTranslatingDriver;
-import org.pjdbc.lib.Translator;
+import org.pjdbc.util.AbstractTranslatingDriver;
+import org.pjdbc.util.Translator;
 
 public class IdentityDriver extends AbstractTranslatingDriver {
     public int getMajorVersion () {

@@ -1,4 +1,4 @@
-package org.pjdbc.lib;
+package org.pjdbc.util;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Proxy;

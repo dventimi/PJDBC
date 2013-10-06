@@ -12,8 +12,8 @@ import java.sql.SQLFeatureNotSupportedException;
 import java.util.Properties;
 import java.util.Random;
 import java.util.logging.Logger;
-import org.pjdbc.lib.AbstractProxyDriver;
-import org.pjdbc.lib.Pool;
+import org.pjdbc.util.AbstractProxyDriver;
+import org.pjdbc.util.Pool;
 
 public class PoolingDriver extends AbstractProxyDriver {
     private Pool<Properties, Connection> pool = new Pool<Properties, Connection>();

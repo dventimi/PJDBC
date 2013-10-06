@@ -5,6 +5,7 @@ import java.sql.Driver;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import org.pjdbc.drivers.BasicDriver;
+import org.pjdbc.util.AutoMockTest;
 
 public class BasicDriverTest extends AutoMockTest {
     private static String SUBPROTOCOL = "mock";

@@ -1,9 +1,8 @@
-package org.pjdbc.test;
+package org.pjdbc.util;
 
 import junit.framework.TestCase;
 import org.junit.runner.JUnitCore;
 import org.junit.runner.notification.Failure;
-import org.pjdbc.lib.AbstractProxyDriver;
 
 public abstract class AutoTest extends TestCase {
     public static void autorun (String className) {
