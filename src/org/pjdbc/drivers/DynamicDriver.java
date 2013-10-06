@@ -1,4 +1,4 @@
-package org.pjdbc;
+package org.pjdbc.drivers;
 
 import java.sql.Connection;
 import java.sql.ResultSet;

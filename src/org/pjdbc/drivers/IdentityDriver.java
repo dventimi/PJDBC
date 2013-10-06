@@ -1,4 +1,4 @@
-package org.pjdbc;
+package org.pjdbc.drivers;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -6,7 +6,7 @@ import java.sql.SQLException;
 import org.pjdbc.lib.AbstractTranslatingDriver;
 import org.pjdbc.lib.Translator;
 
-public class NoOpDriver extends AbstractTranslatingDriver {
+public class IdentityDriver extends AbstractTranslatingDriver {
     private final int majorVersion = 1;
     private final int minorVersion = 1;
     private final boolean jdbcCompliant = false;
@@ -17,4 +17,4 @@ public class NoOpDriver extends AbstractTranslatingDriver {
     public Translator getTranslator () {
 	return new Translator () {
 	    public ResultSet execute (String sql, Connection conn) throws SQLException {
-		return conn.createStatement().executeQuery("");}};}}
+		return conn.createStatement().executeQuery(sql);}};}}
