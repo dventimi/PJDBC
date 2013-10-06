@@ -16,6 +16,10 @@ import java.util.Properties;
 import java.util.logging.Logger;
 
 public abstract class AbstractProxyDriver implements ProxyDriver {
+    private final int majorVersion = 1;
+    private final int minorVersion = 1;
+    private final boolean jdbcCompliant = false;
+
     public static String protocol (String url) {
 	return url.split(":")[0];}
 
@@ -52,4 +56,15 @@ public abstract class AbstractProxyDriver implements ProxyDriver {
 	return driver.getPropertyInfo(subname(url), info);}
 
     public Logger getParentLogger () throws SQLFeatureNotSupportedException {
-	throw new SQLFeatureNotSupportedException();}}
+	throw new SQLFeatureNotSupportedException();}
+
+    public int getMajorVersion () {
+	return majorVersion;}
+
+    public int getMinorVersion () {
+	return minorVersion;}
+
+    public boolean jdbcCompliant () {
+	return jdbcCompliant;}}
+
+
