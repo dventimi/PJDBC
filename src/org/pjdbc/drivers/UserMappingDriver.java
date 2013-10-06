@@ -7,18 +7,23 @@ import java.util.Properties;
 import org.pjdbc.lib.AbstractProxyDriver;
 
 public class UserMappingDriver extends AbstractProxyDriver {
-    private final int majorVersion = 1;
-    private final int minorVersion = 1;
-    private final boolean jdbcCompliant = false;
-
     private Properties p = new Properties();
+
+    public int getMajorVersion () {
+	return 1;}
+
+    public int getMinorVersion () {
+	return 0;}
+
+    public boolean jdbcCompliant () {
+	return false;}
 
     public UserMappingDriver () {
     	try {p.load(getClass().getClassLoader().getResourceAsStream("org.pjdbc.UserMappingDriver.UserMapFile"));}
 	catch (Exception e) {throw new RuntimeException(e);}}
 
     public boolean acceptsSubProtocol (String subprotocol) {
-	return "substitute".equals(subprotocol);}
+	return "mapuser".equals(subprotocol);}
 
     public Connection connect (String url, Properties info) throws SQLException {
 	if (!acceptsURL(url)) return null;

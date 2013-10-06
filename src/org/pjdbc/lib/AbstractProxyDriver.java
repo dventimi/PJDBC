@@ -16,18 +16,14 @@ import java.util.Properties;
 import java.util.logging.Logger;
 
 public abstract class AbstractProxyDriver implements ProxyDriver {
-    private final int majorVersion = 1;
-    private final int minorVersion = 1;
-    private final boolean jdbcCompliant = false;
-
     public static String protocol (String url) {
-	return url.split(":")[0];}
+	return (""+url).split(":")[0];}
 
     public static String subprotocol (String url) {
-	return url.split(":")[1];}
+	return (""+url).split(":")[1];}
 
     public static String subname (String url) {
-	return join(slice(Arrays.asList(url.split(":")), 2), ":");}
+	return join(slice(Arrays.asList((""+url).split(":")), 2), ":");}
 
     public static String join (List items, String delimiter) {
 	return new ArrayList(items).toString().replace("[", "").replace("]","").replace(", ", delimiter);}
@@ -47,7 +43,10 @@ public abstract class AbstractProxyDriver implements ProxyDriver {
 	return "jdbc".equals(protocol);}
 
     public boolean acceptsURL (String url) {
-	return acceptsProtocol(protocol(url)) && acceptsSubProtocol(subprotocol(url));}
+	if (!acceptsProtocol(protocol(""+url))) return false;
+	if (!acceptsSubProtocol(subprotocol(""+url))) return false;
+	if (!(""+url).matches("jdbc:basic:.*")) return false;
+	return true;}
 
     public DriverPropertyInfo[] getPropertyInfo (String url, Properties info) throws SQLException {
 	if (!acceptsURL(url)) throw new SQLException("Invalid url:  " + url);
@@ -56,15 +55,6 @@ public abstract class AbstractProxyDriver implements ProxyDriver {
 	return driver.getPropertyInfo(subname(url), info);}
 
     public Logger getParentLogger () throws SQLFeatureNotSupportedException {
-	throw new SQLFeatureNotSupportedException();}
-
-    public int getMajorVersion () {
-	return majorVersion;}
-
-    public int getMinorVersion () {
-	return minorVersion;}
-
-    public boolean jdbcCompliant () {
-	return jdbcCompliant;}}
+	throw new SQLFeatureNotSupportedException();}}
 
 

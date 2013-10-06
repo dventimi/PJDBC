@@ -15,12 +15,17 @@ import java.util.logging.Logger;
 import org.pjdbc.lib.AbstractProxyDriver;
 import org.pjdbc.lib.Pool;
 
-public class PoolingProxyDriver extends AbstractProxyDriver {
-    private final int majorVersion = 1;
-    private final int minorVersion = 1;
-    private final boolean jdbcCompliant = false;
-
+public class PoolingDriver extends AbstractProxyDriver {
     private Pool<Properties, Connection> pool = new Pool<Properties, Connection>();
+
+    public int getMajorVersion () {
+	return 1;}
+
+    public int getMinorVersion () {
+	return 0;}
+
+    public boolean jdbcCompliant () {
+	return false;}
 
     public boolean acceptsSubProtocol (String subprotocol) {
 	return "pool".equals(subprotocol);}

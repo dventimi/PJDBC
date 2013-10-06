@@ -7,9 +7,14 @@ import org.pjdbc.lib.AbstractTranslatingDriver;
 import org.pjdbc.lib.Translator;
 
 public class IdentityDriver extends AbstractTranslatingDriver {
-    private final int majorVersion = 1;
-    private final int minorVersion = 1;
-    private final boolean jdbcCompliant = false;
+    public int getMajorVersion () {
+	return 1;}
+
+    public int getMinorVersion () {
+	return 0;}
+
+    public boolean jdbcCompliant () {
+	return false;}
 
     public boolean acceptsSubProtocol (String subprotocol) {
 	return "identity".equals(subprotocol);}
