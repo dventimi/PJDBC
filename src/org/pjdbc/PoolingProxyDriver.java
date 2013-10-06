@@ -15,7 +15,7 @@ import java.util.logging.Logger;
 import org.pjdbc.lib.AbstractProxyDriver;
 import org.pjdbc.lib.Pool;
 
-public class PoolingProxyDriver extends BasicProxyDriver {
+public class PoolingProxyDriver extends AbstractProxyDriver {
     private Pool<Properties, Connection> pool = new Pool<Properties, Connection>();
 
     public boolean acceptsSubProtocol (String subprotocol) {
@@ -28,6 +28,15 @@ public class PoolingProxyDriver extends BasicProxyDriver {
 	Connection conn = pool.take(key);
 	return (conn!=null) ? conn : proxyConnection(new ConnectionHandler(DriverManager.getConnection(subname(url), info), info));}
 
+    public int getMajorVersion () {
+	return 1;}
+
+    public int getMinorVersion () {
+	return 0;}
+
+    public boolean jdbcCompliant () {
+	return false;}
+    
     private class ConnectionHandler implements InvocationHandler {
     	private Connection delegate;
 	private Properties key;

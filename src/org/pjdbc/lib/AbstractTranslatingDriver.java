@@ -13,7 +13,7 @@ import java.sql.SQLFeatureNotSupportedException;
 import java.util.Properties;
 import java.util.Random;
 import java.util.logging.Logger;
-import org.pjdbc.lib.SQLHandler;
+import org.pjdbc.lib.Translator;
 
 public abstract class AbstractTranslatingDriver extends AbstractProxyDriver implements TranslatingDriver {
     public Connection connect (String url, Properties info) throws SQLException {
@@ -30,8 +30,8 @@ public abstract class AbstractTranslatingDriver extends AbstractProxyDriver impl
 
     private class StatementHandler implements InvocationHandler {
 	private Statement delegate;
-	private SQLHandler handler;
-	public StatementHandler (Statement delegate, SQLHandler handler) {
+	private Translator handler;
+	public StatementHandler (Statement delegate, Translator handler) {
 	    this.delegate = delegate;
 	    this.handler = handler;}
 	public Object invoke (Object proxy, Method method, Object[] args) throws Throwable {
