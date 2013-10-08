@@ -7,7 +7,7 @@ import java.util.Properties;
 import org.pjdbc.util.AbstractProxyDriver;
 
 public class UserMappingDriver extends AbstractProxyDriver {
-    static {try {DriverManager.registerDriver(new PoolingDriver());} catch (Exception e) {throw new RuntimeException(e);}}
+    static {try {DriverManager.registerDriver(new UserMappingDriver());} catch (Exception e) {throw new RuntimeException(e);}}
 
     private Properties p = new Properties();
 
