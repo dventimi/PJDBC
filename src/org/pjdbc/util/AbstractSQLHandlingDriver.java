@@ -23,8 +23,7 @@ public abstract class AbstractSQLHandlingDriver extends AbstractProxyDriver impl
     	private Connection delegate;
     	public ConnectionHandler (Connection delegate) {delegate = delegate;}
     	public Object invoke (Object proxy, Method method, Object[] args) throws Throwable {
-	    if ("createStatement".equals(method.getName()))
-		return proxyStatement(new StatementHandler((Statement)method.invoke(this.delegate, args), getSQLHandler()));
+	    if ("createStatement".equals(method.getName())) return proxyStatement(new StatementHandler((Statement)method.invoke(this.delegate, args), getSQLHandler()));
 	    return method.invoke(delegate, args);}}
 
     private class StatementHandler implements InvocationHandler {
