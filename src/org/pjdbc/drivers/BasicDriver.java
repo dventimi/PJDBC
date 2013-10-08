@@ -10,15 +10,6 @@ import org.pjdbc.util.AbstractProxyDriver;
 public class BasicDriver extends AbstractProxyDriver {
     static {try {DriverManager.registerDriver(new BasicDriver());} catch (Exception e) {throw new RuntimeException(e);}}
 
-    public int getMajorVersion () {
-	return 1;}
-
-    public int getMinorVersion () {
-	return 0;}
-
-    public boolean jdbcCompliant () {
-	return false;}
-
     public boolean acceptsSubProtocol (String subprotocol) {
 	return "basic".equals(subprotocol);}
 

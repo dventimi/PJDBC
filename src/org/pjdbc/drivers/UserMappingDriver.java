@@ -7,16 +7,9 @@ import java.util.Properties;
 import org.pjdbc.util.AbstractProxyDriver;
 
 public class UserMappingDriver extends AbstractProxyDriver {
+    static {try {DriverManager.registerDriver(new PoolingDriver());} catch (Exception e) {throw new RuntimeException(e);}}
+
     private Properties p = new Properties();
-
-    public int getMajorVersion () {
-	return 1;}
-
-    public int getMinorVersion () {
-	return 0;}
-
-    public boolean jdbcCompliant () {
-	return false;}
 
     public UserMappingDriver () {
     	try {p.load(getClass().getClassLoader().getResourceAsStream("org.pjdbc.UserMappingDriver.UserMapFile"));}

@@ -16,16 +16,9 @@ import org.pjdbc.util.AbstractProxyDriver;
 import org.pjdbc.util.Pool;
 
 public class PoolingDriver extends AbstractProxyDriver {
+    static {try {DriverManager.registerDriver(new PoolingDriver());} catch (Exception e) {throw new RuntimeException(e);}}
+
     private Pool<Properties, Connection> pool = new Pool<Properties, Connection>();
-
-    public int getMajorVersion () {
-	return 1;}
-
-    public int getMinorVersion () {
-	return 0;}
-
-    public boolean jdbcCompliant () {
-	return false;}
 
     public boolean acceptsSubProtocol (String subprotocol) {
 	return "pool".equals(subprotocol);}

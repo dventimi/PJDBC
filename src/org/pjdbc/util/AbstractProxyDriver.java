@@ -39,13 +39,22 @@ public abstract class AbstractProxyDriver implements ProxyDriver {
     protected Statement proxyStatement (InvocationHandler h) {
 	return (Statement)Proxy.newProxyInstance(getClass().getClassLoader(), new Class[]{Statement.class}, h);}
 
+    public int getMajorVersion () {
+	return 1;}
+
+    public int getMinorVersion () {
+	return 0;}
+
+    public boolean jdbcCompliant () {
+	return false;}
+
     public boolean acceptsProtocol (String protocol) {
 	return "jdbc".equals(protocol);}
 
     public boolean acceptsURL (String url) {
 	if (!acceptsProtocol(protocol(""+url))) return false;
 	if (!acceptsSubProtocol(subprotocol(""+url))) return false;
-	if (!(""+url).matches("jdbc:basic:.*")) return false;
+	if (!(""+url).matches("jdbc:.*:.*")) return false;
 	return true;}
 
     public DriverPropertyInfo[] getPropertyInfo (String url, Properties info) throws SQLException {
