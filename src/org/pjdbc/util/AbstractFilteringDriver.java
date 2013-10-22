@@ -14,7 +14,7 @@ import java.util.Properties;
 import java.util.Random;
 import java.util.logging.Logger;
 
-public abstract class AbstractSQLHandlingDriver extends AbstractProxyDriver implements SQLHandlingDriver {
+public abstract class AbstractFilteringDriver extends AbstractProxyDriver implements FilteringDriver {
     public Connection connect (String url, Properties info) throws SQLException {
 	if (!acceptsURL(url)) return null;
 	return proxyConnection(new ConnectionHandler(DriverManager.getConnection(subname(url), info)));}
@@ -24,15 +24,15 @@ public abstract class AbstractSQLHandlingDriver extends AbstractProxyDriver impl
     	public ConnectionHandler (Connection delegate) {delegate = delegate;}
     	public Object invoke (Object proxy, Method method, Object[] args) throws Throwable {
 	    if ("createStatement".equals(method.getName()))
-		return proxyStatement(new StatementHandler((Statement)method.invoke(this.delegate, args), getSQLHandler()));
+		return proxyStatement(new StatementHandler((Statement)method.invoke(this.delegate, args), getFilter()));
 	    return method.invoke(delegate, args);}}
 
     private class StatementHandler implements InvocationHandler {
 	private Statement delegate;
-	private SQLHandler handler;
-	public StatementHandler (Statement delegate, SQLHandler handler) {
+	private Filter filter;
+	public StatementHandler (Statement delegate, Filter filter) {
 	    this.delegate = delegate;
-	    this.handler = handler;}
+	    this.filter = filter;}
 	public Object invoke (Object proxy, Method method, Object[] args) throws Throwable {
-	    if ("execute".equals(method.getName())) return handler.handle((String)args[0], this.delegate.getConnection());
+	    if ("execute".equals(method.getName())) return filter.apply((String)args[0], this.delegate.getConnection());
 	    return method.invoke(delegate, args);}}}
