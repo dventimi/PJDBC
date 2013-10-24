@@ -17,13 +17,13 @@ import java.util.logging.Logger;
 
 public abstract class AbstractProxyDriver implements ProxyDriver {
     public static String protocol (String url) {
-	return (""+url).split(":")[0];}
+	return (""+url).split(":").length > 0 ? (""+url).split(":")[0] : null;}
 
     public static String subprotocol (String url) {
-	return (""+url).split(":")[1];}
+	return (""+url).split(":").length > 1 ? (""+url).split(":")[1] : null;}
 
     public static String subname (String url) {
-	return join(slice(Arrays.asList((""+url).split(":")), 2), ":");}
+	return (""+url).split(":").length > 2 ? join(slice(Arrays.asList((""+url).split(":")), 2), ":") : null;}
 
     public static String join (List items, String delimiter) {
 	return new ArrayList(items).toString().replace("[", "").replace("]","").replace(", ", delimiter);}

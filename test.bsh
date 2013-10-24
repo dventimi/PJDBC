@@ -1,0 +1,19 @@
+#!/bin/sh
+//bin/true; exec java -cp /usr/share/java/bsh.jar bsh.Interpreter "$0" "$@"
+
+reloadClasses();
+import org.pjdbc.util.*;
+import org.pjdbc.drivers.*;
+import org.pjdbc.test.*;
+addClassPath("lib/junit-4.8.2.jar");
+addClassPath("pjdbc.jar");
+test = new BasicDriverTest();
+driver = test.getMockDriver("foo");
+conn = driver.connect("jdbc:foo:bar", new Properties());
+stmt = conn.createStatement();
+rs = stmt.executeQuery("select * from person;");
+print(test.getLog());
+
+/* Local Variables: */
+/* Mode: java       */
+/* End:             */
