@@ -12,6 +12,11 @@ import java.util.Properties;
 import java.sql.ResultSet;
 
 public abstract class AbstractProxyDriver extends AbstractDriver {
+    protected boolean acceptsSubName (String subname) {
+	try {return DriverManager.getDriver(subname)!=null;}
+	catch (Exception e) {};
+	return false;}
+
     protected Connection proxyConnection (Driver driver, Connection conn) {
 	return new AbstractProxyConnection(driver, conn) {
 	    public Statement createStatement () throws SQLException {
@@ -30,11 +35,6 @@ public abstract class AbstractProxyDriver extends AbstractDriver {
     public Connection connect (String url, Properties info) throws SQLException {
     	if (!acceptsURL(url)) return null;
 	return proxyConnection(this, DriverManager.getConnection(subname(url), info));}
-
-    public boolean acceptsSubName (String subname) {
-	try {return DriverManager.getDriver(subname)!=null;}
-	catch (Exception e) {};
-	return false;}
 
     public DriverPropertyInfo[] getPropertyInfo (String url, Properties info) throws SQLException {
 	if (!acceptsURL(url)) throw new SQLException("Invalid url:  " + url);

@@ -26,6 +26,9 @@ public class LoggingDriver extends AbstractProxyDriver {
     
     static {LOGGER.setLevel(Level.INFO);}
 
+    protected boolean acceptsSubProtocol (String subprotocol) {
+	return "log".equals(subprotocol);}
+
     protected Statement proxyStatement (Connection conn, Statement delegate) {
 	return new AbstractProxyStatement(conn, delegate) {
 	    public void addBatch (String sql) throws SQLException {
@@ -54,8 +57,6 @@ public class LoggingDriver extends AbstractProxyDriver {
 		return super.executeUpdate(sql, columnIndexes);}
 	    public int executeUpdate (String sql, String[] columnNames) throws SQLException {
 		LOGGER.info(sql);
-		return super.executeUpdate(sql, columnNames);}};}
+		return super.executeUpdate(sql, columnNames);}};}}
 
-    protected boolean acceptsSubProtocol (String subprotocol) {
-	return "log".equals(subprotocol);}}
 
