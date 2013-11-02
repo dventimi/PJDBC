@@ -11,9 +11,6 @@ import org.pjdbc.util.AbstractProxyStatement;
 public class CatDriver extends AbstractProxyDriver {
     static {try {DriverManager.registerDriver(new CatDriver());} catch (Exception e) {throw new RuntimeException(e);}}
 
-    public Statement proxyStatement (Connection conn, Statement delegate) {
-    	return new AbstractProxyStatement(conn, delegate) {};}
-
     public boolean acceptsSubProtocol (String subprotocol) {
 	return "cat".equals(subprotocol);}}
 

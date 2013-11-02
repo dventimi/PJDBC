@@ -11,7 +11,7 @@ import java.sql.Statement;
 import java.util.Properties;
 import java.sql.ResultSet;
 
-public abstract class AbstractProxyDriver extends AbstractPJDBCDriver {
+public abstract class AbstractProxyDriver extends AbstractDriver {
     protected Connection proxyConnection (Driver driver, Connection conn) {
 	return new AbstractProxyConnection(driver, conn) {
 	    public Statement createStatement () throws SQLException {
