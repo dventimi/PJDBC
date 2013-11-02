@@ -15,7 +15,7 @@ public class UserMappingDriver extends AbstractProxyDriver {
     	try {p.load(getClass().getClassLoader().getResourceAsStream("org.pjdbc.UserMappingDriver.UserMapFile"));}
 	catch (Exception e) {throw new RuntimeException(e);}}
 
-    public boolean acceptsSubProtocol (String subprotocol) {
+    protected boolean acceptsSubProtocol (String subprotocol) {
 	return "mapuser".equals(subprotocol);}
 
     public Connection connect (String url, Properties info) throws SQLException {

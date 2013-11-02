@@ -56,6 +56,6 @@ public class LoggingDriver extends AbstractProxyDriver {
 		LOGGER.info(sql);
 		return super.executeUpdate(sql, columnNames);}};}
 
-    public boolean acceptsSubProtocol (String subprotocol) {
+    protected boolean acceptsSubProtocol (String subprotocol) {
 	return "log".equals(subprotocol);}}
 

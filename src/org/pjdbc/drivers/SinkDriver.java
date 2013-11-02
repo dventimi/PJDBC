@@ -9,6 +9,6 @@ import org.pjdbc.util.AbstractProxyDriver;
 public class SinkDriver extends AbstractProxyDriver {
     static {try {DriverManager.registerDriver(new SinkDriver());} catch (Exception e) {throw new RuntimeException(e);}}
 
-    public boolean acceptsSubProtocol (String subprotocol) {
+    protected boolean acceptsSubProtocol (String subprotocol) {
 	return "sink".equals(subprotocol);}}
 

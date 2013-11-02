@@ -9,6 +9,6 @@ import org.pjdbc.util.AbstractProxyDriver;
 public class TeeDriver extends AbstractProxyDriver {
     static {try {DriverManager.registerDriver(new TeeDriver());} catch (Exception e) {throw new RuntimeException(e);}}
 
-    public boolean acceptsSubProtocol (String subprotocol) {
+    protected boolean acceptsSubProtocol (String subprotocol) {
 	return "tee".equals(subprotocol);}}
 

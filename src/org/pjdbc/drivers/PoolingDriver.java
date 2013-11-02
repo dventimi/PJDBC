@@ -20,7 +20,7 @@ public abstract class PoolingDriver extends AbstractProxyDriver {
 
     private Pool<Properties, Connection> pool = new Pool<Properties, Connection>();
 
-    public boolean acceptsSubProtocol (String subprotocol) {
+    protected boolean acceptsSubProtocol (String subprotocol) {
 	return "pool".equals(subprotocol);}
 
     // public Connection connect (String url, Properties info) throws SQLException {
