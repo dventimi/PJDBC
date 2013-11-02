@@ -1,0 +1,55 @@
+package org.pjdbc.util;
+
+import java.sql.Driver;
+import java.sql.SQLFeatureNotSupportedException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.logging.Logger;
+
+public abstract class AbstractDriver implements Driver {
+    public static String protocol (String url) {
+	return (""+url).split(":").length > 0 ? (""+url).split(":")[0] : null;}
+
+    public static String subprotocol (String url) {
+	return (""+url).split(":").length > 1 ? (""+url).split(":")[1] : null;}
+
+    public static String subname (String url) {
+	return (""+url).split(":").length > 2 ? join(slice(Arrays.asList((""+url).split(":")), 2), ":") : null;}
+
+    public static String join (List items, String delimiter) {
+	return new ArrayList(items).toString().replace("[", "").replace("]","").replace(", ", delimiter);}
+
+    public static List slice (List items, int... interval) throws IllegalArgumentException {
+	if (interval.length==1) return items.subList(interval[0], items.size());
+	if (interval.length==2) return items.subList(interval[0], interval[1]);
+	throw new IllegalArgumentException("Wrong interval:  " + interval);}
+
+    public boolean acceptsURL (String url) {
+	if (!(""+url).matches("jdbc:.*:.*")) return false;
+	if (!acceptsProtocol(protocol(""+url))) return false;
+	if (!acceptsSubProtocol(subprotocol(""+url))) return false;
+	if (!acceptsSubName(subname(""+url))) return false;
+	return true;}
+
+    protected boolean acceptsProtocol (String protocol) {
+	return "jdbc".equals(protocol);}
+
+    protected boolean acceptsSubProtocol (String subprotocol) {
+	return false;}
+
+    protected boolean acceptsSubName (String subname) {
+	return false;}
+
+    public int getMajorVersion () {
+	return 1;}
+
+    public int getMinorVersion () {
+	return 0;}
+
+    public Logger getParentLogger () throws SQLFeatureNotSupportedException {
+	throw new SQLFeatureNotSupportedException();}
+
+    public boolean jdbcCompliant () {
+	return false;}}
+

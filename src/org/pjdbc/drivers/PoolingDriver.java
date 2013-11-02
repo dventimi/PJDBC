@@ -15,20 +15,20 @@ import java.util.logging.Logger;
 import org.pjdbc.util.AbstractProxyDriver;
 import org.pjdbc.util.Pool;
 
-public class PoolingDriver extends AbstractProxyDriver {
-    static {try {DriverManager.registerDriver(new PoolingDriver());} catch (Exception e) {throw new RuntimeException(e);}}
+public abstract class PoolingDriver extends AbstractProxyDriver {
+    // static {try {DriverManager.registerDriver(new PoolingDriver());} catch (Exception e) {throw new RuntimeException(e);}}
 
     private Pool<Properties, Connection> pool = new Pool<Properties, Connection>();
 
     public boolean acceptsSubProtocol (String subprotocol) {
 	return "pool".equals(subprotocol);}
 
-    public Connection connect (String url, Properties info) throws SQLException {
-	if (!acceptsURL(url)) return null;
-	Properties key = new Properties(info);
-	key.setProperty("subname", subname(url));
-	Connection conn = pool.take(key);
-	return (conn!=null) ? conn : proxyConnection(new ConnectionHandler(DriverManager.getConnection(subname(url), info), info));}
+    // public Connection connect (String url, Properties info) throws SQLException {
+    // 	if (!acceptsURL(url)) return null;
+    // 	Properties key = new Properties(info);
+    // 	key.setProperty("subname", subname(url));
+    // 	Connection conn = pool.take(key);
+    // 	return (conn!=null) ? conn : proxyConnection(new ConnectionHandler(DriverManager.getConnection(subname(url), info), info));}
 
     private class ConnectionHandler implements InvocationHandler {
     	private Connection delegate;
