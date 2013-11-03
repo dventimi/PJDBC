@@ -1,10 +1,13 @@
 package org.pjdbc.util;
 
 import java.sql.Driver;
+import java.sql.DriverPropertyInfo;
+import java.sql.SQLException;
 import java.sql.SQLFeatureNotSupportedException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Properties;
 import java.util.logging.Logger;
 
 public abstract class AbstractDriver implements Driver {
@@ -49,6 +52,9 @@ public abstract class AbstractDriver implements Driver {
 
     public Logger getParentLogger () throws SQLFeatureNotSupportedException {
 	throw new SQLFeatureNotSupportedException();}
+
+    public DriverPropertyInfo[] getPropertyInfo (String url, Properties info) throws SQLException {
+	return null;}
 
     public boolean jdbcCompliant () {
 	return false;}}
