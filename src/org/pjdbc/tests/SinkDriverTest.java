@@ -1,4 +1,4 @@
-package org.pjdbc.test;
+package org.pjdbc.tests;
 
 import java.sql.Connection;
 import java.sql.Driver;

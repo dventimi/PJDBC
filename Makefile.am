@@ -25,6 +25,7 @@ clean-local:
 	rm -rf $(OBJ_DIR)
 
 check: @PACKAGE@.jar
-	@JAVA@ -cp $(CLASSPATH):@PACKAGE@.jar org.junit.runner.JUnitCore org.pjdbc.test.CatDriverTest
-	@JAVA@ -cp $(CLASSPATH):@PACKAGE@.jar org.junit.runner.JUnitCore org.pjdbc.test.SinkDriverTest
+	@JAVA@ -cp $(CLASSPATH):@PACKAGE@.jar org.junit.runner.JUnitCore org.pjdbc.tests.CatDriverTest
+	@JAVA@ -cp $(CLASSPATH):@PACKAGE@.jar org.junit.runner.JUnitCore org.pjdbc.tests.SinkDriverTest
+	@JAVA@ -cp $(CLASSPATH):@PACKAGE@.jar org.junit.runner.JUnitCore org.pjdbc.tests.FilteringDriverTest
 

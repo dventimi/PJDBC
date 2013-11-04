@@ -21,7 +21,7 @@ public class FilteringDriver extends AbstractProxyDriver {
 	return "filter".equals(subprotocol);}
 
     protected Filter getFilter () {
-	try {return (Filter)Class.forName(System.getProperty(FilteringDriver.class.getName()+".Filter")).newInstance();} catch (Exception e) {}
+	try {return (Filter)Class.forName(System.getProperty("org.pjdbc.drivers.FilteringDriver.Filter")).newInstance();} catch (Exception e) {}
 	return new AbstractFilter() {};}
 
     protected Statement proxyStatement (Connection conn, Statement delegate) {
