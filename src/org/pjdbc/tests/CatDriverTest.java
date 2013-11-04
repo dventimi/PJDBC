@@ -5,6 +5,7 @@ import java.sql.Driver;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import org.pjdbc.drivers.CatDriver;
+import org.pjdbc.tests.MockDriver;
 import org.pjdbc.util.AutoMockTest;
 
 public class CatDriverTest extends AutoMockTest {
@@ -15,7 +16,7 @@ public class CatDriverTest extends AutoMockTest {
 
     public void setUp () throws ClassNotFoundException, SQLException {
 	Class.forName("org.pjdbc.drivers.CatDriver");
-	DriverManager.registerDriver(getMockDriver(SUBPROTOCOL));}
+	Class.forName("org.pjdbc.tests.MockDriver");}
 
     public void testVersionInfo () {
 	new Script () {public void run () throws Exception {
@@ -28,47 +29,33 @@ public class CatDriverTest extends AutoMockTest {
 	    assertFalse(new CatDriver().jdbcCompliant());
 	}};}
 
-    public void testAcceptsSubProtocol () {
-	new Script () {public void run () throws Exception {
-	    // assertTrue(new CatDriver().acceptsSubProtocol("basic"));
-	    // assertFalse(new CatDriver().acceptsSubProtocol("foo"));
-	}};}
-
     public void testAcceptsURL () {
 	new Script () {public void run () throws Exception {
-	    assertTrue(new CatDriver().acceptsURL("jdbc:basic:foo"));
-	    assertTrue(new CatDriver().acceptsURL("jdbc:basic:"));
-	    assertFalse(new CatDriver().acceptsURL("jdbc:basic"));
+	    assertFalse(new CatDriver().acceptsURL("jdbc:cat"));
+	    assertFalse(new CatDriver().acceptsURL("jdbc:cat:"));
+	    assertFalse(new CatDriver().acceptsURL("jdbc:cat:foo"));
+	    assertTrue(new CatDriver().acceptsURL("jdbc:cat:jdbc:mock:foo"));
 	}};}
 
     public void testConnectDirectly () {
 	new Script () {public void run () throws Exception {
 	    assertFalse(new CatDriver().acceptsURL("foo"));
 	    assertNull(new CatDriver().connect("foo", null));
-	    assertNull(new CatDriver().connect("jdbc:basic", null));
-	    assertNotNull(new CatDriver().connect("jdbc:basic:", null));
-	    assertNotNull(new CatDriver().connect("jdbc:basic:jdbc:mock:foo", null));
-	    assertEquals(SUBPROTOCOL, new CatDriver().connect("jdbc:basic:jdbc:mock:foo", null).getCatalog());
+	    assertNull(new CatDriver().connect("jdbc:cat", null));
+	    assertNull(new CatDriver().connect("jdbc:cat:", null));
+	    assertNotNull(new CatDriver().connect("jdbc:cat:jdbc:mock:foo", null));
 	}};}
 
     public void testConnectIndirectly () {
 	new Script () {public void run () throws Exception {
-	    assertNotNull(DriverManager.getConnection("jdbc:basic:", null));
-	    assertNotNull(DriverManager.getConnection("jdbc:basic:jdbc:mock:foo", null));
-	    assertEquals(SUBPROTOCOL, DriverManager.getConnection("jdbc:basic:jdbc:mock:foo", null).getCatalog());
+	    assertNotNull(DriverManager.getConnection("jdbc:cat:jdbc:mock:foo", null));
 	}};}
-
 
     public void testConnectDirectlyAndInvokeMethods () {
 	new Script () {public void run () throws Exception {
-	    Connection c = (Connection)(new CatDriver().connect("jdbc:basic:jdbc:mock:foo", null));
-	    // assertNotNull(c.getLog());
-	    // assertTrue(c.getLog().isEmpty());
+	    Connection c = (Connection)(new CatDriver().connect("jdbc:cat:jdbc:mock:foo", null));
+	    MockDriver d = (MockDriver)DriverManager.getDriver("jdbc:mock:foo");
+	    assertNotNull(d.getLog("jdbc:mock:foo"));
 	    c.createStatement();
-	    c.prepareStatement("");
-	    // assertFalse(c.getLog().isEmpty());
-	    // assertEquals(2, c.getLog().size());
-	    // assertEquals("createStatement", c.getLog().get(0));
-	    // assertEquals("prepareStatement", c.getLog().get(1));
 	}};}
 }

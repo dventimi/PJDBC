@@ -40,6 +40,14 @@ public class MockDriver extends AbstractDriver {
 	public OutputStream getStream () {return this.out;}
 	public Formatter getFormatter () {return this.formatter;}}
 
+    private static class LoggingInvocationHandler implements InvocationHandler {
+	private Logger l;
+	public LoggingInvocationHandler (Logger log) {
+	    this.l = log;}
+	public Object invoke (Object proxy, Method method, Object[] args) {
+	    l.info(method.getName() + (args!=null && args.length>0 ? Arrays.asList(args) : new ArrayList()));
+	    return null;}}
+
     private static Map<String, MyStreamHandler> handlers = new HashMap<String, MyStreamHandler>();
     
     public static String getLog (String url) {
@@ -57,14 +65,6 @@ public class MockDriver extends AbstractDriver {
     public boolean acceptsURL (String url) {
 	if (super.acceptsURL(url)) return true;
 	return false;}
-
-    private static class LoggingInvocationHandler implements InvocationHandler {
-	private Logger l;
-	public LoggingInvocationHandler (Logger log) {
-	    this.l = log;}
-	public Object invoke (Object proxy, Method method, Object[] args) {
-	    l.info(method.getName() + (args!=null && args.length>0 ? Arrays.asList(args) : new ArrayList()));
-	    return null;}}
 
     public Connection connect (String url, Properties info) throws SQLException {
     	if (!acceptsURL(url)) return null;
