@@ -10,36 +10,29 @@ import org.pjdbc.tests.MockDriver;
 import org.pjdbc.util.AutoMockTest;
 
 public class CatDriverTest extends AutoMockTest {
-    private static String SUBPROTOCOL = "mock";
-
-    public static void main (String[] args) {
-	autorun(new Exception());}
+    public static void main (String[] args) {autorun(new Exception());}
 
     public void setUp () throws ClassNotFoundException, SQLException {
 	Class.forName("org.pjdbc.drivers.CatDriver");
 	Class.forName("org.pjdbc.tests.MockDriver");}
 
-    public void testVersionInfo () {
-	new Script () {public void run () throws Exception {
+    public void testVersionInfo () {new Script () {public void run () throws Exception {
 	    assertEquals(1, new CatDriver().getMajorVersion());
 	    assertEquals(0, new CatDriver().getMinorVersion());
 	}};}
 
-    public void testJDBCCompliance () {
-	new Script () {public void run () throws Exception {
+    public void testJDBCCompliance () {	new Script () {public void run () throws Exception {
 	    assertFalse(new CatDriver().jdbcCompliant());
 	}};}
 
-    public void testAcceptsURL () {
-	new Script () {public void run () throws Exception {
+    public void testAcceptsURL () {new Script () {public void run () throws Exception {
 	    assertFalse(new CatDriver().acceptsURL("jdbc:cat"));
 	    assertFalse(new CatDriver().acceptsURL("jdbc:cat:"));
 	    assertFalse(new CatDriver().acceptsURL("jdbc:cat:foo"));
 	    assertTrue(new CatDriver().acceptsURL("jdbc:cat:jdbc:mock:foo"));
 	}};}
 
-    public void testConnectDirectly () {
-	new Script () {public void run () throws Exception {
+    public void testConnectDirectly () {new Script () {public void run () throws Exception {
 	    assertFalse(new CatDriver().acceptsURL("foo"));
 	    assertNull(new CatDriver().connect("foo", null));
 	    assertNull(new CatDriver().connect("jdbc:cat", null));
@@ -47,13 +40,11 @@ public class CatDriverTest extends AutoMockTest {
 	    assertNotNull(new CatDriver().connect("jdbc:cat:jdbc:mock:foo", null));
 	}};}
 
-    public void testConnectIndirectly () {
-	new Script () {public void run () throws Exception {
+    public void testConnectIndirectly () {new Script () {public void run () throws Exception {
 	    assertNotNull(DriverManager.getConnection("jdbc:cat:jdbc:mock:foo", null));
 	}};}
 
-    public void testConnectDirectlyAndInvokeMethods () {
-	new Script () {public void run () throws Exception {
+    public void testConnectDirectlyAndInvokeMethods () {new Script () {public void run () throws Exception {
 	    Connection c = (Connection)(new CatDriver().connect("jdbc:cat:jdbc:mock:foo", null));
 	    MockDriver d = (MockDriver)DriverManager.getDriver("jdbc:mock:foo");
 	    Statement stmt = c.createStatement();
