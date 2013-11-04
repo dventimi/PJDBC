@@ -43,5 +43,4 @@ public class FilteringDriver extends AbstractProxyDriver {
 	    public int executeUpdate (String sql, int[] columnIndexes) throws SQLException {
 		return super.executeUpdate(getFilter().apply(sql), columnIndexes);}
 	    public int executeUpdate (String sql, String[] columnNames) throws SQLException {
-		return super.executeUpdate(getFilter().apply(sql), columnNames);}};}
-}
+		return super.executeUpdate(getFilter().apply(sql), columnNames);}};}}
