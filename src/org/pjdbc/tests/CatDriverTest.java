@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.Driver;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.sql.Statement;
 import org.pjdbc.drivers.CatDriver;
 import org.pjdbc.tests.MockDriver;
 import org.pjdbc.util.AutoMockTest;
@@ -55,7 +56,12 @@ public class CatDriverTest extends AutoMockTest {
 	new Script () {public void run () throws Exception {
 	    Connection c = (Connection)(new CatDriver().connect("jdbc:cat:jdbc:mock:foo", null));
 	    MockDriver d = (MockDriver)DriverManager.getDriver("jdbc:mock:foo");
+	    Statement stmt = c.createStatement();
+	    stmt.executeQuery("select * from person;");
+	    stmt.executeQuery("insert into person (last_name, first_name, age) values ('David', 'Ventimiglia', 42);");
 	    assertNotNull(d.getLog("jdbc:mock:foo"));
-	    c.createStatement();
+	    assertEquals("executeQuery[select * from person;]\n"+
+			 "executeQuery[insert into person (last_name, first_name, age) values ('David', 'Ventimiglia', 42);]", 
+			 d.getLog("jdbc:mock:foo"));
 	}};}
 }
