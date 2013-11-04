@@ -62,10 +62,6 @@ public class MockDriver extends AbstractDriver {
     protected boolean acceptsSubName (String subname) {
 	return true;}
 
-    public boolean acceptsURL (String url) {
-	if (super.acceptsURL(url)) return true;
-	return false;}
-
     public Connection connect (String url, Properties info) throws SQLException {
     	if (!acceptsURL(url)) return null;
 	handlers.put(url, new MyStreamHandler(new ByteArrayOutputStream(), new SimpleFormatter()));
@@ -73,18 +69,26 @@ public class MockDriver extends AbstractDriver {
 	l.setLevel(Level.INFO);
 	l.setUseParentHandlers(false);
 	l.addHandler(handlers.get(url));
-	return (Connection)Proxy.newProxyInstance(getClass().getClassLoader(), new Class[]{Connection.class}, new InvocationHandler () {
-		public Object invoke (Object proxy, Method method, Object[] args) {
-		    if ("createStatement".equals(method.getName()))
-			return (Statement)Proxy.newProxyInstance(getClass().getClassLoader(),
-								 new Class[]{Statement.class},
-								 new LoggingInvocationHandler(l));
-		    if ("prepareCall".equals(method.getName()))
-			return (Statement)Proxy.newProxyInstance(getClass().getClassLoader(), 
-								 new Class[]{CallableStatement.class},
-								 new LoggingInvocationHandler(l));
-		    if ("prepareStatement".equals(method.getName()))
-			return (Statement)Proxy.newProxyInstance(getClass().getClassLoader(), 
-								 new Class[]{PreparedStatement.class},
-								 new LoggingInvocationHandler(l));
+	return (Connection)Proxy.newProxyInstance(getClass().getClassLoader(), 
+						  new Class[]{Connection.class}, 
+						  new InvocationHandler () {
+						      public Object invoke (Object proxy, Method method, Object[] args) {
+							  if ("createStatement".equals(method.getName()))
+							      return 
+								  (Statement)
+								  Proxy.newProxyInstance(getClass().getClassLoader(),
+											 new Class[]{Statement.class},
+											 new LoggingInvocationHandler(l));
+							  if ("prepareCall".equals(method.getName()))
+							      return 
+								  (Statement)
+								  Proxy.newProxyInstance(getClass().getClassLoader(), 
+											 new Class[]{CallableStatement.class},
+											 new LoggingInvocationHandler(l));
+							  if ("prepareStatement".equals(method.getName()))
+							      return 
+								  (Statement)
+								  Proxy.newProxyInstance(getClass().getClassLoader(), 
+											 new Class[]{PreparedStatement.class},
+											 new LoggingInvocationHandler(l));
 		    return null;}});}}
