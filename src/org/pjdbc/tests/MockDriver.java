@@ -2,6 +2,7 @@ package org.pjdbc.tests;
 
 import java.io.ByteArrayOutputStream;
 import java.io.OutputStream;
+import java.io.PrintWriter;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
@@ -17,43 +18,31 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
-import java.util.logging.Formatter;
-import java.util.logging.Handler;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import java.util.logging.SimpleFormatter;
-import java.util.logging.StreamHandler;
 import org.pjdbc.util.AbstractDriver;
 
 public class MockDriver extends AbstractDriver {
     static {try {DriverManager.registerDriver(new MockDriver());} catch (Exception e) {throw new RuntimeException(e);}}
     static {System.setProperty("java.util.logging.SimpleFormatter.format", "%5$s\n");}
 
-    private static class MyStreamHandler extends StreamHandler {
+    public static class MyPrintWriter extends PrintWriter {
 	private OutputStream out;
-	private Formatter formatter;
-	public MyStreamHandler () {super();}
-	public MyStreamHandler (OutputStream out, Formatter formatter) {
-	    super(out, formatter);
-	    this.formatter = formatter;
-	    this.out = out;}
-	public OutputStream getStream () {return this.out;}
-	public Formatter getFormatter () {return this.formatter;}}
+	public MyPrintWriter (OutputStream out) {super(out); this.out = out;}
+	public OutputStream getStream () {return this.out;}}
 
     private static class LoggingInvocationHandler implements InvocationHandler {
-	private Logger l;
-	public LoggingInvocationHandler (Logger log) {
+	private PrintWriter l;
+	public LoggingInvocationHandler (PrintWriter log) {
 	    this.l = log;}
 	public Object invoke (Object proxy, Method method, Object[] args) {
-	    l.info(method.getName() + (args!=null && args.length>0 ? Arrays.asList(args) : new ArrayList()));
+	    l.println(method.getName() + (args!=null && args.length>0 ? Arrays.asList(args) : new ArrayList()));
 	    return null;}}
 
-    private static Map<String, MyStreamHandler> handlers = new HashMap<String, MyStreamHandler>();
+    private static Map<String, MyPrintWriter> logs = new HashMap<String, MyPrintWriter>();
     
     public static String getLog (String url) {
-	if (handlers.containsKey(url)) {
-	    handlers.get(url).flush();
-	    return (""+handlers.get(url).getStream()).trim();}
+	if (logs.containsKey(url)) {
+	    logs.get(url).flush();
+	    return logs.get(url).getStream().toString().trim();}
 	return "";}
 
     protected boolean acceptsSubProtocol (String subprotocol) {
@@ -64,11 +53,8 @@ public class MockDriver extends AbstractDriver {
 
     public Connection connect (String url, Properties info) throws SQLException {
     	if (!acceptsURL(url)) return null;
-	handlers.put(url, new MyStreamHandler(new ByteArrayOutputStream(), new SimpleFormatter()));
-	final Logger l = Logger.getLogger(url);
-	l.setLevel(Level.INFO);
-	l.setUseParentHandlers(false);
-	l.addHandler(handlers.get(url));
+	logs.put(url, new MyPrintWriter(new ByteArrayOutputStream()));
+	final PrintWriter l = logs.get(url);
 	return (Connection)Proxy.newProxyInstance(getClass().getClassLoader(), 
 						  new Class[]{Connection.class}, 
 						  new InvocationHandler () {
