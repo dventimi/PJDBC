@@ -11,3 +11,4 @@ stmt = conn.createStatement();
 stmt.executeQuery("select * from person;");
 stmt.executeQuery("insert into person (last_name, first_name, age) values ('David', 'Ventimiglia', 42);");
 print(driver.getLog("jdbc:mock:foo"));
+

@@ -34,7 +34,7 @@ public abstract class AbstractProxyDriver extends AbstractDriver {
 
     public Connection connect (String url, Properties info) throws SQLException {
     	if (!acceptsURL(url)) return null;
-	return proxyConnection(this, DriverManager.getConnection(subname(url), info), url, info);}
+	return proxyConnection(this, DriverManager.getConnection(subname(url), info), subname(url), info);}
 
     public DriverPropertyInfo[] getPropertyInfo (String url, Properties info) throws SQLException {
 	if (!acceptsURL(url)) throw new SQLException("Invalid url:  " + url);

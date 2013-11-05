@@ -28,4 +28,5 @@ check: @PACKAGE@.jar
 	@@JAVA@ -cp $(CLASSPATH):@PACKAGE@.jar org.junit.runner.JUnitCore org.pjdbc.tests.CatDriverTest
 	@@JAVA@ -cp $(CLASSPATH):@PACKAGE@.jar org.junit.runner.JUnitCore org.pjdbc.tests.SinkDriverTest
 	@@JAVA@ -cp $(CLASSPATH):@PACKAGE@.jar org.junit.runner.JUnitCore org.pjdbc.tests.FilteringDriverTest
+	@@JAVA@ -cp $(CLASSPATH):@PACKAGE@.jar org.junit.runner.JUnitCore org.pjdbc.tests.LoggingDriverTest
 
