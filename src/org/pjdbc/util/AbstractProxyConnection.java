@@ -27,7 +27,7 @@ public abstract class AbstractProxyConnection implements Connection {
     protected Connection delegate;
     protected String url;
     protected Properties info;
-    public AbstractProxyConnection (Driver driver, Connection conn, String url, Properties info) {
+    public AbstractProxyConnection (Driver driver, Connection conn, String url, Properties info) throws SQLException {
 	this.driver = driver; this.delegate = conn; this.url = url; this.info = info;}
     public Array createArrayOf (String typeName, Object[] elements) throws SQLException {return delegate.createArrayOf(typeName, elements);}
     public Blob createBlob () throws SQLException {return delegate.createBlob();}
@@ -49,9 +49,9 @@ public abstract class AbstractProxyConnection implements Connection {
     public SQLXML createSQLXML () throws SQLException {return delegate.createSQLXML();}
     public Savepoint setSavepoint () throws SQLException {return delegate.setSavepoint();}
     public Savepoint setSavepoint (String name) throws SQLException {return delegate.setSavepoint(name);}
-    public Statement createStatement () throws SQLException {return delegate.createStatement();}
-    public Statement createStatement (int resultSetType, int resultSetConcurrency) throws SQLException {return delegate.createStatement(resultSetType, resultSetConcurrency);}
-    public Statement createStatement (int resultSetType, int resultSetConcurrency, int resultSetHoldability) throws SQLException {return delegate.createStatement(resultSetType, resultSetConcurrency, resultSetHoldability);}
+    public Statement createStatement () throws SQLException {return new AbstractProxyStatement(delegate, delegate.createStatement(), url, info){};}
+    public Statement createStatement (int resultSetType, int resultSetConcurrency) throws SQLException {return new AbstractProxyStatement(delegate, delegate.createStatement(resultSetType, resultSetConcurrency), url, info){};}
+    public Statement createStatement (int resultSetType, int resultSetConcurrency, int resultSetHoldability) throws SQLException {return new AbstractProxyStatement(delegate, delegate.createStatement(resultSetType, resultSetConcurrency, resultSetHoldability), url, info){};}
     public String getCatalog () throws SQLException {return delegate.getCatalog();}
     public String getClientInfo (String name) throws SQLException {return delegate.getClientInfo(name);}
     public String getSchema () throws SQLException {return delegate.getSchema();}

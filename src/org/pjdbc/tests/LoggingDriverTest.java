@@ -62,7 +62,6 @@ public class LoggingDriverTest extends AutoMockTest {
 	stmt.executeQuery("insert into person (last_name, first_name, age) values ('David', 'Ventimiglia', 42);");
 	for (Handler h : Logger.getLogger("jdbc:mock:foo").getHandlers()) h.flush();
 	assertNotNull(d.getLog("jdbc:mock:foo"));
-	System.out.println(out);
 	assertEquals("executeQuery[select * from person;]\n" +
 		     "executeQuery[insert into person (last_name, first_name, age) values ('David', 'Ventimiglia', 42);]", 
 		     d.getLog("jdbc:mock:foo"));

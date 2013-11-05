@@ -20,10 +20,10 @@ public abstract class AbstractDriver implements Driver {
     public static String subname (String url) {
 	return (""+url).split(":").length > 2 ? join(slice(Arrays.asList((""+url).split(":")), 2), ":") : null;}
 
-    public static String join (List items, String delimiter) {
-	return new ArrayList(items).toString().replace("[", "").replace("]","").replace(", ", delimiter);}
+    public static String join (List<String> items, String delimiter) {
+	return new ArrayList<String>(items).toString().replace("[", "").replace("]","").replace(", ", delimiter);}
 
-    public static List slice (List items, int... interval) throws IllegalArgumentException {
+    public static List<String> slice (List<String> items, int... interval) throws IllegalArgumentException {
 	if (interval.length==1) return items.subList(interval[0], items.size());
 	if (interval.length==2) return items.subList(interval[0], interval[1]);
 	throw new IllegalArgumentException("Wrong interval:  " + interval);}

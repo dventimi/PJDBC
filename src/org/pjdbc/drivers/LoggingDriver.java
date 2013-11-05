@@ -26,10 +26,13 @@ public class LoggingDriver extends AbstractProxyDriver {
     protected boolean acceptsSubProtocol (String subprotocol) {
 	return "log".equals(subprotocol);}
 
+    protected String getLogName (String url) {
+	return url;}
+
     protected Statement proxyStatement (Connection conn, Statement delegate, String url, Properties info) {
 	return new AbstractProxyStatement(conn, delegate, url, info) {
 	    private void log (String sql) {
-		Logger.getLogger(url).info(sql);}
+		Logger.getLogger(getLogName(url)).info(sql);}
 	    public void addBatch (String sql) throws SQLException {
 		log(sql); super.addBatch(sql);}
 	    public boolean execute (String sql) throws SQLException {

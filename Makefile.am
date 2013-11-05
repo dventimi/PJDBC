@@ -9,7 +9,7 @@ javadir = $(datadir)/java
 JAVAROOT = $(OBJ_DIR)
 CLASSPATH = $(shell find $(srcdir)/$(LIB_DIR) -name '*.jar' -printf '%p:')
 CLASSPATH_ENV = export CLASSPATH=$(shell find $(srcdir)/$(LIB_DIR) -name '*.jar' -printf '%p:');
-AM_JAVACFLAGS = -sourcepath $(srcdir)/$(SRC_DIR)
+AM_JAVACFLAGS = -sourcepath $(srcdir)/$(SRC_DIR) -Xlint:unchecked
 EXTRA_DIST = $(LIB_DIR) $(BIN_DIR)/@PACKAGE@.in
 EXTRA_SCRIPTS = $(BIN_DIR)
 CLEANFILES =  @PACKAGE@ @PACKAGE@.jar

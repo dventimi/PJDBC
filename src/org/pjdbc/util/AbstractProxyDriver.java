@@ -17,7 +17,7 @@ public abstract class AbstractProxyDriver extends AbstractDriver {
 	catch (Exception e) {};
 	return false;}
 
-    protected Connection proxyConnection (Driver driver, Connection conn, String url, Properties info) {
+    protected Connection proxyConnection (Driver driver, Connection conn, String url, Properties info) throws SQLException {
 	return new AbstractProxyConnection(driver, conn, url, info) {
 	    public Statement createStatement () throws SQLException {
 		return proxyStatement(this, delegate.createStatement(), url, info);}
