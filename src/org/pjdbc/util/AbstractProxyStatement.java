@@ -23,7 +23,10 @@ import java.util.concurrent.Executor;
 public abstract class AbstractProxyStatement implements Statement {
     protected Connection conn;
     protected Statement delegate;
-    public AbstractProxyStatement (Connection conn, Statement delegate) {this.conn = conn; this.delegate = delegate;}
+    protected String url;
+    protected Properties info;
+    public AbstractProxyStatement (Connection conn, Statement delegate, String url, Properties info) {
+	this.conn = conn; this.delegate = delegate; this.url = url; this.info = info;}
     public void addBatch (String sql) throws SQLException {delegate.addBatch(sql);}
     public void cancel () throws SQLException {delegate.cancel();}
     public void clearBatch () throws SQLException {delegate.clearBatch();}

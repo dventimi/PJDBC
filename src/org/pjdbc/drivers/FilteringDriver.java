@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Properties;
 import org.pjdbc.util.AbstractProxyDriver;
 import org.pjdbc.util.AbstractProxyStatement;
 
@@ -24,8 +25,8 @@ public class FilteringDriver extends AbstractProxyDriver {
 	try {return (Filter)Class.forName(System.getProperty("org.pjdbc.drivers.FilteringDriver.Filter")).newInstance();} catch (Exception e) {}
 	return new AbstractFilter() {};}
 
-    protected Statement proxyStatement (Connection conn, Statement delegate) {
-	return new AbstractProxyStatement(conn, delegate) {
+    protected Statement proxyStatement (Connection conn, Statement delegate, String url, Properties info) {
+	return new AbstractProxyStatement(conn, delegate, url, info) {
 	    public void addBatch (String sql) throws SQLException {
 		super.addBatch(getFilter().apply(sql));}
 	    public boolean execute (String sql) throws SQLException {

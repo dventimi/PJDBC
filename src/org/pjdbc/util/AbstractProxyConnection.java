@@ -25,7 +25,10 @@ import java.sql.Driver;
 public abstract class AbstractProxyConnection implements Connection {
     protected Driver driver;
     protected Connection delegate;
-    public AbstractProxyConnection (Driver driver, Connection conn) {this.driver = driver; this.delegate = conn;}
+    protected String url;
+    protected Properties info;
+    public AbstractProxyConnection (Driver driver, Connection conn, String url, Properties info) {
+	this.driver = driver; this.delegate = conn; this.url = url; this.info = info;}
     public Array createArrayOf (String typeName, Object[] elements) throws SQLException {return delegate.createArrayOf(typeName, elements);}
     public Blob createBlob () throws SQLException {return delegate.createBlob();}
     public CallableStatement prepareCall (String sql) throws SQLException {return delegate.prepareCall(sql);}
