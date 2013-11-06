@@ -17,14 +17,23 @@ public abstract class AbstractProxyDriver extends AbstractDriver {
 	catch (Exception e) {};
 	return false;}
 
-    protected Connection proxyConnection (Connection conn, String url, Properties info) throws SQLException {
-	return new AbstractProxyConnection(conn, url, info) {
+    protected Connection proxyConnection (ConnectionInfo info) throws SQLException {
+	return new AbstractProxyConnection(info) {
 	    public Statement createStatement () throws SQLException {
-		return proxyStatement(this, delegate.createStatement(), url, info);}
+		return proxyStatement(this, 
+				      delegate.getConnection().createStatement(), 
+				      delegate.getUrl(), 
+				      delegate.getInfo());}
 	    public Statement createStatement (int resultSetType, int resultSetConcurrency) throws SQLException {
-		return proxyStatement(this, delegate.createStatement(resultSetType, resultSetConcurrency), url, info);}
+		return proxyStatement(this, 
+				      delegate.getConnection().createStatement(resultSetType, resultSetConcurrency), 
+				      delegate.getUrl(), 
+				      delegate.getInfo());}
 	    public Statement createStatement (int resultSetType, int resultSetConcurrency, int resultSetHoldability) throws SQLException {
-		return proxyStatement(this, delegate.createStatement(resultSetType, resultSetConcurrency, resultSetHoldability), url, info);}};}
+		return proxyStatement(this, 
+				      delegate.getConnection().createStatement(resultSetType, resultSetConcurrency, resultSetHoldability), 
+				      delegate.getUrl(), 
+				      delegate.getInfo());}};}
 
     protected Statement proxyStatement (Connection conn, Statement delegate, String url, Properties info) {
 	return new AbstractProxyStatement(conn, delegate, url, info) {};}
@@ -34,7 +43,7 @@ public abstract class AbstractProxyDriver extends AbstractDriver {
 
     public Connection connect (String url, Properties info) throws SQLException {
     	if (!acceptsURL(url)) return null;
-	return proxyConnection(DriverManager.getConnection(subname(url), info), subname(url), info);}
+	return proxyConnection(new ConnectionInfo(DriverManager.getConnection(subname(url)), subname(url), info));}
 
     public DriverPropertyInfo[] getPropertyInfo (String url, Properties info) throws SQLException {
 	if (!acceptsURL(url)) throw new SQLException("Invalid url:  " + url);
