@@ -7,6 +7,7 @@ import java.sql.Clob;
 import java.sql.Connection;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
+import java.sql.Driver;
 import java.sql.NClob;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -21,12 +22,20 @@ import java.util.Properties;
 import java.util.concurrent.Executor;
 
 public abstract class AbstractProxyStatement implements Statement {
-    protected Connection conn;
+    protected ConnectionAware conn;
     protected Statement delegate;
-    protected String url;
-    protected Properties info;
-    public AbstractProxyStatement (Connection conn, Statement delegate, String url, Properties info) {
-	this.conn = conn; this.delegate = delegate; this.url = url; this.info = info;}
+
+    public Driver getDriver () {
+	return this.conn.getDriver();}
+
+    public String getUrl () {
+	return this.conn.getUrl();}
+
+    public Properties getInfo () {
+	return this.conn.getInfo();}
+
+    public AbstractProxyStatement (Statement delegate, ConnectionAware conn) {
+	this.delegate = delegate; this.conn = conn;}
     public void addBatch (String sql) throws SQLException {delegate.addBatch(sql);}
     public void cancel () throws SQLException {delegate.cancel();}
     public void clearBatch () throws SQLException {delegate.clearBatch();}
@@ -41,7 +50,7 @@ public abstract class AbstractProxyStatement implements Statement {
     public void setMaxRows (int max) throws SQLException {delegate.setMaxRows(max);}
     public void setPoolable (boolean poolable) throws SQLException {delegate.setPoolable(poolable);}
     public void setQueryTimeout (int seconds) throws SQLException {delegate.setQueryTimeout(seconds);}
-    public Connection getConnection () throws SQLException {return conn;}
+    public Connection getConnection () throws SQLException {return this.conn;}
     public ResultSet executeQuery (String sql) throws SQLException {return delegate.executeQuery(sql);}
     public ResultSet getGeneratedKeys () throws SQLException {return delegate.getGeneratedKeys();}
     public ResultSet getResultSet () throws SQLException {return delegate.getResultSet();}
