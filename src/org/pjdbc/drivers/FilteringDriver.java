@@ -25,7 +25,7 @@ public class FilteringDriver extends AbstractProxyDriver {
 	try {return (Filter)Class.forName(System.getProperty("org.pjdbc.drivers.FilteringDriver.Filter")).newInstance();} catch (Exception e) {}
 	return new AbstractFilter() {};}
 
-    protected Statement proxyStatement (Connection conn, Statement delegate) {
+    protected Statement proxyStatement (Connection conn, Statement delegate) throws SQLException {
 	return new AbstractProxyStatement(delegate, conn) {
 	    public void addBatch (String sql) throws SQLException {
 		super.addBatch(getFilter().apply(sql));}

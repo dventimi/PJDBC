@@ -9,6 +9,7 @@ import java.sql.DriverPropertyInfo;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.List;
 import java.util.Properties;
 
 public abstract class AbstractProxyDriver extends AbstractDriver {
@@ -26,10 +27,13 @@ public abstract class AbstractProxyDriver extends AbstractDriver {
 	    public Statement createStatement (int resultSetType, int resultSetConcurrency, int resultSetHoldability) throws SQLException {
 		return proxyStatement(this, getDelegate().createStatement(resultSetType, resultSetConcurrency, resultSetHoldability));}};}
 
-    protected Statement proxyStatement (Connection conn, Statement delegate) {
+    protected Connection proxyConnection (Connection delegate, String url, Properties info, List<Connection> delegates) throws SQLException {
+	return new AbstractProxyConnection(delegate, this, url, info, delegates) {};}
+
+    protected Statement proxyStatement (Connection conn, Statement delegate) throws SQLException {
 	return new AbstractProxyStatement(delegate, conn) {};}
 
-    protected ResultSet proxyResultSet (Statement stmt, ResultSet delegate) {
+    protected ResultSet proxyResultSet (Statement stmt, ResultSet delegate) throws SQLException {
 	return delegate;}
 
     public Connection connect (String url, Properties info) throws SQLException {

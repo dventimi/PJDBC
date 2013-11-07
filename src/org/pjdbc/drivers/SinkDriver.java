@@ -15,7 +15,7 @@ public class SinkDriver extends AbstractProxyDriver {
     protected boolean acceptsSubProtocol (String subprotocol) {
 	return "sink".equals(subprotocol);}
 
-    protected Statement proxyStatement (Connection conn, Statement delegate) {
+    protected Statement proxyStatement (Connection conn, Statement delegate) throws SQLException {
 	return new AbstractProxyStatement(delegate, conn) {
 	    public void addBatch (String sql) throws SQLException {}
 	    public boolean execute (String sql) throws SQLException {return true;}
