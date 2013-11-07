@@ -6,7 +6,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 import org.pjdbc.drivers.SinkDriver;
-import org.pjdbc.tests.MockDriver;
+import org.pjdbc.drivers.MockDriver;
 import org.pjdbc.util.AutoTest;
 
 public class SinkDriverTest extends AutoTest {
@@ -14,7 +14,7 @@ public class SinkDriverTest extends AutoTest {
 
     public void setUp () throws ClassNotFoundException, SQLException {
 	Class.forName("org.pjdbc.drivers.SinkDriver");
-	Class.forName("org.pjdbc.tests.MockDriver");}
+	Class.forName("org.pjdbc.drivers.MockDriver");}
 
     public void testVersionInfo () {new Script () {public void run () throws Exception {
 	assertEquals(1, new SinkDriver().getMajorVersion());

@@ -6,7 +6,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 import org.pjdbc.drivers.FilteringDriver;
-import org.pjdbc.tests.MockDriver;
+import org.pjdbc.drivers.MockDriver;
 import org.pjdbc.util.AutoTest;
 
 public class FilteringDriverTest extends AutoTest {
@@ -18,7 +18,7 @@ public class FilteringDriverTest extends AutoTest {
     public void setUp () throws ClassNotFoundException, SQLException {
 	System.setProperty("org.pjdbc.drivers.FilteringDriver.Filter", "org.pjdbc.tests.FilteringDriverTest$UpcaseFilter");
 	Class.forName("org.pjdbc.drivers.FilteringDriver");
-	Class.forName("org.pjdbc.tests.MockDriver");}
+	Class.forName("org.pjdbc.drivers.MockDriver");}
 
     public void testVersionInfo () {new Script () {public void run () throws Exception {
 	assertEquals(1, new FilteringDriver().getMajorVersion());

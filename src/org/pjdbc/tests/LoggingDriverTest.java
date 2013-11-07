@@ -12,7 +12,7 @@ import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
 import java.util.logging.StreamHandler;
 import org.pjdbc.drivers.LoggingDriver;
-import org.pjdbc.tests.MockDriver;
+import org.pjdbc.drivers.MockDriver;
 import org.pjdbc.util.AutoTest;
 
 public class LoggingDriverTest extends AutoTest {
@@ -20,7 +20,7 @@ public class LoggingDriverTest extends AutoTest {
 
     public void setUp () throws ClassNotFoundException, SQLException {
 	Class.forName("org.pjdbc.drivers.LoggingDriver");
-	Class.forName("org.pjdbc.tests.MockDriver");}
+	Class.forName("org.pjdbc.drivers.MockDriver");}
 
     public void testVersionInfo () {new Script () {public void run () throws Exception {
 	assertEquals(1, new LoggingDriver().getMajorVersion());

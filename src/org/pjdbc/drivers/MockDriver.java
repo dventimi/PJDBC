@@ -1,4 +1,4 @@
-package org.pjdbc.tests;
+package org.pjdbc.drivers;
 
 import java.io.ByteArrayOutputStream;
 import java.io.OutputStream;
