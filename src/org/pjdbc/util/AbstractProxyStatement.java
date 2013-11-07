@@ -21,8 +21,10 @@ import java.util.Properties;
 import java.util.concurrent.Executor;
 
 public abstract class AbstractProxyStatement implements Statement {
-    protected Connection conn;
-    protected Statement delegate;
+    private Connection conn;
+    private Statement delegate;
+
+    protected Statement getDelegate() {return this.delegate;}
 
     public AbstractProxyStatement (Statement delegate, Connection conn) {
 	this.delegate = delegate; this.conn = conn;}
