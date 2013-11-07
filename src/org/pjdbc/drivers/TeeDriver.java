@@ -203,12 +203,12 @@ public class TeeDriver extends AbstractProxyDriver {
 	    throws SQLException {
 	    return new ObservableStatement(delegate.createStatement(resultSetType, resultSetConcurrency, resultSetHoldability), this){};}}
     
+    protected boolean acceptsSubName (String subname) {
+	try{for (String url : subname.split(";")) if (DriverManager.getDriver(subname)==null) return false;} catch (Exception e) {return false;}
+	return true;}
+
     protected boolean acceptsSubProtocol (String subprotocol) {
 	return "tee".equals(subprotocol);}
-
-    protected Connection proxyConnection (Connection delegate, String url, Properties info) throws SQLException {
-	ObservableConnection conn = new ObservableConnection(delegate, this, url, info);
-	return conn;}
 
     protected Connection proxyConnection (Connection delegate, String url, Properties info, List<Connection> listeners) throws SQLException {
 	ObservableConnection conn = new ObservableConnection(delegate, this, url, info);
@@ -221,10 +221,6 @@ public class TeeDriver extends AbstractProxyDriver {
 	List<Connection> listeners = new ArrayList<Connection>();
 	Connection delegate = DriverManager.getConnection(urls.remove(0), info);
 	for (String s : urls) listeners.add(DriverManager.getConnection(s, info));
-	return proxyConnection(delegate, urls.get(0), info);}
-
-    protected boolean acceptsSubName (String subname) {
-	try{for (String url : subname.split(";")) if (DriverManager.getDriver(subname)==null) return false;} catch (Exception e) {return false;}
-	return true;}}
+	return proxyConnection(delegate, urls.get(0), info);}}
 
 
