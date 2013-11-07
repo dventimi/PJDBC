@@ -142,7 +142,7 @@ public abstract class AbstractProxyConnection implements Connection {
 	throws SQLException {
 	List<Statement> stmts = new ArrayList<Statement>();
 	for (Connection c : getListeners()) stmts.add(c.createStatement());
-	return new AbstractProxyStatement(getDelegate().createStatement(), this){};}
+	return new AbstractProxyStatement(getDelegate().createStatement(), this, stmts){};}
 
     public Statement createStatement (int resultSetType, int resultSetConcurrency) 
 	throws SQLException {
