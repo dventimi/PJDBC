@@ -25,9 +25,11 @@ clean-local:
 	rm -rf $(OBJ_DIR)
 
 check: @PACKAGE@.jar
-	@@JAVA@ -cp $(CLASSPATH):@PACKAGE@.jar org.junit.runner.JUnitCore org.pjdbc.tests.CatDriverTest
-	@@JAVA@ -cp $(CLASSPATH):@PACKAGE@.jar org.junit.runner.JUnitCore org.pjdbc.tests.FilteringDriverTest
-	@@JAVA@ -cp $(CLASSPATH):@PACKAGE@.jar org.junit.runner.JUnitCore org.pjdbc.tests.LoggingDriverTest
-	@@JAVA@ -cp $(CLASSPATH):@PACKAGE@.jar org.junit.runner.JUnitCore org.pjdbc.tests.SinkDriverTest
-	@@JAVA@ -cp $(CLASSPATH):@PACKAGE@.jar org.junit.runner.JUnitCore org.pjdbc.tests.TeeDriverTest
+	@@JAVA@ -cp $(CLASSPATH):@PACKAGE@.jar org.junit.runner.JUnitCore \
+	org.pjdbc.tests.CatDriverTest \
+	org.pjdbc.tests.DriverCompositionTest \
+	org.pjdbc.tests.FilteringDriverTest \
+	org.pjdbc.tests.LoggingDriverTest \
+	org.pjdbc.tests.SinkDriverTest \
+	org.pjdbc.tests.TeeDriverTest
 

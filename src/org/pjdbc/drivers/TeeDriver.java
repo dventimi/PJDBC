@@ -18,7 +18,7 @@ public class TeeDriver extends AbstractProxyDriver {
     
     protected boolean acceptsSubName (String subname) {
 	if ((""+subname).split(";").length!=2) return false;
-	try{for (String url : subname.split(";")) if (DriverManager.getDriver(subname)==null) return false;} catch (Exception e) {return false;}
+	try{for (String url : subname.split(";")) if (DriverManager.getDriver(subname.trim())==null) return false;} catch (Exception e) {return false;}
 	return true;}
 
     protected boolean acceptsSubProtocol (String subprotocol) {

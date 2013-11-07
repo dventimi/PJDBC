@@ -41,12 +41,12 @@ public class TeeDriverTest extends AutoTest {
     }};}
 
     public void testConnectIndirectlyWithBadURLFails () {new Script () {public void run () throws Exception {
-	try{DriverManager.getConnection("jdbc:tee:jdbc:mock:foo", null);} catch (SQLException e) {return;}
+	try{DriverManager.getConnection("jdbc:tee:jdbc:mock:foo");} catch (SQLException e) {return;}
 	fail("jdbc:tee:jdbc:mock:foo should have no registered driver!");
     }};}
 
     public void testConnectIndirectlyWithGoodURLSucceeds () {new Script () {public void run () throws Exception {
-    	try{DriverManager.getConnection("jdbc:tee:jdbc:mock:foo;jdbc:mock:foo", null);} catch (SQLException e) {fail(e.toString());}
+    	try{DriverManager.getConnection("jdbc:tee:jdbc:mock:foo;jdbc:mock:foo");} catch (SQLException e) {fail(e.toString());}
     }};}
 
     public void testConnectDirectlyAndInvokeMethods () {new Script () {public void run () throws Exception {

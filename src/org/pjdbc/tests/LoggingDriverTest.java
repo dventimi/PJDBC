@@ -47,7 +47,7 @@ public class LoggingDriverTest extends AutoTest {
     }};}
 
     public void testConnectIndirectly () {new Script () {public void run () throws Exception {
-	assertNotNull(DriverManager.getConnection("jdbc:log:jdbc:mock:foo", null));
+	assertNotNull(DriverManager.getConnection("jdbc:log:jdbc:mock:foo"));
     }};}
 
     public void testConnectDirectlyAndInvokeMethods () {new Script () {public void run () throws Exception {

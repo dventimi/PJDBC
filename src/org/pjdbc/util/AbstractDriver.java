@@ -12,10 +12,10 @@ import java.util.logging.Logger;
 
 public abstract class AbstractDriver implements Driver {
     public static String protocol (String url) {
-	return (""+url).split(":").length > 0 ? (""+url).split(":")[0] : null;}
+	return (""+url).split(":").length > 0 ? (""+url).split(":")[0].trim() : null;}
 
     public static String subprotocol (String url) {
-	return (""+url).split(":").length > 1 ? (""+url).split(":")[1] : null;}
+	return (""+url).split(":").length > 1 ? (""+url).split(":")[1].trim() : null;}
 
     public static String subname (String url) {
 	return (""+url).split(":").length > 2 ? join(slice(Arrays.asList((""+url).split(":")), 2), ":") : null;}
@@ -35,10 +35,11 @@ public abstract class AbstractDriver implements Driver {
     protected abstract boolean acceptsSubName (String subname);
 
     public boolean acceptsURL (String url) {
-	if (!(""+url).matches("jdbc:.*:.*")) return false;
-	if (!acceptsProtocol(protocol(""+url))) return false;
-	if (!acceptsSubProtocol(subprotocol(""+url))) return false;
-	if (!acceptsSubName(subname(""+url))) return false;
+	String clean = (""+url).trim().replaceAll("(?s)\\s","").toLowerCase();
+	if (!(""+clean).matches("(?is)jdbc\\s*:.*:.*")) return false;
+	if (!acceptsProtocol(protocol(""+clean))) return false;
+	if (!acceptsSubProtocol(subprotocol(""+clean))) return false;
+	if (!acceptsSubName(subname(""+clean))) return false;
 	return true;}
 
     public int getMajorVersion () {return 1;}
