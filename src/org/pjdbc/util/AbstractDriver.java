@@ -28,6 +28,12 @@ public abstract class AbstractDriver implements Driver {
 	if (interval.length==2) return items.subList(interval[0], interval[1]);
 	throw new IllegalArgumentException("Wrong interval:  " + interval);}
 
+    protected boolean acceptsProtocol (String protocol) {return "jdbc".equals(protocol);}
+
+    protected abstract boolean acceptsSubProtocol (String subprotocol);
+
+    protected abstract boolean acceptsSubName (String subname);
+
     public boolean acceptsURL (String url) {
 	if (!(""+url).matches("jdbc:.*:.*")) return false;
 	if (!acceptsProtocol(protocol(""+url))) return false;
@@ -35,27 +41,13 @@ public abstract class AbstractDriver implements Driver {
 	if (!acceptsSubName(subname(""+url))) return false;
 	return true;}
 
-    protected boolean acceptsProtocol (String protocol) {
-	return "jdbc".equals(protocol);}
+    public int getMajorVersion () {return 1;}
 
-    protected boolean acceptsSubProtocol (String subprotocol) {
-	return false;}
+    public int getMinorVersion () {return 0;}
 
-    protected boolean acceptsSubName (String subname) {
-	return false;}
+    public Logger getParentLogger () throws SQLFeatureNotSupportedException {throw new SQLFeatureNotSupportedException();}
 
-    public int getMajorVersion () {
-	return 1;}
+    public DriverPropertyInfo[] getPropertyInfo (String url, Properties info) throws SQLException {return null;}
 
-    public int getMinorVersion () {
-	return 0;}
-
-    public Logger getParentLogger () throws SQLFeatureNotSupportedException {
-	throw new SQLFeatureNotSupportedException();}
-
-    public DriverPropertyInfo[] getPropertyInfo (String url, Properties info) throws SQLException {
-	return null;}
-
-    public boolean jdbcCompliant () {
-	return false;}}
+    public boolean jdbcCompliant () {return false;}}
 
