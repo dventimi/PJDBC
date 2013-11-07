@@ -13,9 +13,9 @@ import java.util.logging.SimpleFormatter;
 import java.util.logging.StreamHandler;
 import org.pjdbc.drivers.LoggingDriver;
 import org.pjdbc.tests.MockDriver;
-import org.pjdbc.util.AutoMockTest;
+import org.pjdbc.util.AutoTest;
 
-public class LoggingDriverTest extends AutoMockTest {
+public class LoggingDriverTest extends AutoTest {
     public static void main (String[] args) {autorun(new Exception());}
 
     public void setUp () throws ClassNotFoundException, SQLException {

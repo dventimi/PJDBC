@@ -7,9 +7,9 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import org.pjdbc.drivers.SinkDriver;
 import org.pjdbc.tests.MockDriver;
-import org.pjdbc.util.AutoMockTest;
+import org.pjdbc.util.AutoTest;
 
-public class SinkDriverTest extends AutoMockTest {
+public class SinkDriverTest extends AutoTest {
     public static void main (String[] args) {autorun(new Exception());}
 
     public void setUp () throws ClassNotFoundException, SQLException {

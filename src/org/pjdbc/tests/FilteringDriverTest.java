@@ -7,9 +7,9 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import org.pjdbc.drivers.FilteringDriver;
 import org.pjdbc.tests.MockDriver;
-import org.pjdbc.util.AutoMockTest;
+import org.pjdbc.util.AutoTest;
 
-public class FilteringDriverTest extends AutoMockTest {
+public class FilteringDriverTest extends AutoTest {
     public static void main (String[] args) {autorun(new Exception());}
 
     public static class UpcaseFilter extends FilteringDriver.AbstractFilter {

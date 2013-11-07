@@ -5,9 +5,9 @@
 // import java.sql.DriverManager;
 // import java.sql.SQLException;
 // import org.pjdbc.drivers.BasicDriver;
-// import org.pjdbc.util.AutoMockTest;
+// import org.pjdbc.util.AutoTest;
 
-// public class SQLFilteringDriverTest extends AutoMockTest {
+// public class SQLFilteringDriverTest extends AutoTest {
 //     private static String SUBPROTOCOL = "mock";
 
 //     public static void main (String[] args) {
