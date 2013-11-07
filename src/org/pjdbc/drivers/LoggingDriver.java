@@ -10,6 +10,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Wrapper;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -27,13 +28,13 @@ public class LoggingDriver extends AbstractProxyDriver {
     protected boolean acceptsSubProtocol (String subprotocol) {
 	return "log".equals(subprotocol);}
 
-    protected String getLogName (String url) {
-	return url;}
+    protected String getLogName (Statement stmt) throws SQLException {
+	return ((Wrapper)stmt.getConnection()).unwrap(Connection.class).getMetaData().getURL();}
 
     protected Statement proxyStatement (ConnectionAware conn, Statement delegate) {
 	return new AbstractProxyStatement(delegate, conn) {
-	    private void log (String sql) {
-		Logger.getLogger(getLogName(conn.getUrl())).info(sql);}
+	    private void log (String sql) throws SQLException {
+		Logger.getLogger(getLogName(this)).info(sql);}
 	    public void addBatch (String sql) throws SQLException {
 		log(sql); super.addBatch(sql);}
 	    public boolean execute (String sql) throws SQLException {

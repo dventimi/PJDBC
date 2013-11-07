@@ -8,6 +8,7 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 import java.sql.CallableStatement;
 import java.sql.Connection;
+import java.sql.DatabaseMetaData;
 import java.sql.Driver;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -51,30 +52,24 @@ public class MockDriver extends AbstractDriver {
     protected boolean acceptsSubName (String subname) {
 	return true;}
 
-    public Connection connect (String url, Properties info) throws SQLException {
+    public Connection connect (final String url, Properties info) throws SQLException {
     	if (!acceptsURL(url)) return null;
 	logs.put(url, new MyPrintWriter(new ByteArrayOutputStream()));
 	final PrintWriter l = logs.get(url);
-	return (Connection)Proxy.newProxyInstance(getClass().getClassLoader(), 
-						  new Class[]{Connection.class}, 
-						  new InvocationHandler () {
-						      public Object invoke (Object proxy, Method method, Object[] args) {
-							  if ("createStatement".equals(method.getName()))
-							      return 
-								  (Statement)
-								  Proxy.newProxyInstance(getClass().getClassLoader(),
-											 new Class[]{Statement.class},
-											 new LoggingInvocationHandler(l));
-							  if ("prepareCall".equals(method.getName()))
-							      return 
-								  (Statement)
-								  Proxy.newProxyInstance(getClass().getClassLoader(), 
-											 new Class[]{CallableStatement.class},
-											 new LoggingInvocationHandler(l));
-							  if ("prepareStatement".equals(method.getName()))
-							      return 
-								  (Statement)
-								  Proxy.newProxyInstance(getClass().getClassLoader(), 
-											 new Class[]{PreparedStatement.class},
-											 new LoggingInvocationHandler(l));
-							  return null;}});}}
+	return (Connection)Proxy.newProxyInstance(getClass().getClassLoader(), new Class[]{Connection.class}, new InvocationHandler () {
+		public Object invoke (Object proxy, Method method, Object[] args) {
+		    if ("createStatement".equals(method.getName()))
+			return (Statement) 
+			    Proxy.newProxyInstance(getClass().getClassLoader(), new Class[]{Statement.class}, new LoggingInvocationHandler(l));
+		    if ("prepareCall".equals(method.getName()))
+			return (Statement)
+			    Proxy.newProxyInstance(getClass().getClassLoader(), new Class[]{CallableStatement.class}, new LoggingInvocationHandler(l));
+		    if ("prepareStatement".equals(method.getName()))
+			return (Statement)
+			    Proxy.newProxyInstance(getClass().getClassLoader(), new Class[]{PreparedStatement.class}, new LoggingInvocationHandler(l));
+		    if ("getMetaData".equals(method.getName()))
+			return (DatabaseMetaData)
+			    Proxy.newProxyInstance(getClass().getClassLoader(), new Class[]{DatabaseMetaData.class}, new InvocationHandler() {
+				    public Object invoke (Object proxy, Method method, Object[] args) {
+					return ("getURL".equals(method.getName())) ? url : null;}});
+		    return null;}});}}

@@ -30,7 +30,7 @@ public abstract class AbstractProxyConnection implements ConnectionAware {
     protected String url;
     protected Properties info;
     protected Connection delegate;
-    
+
     public Driver getDriver () {
 	return this.driver;}
 
@@ -80,11 +80,9 @@ public abstract class AbstractProxyConnection implements ConnectionAware {
     public void setSchema (String schema) throws SQLException {delegate.setSchema(schema);}
     public void setTransactionIsolation (int level) throws SQLException {delegate.setTransactionIsolation(level);}
     public void setTypeMap (Map<String,Class<?>> map) throws SQLException {delegate.setTypeMap(map);}
-    public boolean isWrapperFor (Class<?> iface) {
-	if ("Connection".equals(iface.getName())) return true;
-	return false;}
-    public <T> T unwrap (Class<T> iface) throws SQLException {throw new SQLException();}
-    
+    public boolean isWrapperFor (Class<?> iface) {return iface.isInstance(this.delegate);}
+    public <T> T unwrap(Class<T> iface) throws SQLException {return isWrapperFor(iface) ? iface.cast(this.delegate) : null;}    
+
     public AbstractProxyConnection (Connection delegate, Driver driver, String url, Properties info)
 	throws SQLException {
 	this.delegate = delegate;
