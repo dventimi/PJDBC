@@ -8,7 +8,6 @@ import java.sql.Statement;
 import java.util.Properties;
 import org.pjdbc.util.AbstractProxyDriver;
 import org.pjdbc.util.AbstractProxyStatement;
-import org.pjdbc.util.ConnectionAware;
 
 public class SinkDriver extends AbstractProxyDriver {
     static {try {DriverManager.registerDriver(new SinkDriver());} catch (Exception e) {throw new RuntimeException(e);}}
@@ -16,7 +15,7 @@ public class SinkDriver extends AbstractProxyDriver {
     protected boolean acceptsSubProtocol (String subprotocol) {
 	return "sink".equals(subprotocol);}
 
-    protected Statement proxyStatement (ConnectionAware conn, Statement delegate) {
+    protected Statement proxyStatement (Connection conn, Statement delegate) {
 	return new AbstractProxyStatement(delegate, conn) {
 	    public void addBatch (String sql) throws SQLException {}
 	    public boolean execute (String sql) throws SQLException {return true;}

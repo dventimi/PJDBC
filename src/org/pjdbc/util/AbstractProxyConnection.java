@@ -5,7 +5,6 @@ import java.sql.Blob;
 import java.sql.CallableStatement;
 import java.sql.Clob;
 import java.sql.Connection;
-import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.Driver;
 import java.sql.DriverManager;
@@ -25,20 +24,11 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.concurrent.Executor;
 
-public abstract class AbstractProxyConnection implements ConnectionAware {
+public abstract class AbstractProxyConnection implements Connection {
     protected Driver driver;
     protected String url;
     protected Properties info;
     protected Connection delegate;
-
-    public Driver getDriver () {
-	return this.driver;}
-
-    public String getUrl () {
-	return this.url;}
-
-    public Properties getInfo () {
-	return this.info;}
 
     public Array createArrayOf (String typeName, Object[] elements) throws SQLException {return delegate.createArrayOf(typeName, elements);}
     public Blob createBlob () throws SQLException {return delegate.createBlob();}

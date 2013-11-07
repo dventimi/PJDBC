@@ -20,7 +20,6 @@ import java.util.logging.LogManager;
 import java.util.logging.Logger;
 import org.pjdbc.util.AbstractProxyDriver;
 import org.pjdbc.util.AbstractProxyStatement;
-import org.pjdbc.util.ConnectionAware;
 
 public class LoggingDriver extends AbstractProxyDriver {
     static {try {DriverManager.registerDriver(new LoggingDriver());} catch (Exception e) {throw new RuntimeException(e);}}
@@ -31,7 +30,7 @@ public class LoggingDriver extends AbstractProxyDriver {
     protected String getLogName (Statement stmt) throws SQLException {
 	return ((Wrapper)stmt.getConnection()).unwrap(Connection.class).getMetaData().getURL();}
 
-    protected Statement proxyStatement (ConnectionAware conn, Statement delegate) {
+    protected Statement proxyStatement (Connection conn, Statement delegate) {
 	return new AbstractProxyStatement(delegate, conn) {
 	    private void log (String sql) throws SQLException {
 		Logger.getLogger(getLogName(this)).info(sql);}

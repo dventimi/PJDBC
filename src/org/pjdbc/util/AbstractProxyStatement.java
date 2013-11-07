@@ -5,7 +5,6 @@ import java.sql.Blob;
 import java.sql.CallableStatement;
 import java.sql.Clob;
 import java.sql.Connection;
-import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.Driver;
 import java.sql.NClob;
@@ -22,19 +21,10 @@ import java.util.Properties;
 import java.util.concurrent.Executor;
 
 public abstract class AbstractProxyStatement implements Statement {
-    protected ConnectionAware conn;
+    protected Connection conn;
     protected Statement delegate;
 
-    public Driver getDriver () {
-	return this.conn.getDriver();}
-
-    public String getUrl () {
-	return this.conn.getUrl();}
-
-    public Properties getInfo () {
-	return this.conn.getInfo();}
-
-    public AbstractProxyStatement (Statement delegate, ConnectionAware conn) {
+    public AbstractProxyStatement (Statement delegate, Connection conn) {
 	this.delegate = delegate; this.conn = conn;}
     public void addBatch (String sql) throws SQLException {delegate.addBatch(sql);}
     public void cancel () throws SQLException {delegate.cancel();}

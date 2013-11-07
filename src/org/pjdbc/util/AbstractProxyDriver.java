@@ -26,7 +26,7 @@ public abstract class AbstractProxyDriver extends AbstractDriver {
 	    public Statement createStatement (int resultSetType, int resultSetConcurrency, int resultSetHoldability) throws SQLException {
 		return proxyStatement(this, delegate.createStatement(resultSetType, resultSetConcurrency, resultSetHoldability));}};}
 
-    protected Statement proxyStatement (ConnectionAware conn, Statement delegate) {
+    protected Statement proxyStatement (Connection conn, Statement delegate) {
 	return new AbstractProxyStatement(delegate, conn) {};}
 
     protected ResultSet proxyResultSet (Statement stmt, ResultSet delegate) {

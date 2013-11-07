@@ -17,19 +17,18 @@ import java.util.concurrent.Executor;
 import org.pjdbc.util.AbstractProxyConnection;
 import org.pjdbc.util.AbstractProxyDriver;
 import org.pjdbc.util.AbstractProxyStatement;
-import org.pjdbc.util.ConnectionAware;
 
 public class TeeDriver extends AbstractProxyDriver {
     static {try {DriverManager.registerDriver(new TeeDriver());} catch (Exception e) {throw new RuntimeException(e);}}
 
     private static class ObservableStatement extends AbstractProxyStatement {
 	protected List<Statement> listeners = new ArrayList<Statement>();
-	public ObservableStatement (Statement delegate, ConnectionAware conn) {
+	public ObservableStatement (Statement delegate, Connection conn) {
 	    super(delegate, conn);}
-	public ObservableStatement (Statement delegate, ConnectionAware conn, List<Statement> listeners) {
+	public ObservableStatement (Statement delegate, Connection conn, List<Statement> listeners) {
 	    super(delegate, conn);
 	    for (Statement s : listeners) addListener(s);}
-	public ObservableStatement (Statement delegate, ConnectionAware conn, Statement... listeners) {
+	public ObservableStatement (Statement delegate, Connection conn, Statement... listeners) {
 	    super(delegate, conn);
 	    for (Statement s : listeners) addListener(s);}
 	public boolean addListener (Statement stmt) {
