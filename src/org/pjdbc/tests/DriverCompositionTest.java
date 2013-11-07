@@ -60,9 +60,9 @@ public class DriverCompositionTest extends AutoTest {
     	stmt.executeQuery("insert into person (last_name, first_name, age) values ('David', 'Ventimiglia', 42);");
     	assertNotNull(foo.getLog("jdbc:mock:foo"));
     	assertNotNull(bar.getLog("jdbc:mock:bar"));
+    	assertEquals("", foo.getLog("jdbc:mock:foo"));
     	assertEquals("executeQuery[select * from person;]\n"+
     		     "executeQuery[insert into person (last_name, first_name, age) values ('David', 'Ventimiglia', 42);]", 
     		     bar.getLog("jdbc:mock:bar"));
-    	assertEquals("", foo.getLog("jdbc:mock:foo"));
     }};}
 }

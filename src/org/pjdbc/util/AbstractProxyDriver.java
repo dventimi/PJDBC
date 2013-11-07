@@ -21,16 +21,16 @@ public abstract class AbstractProxyDriver extends AbstractDriver {
     protected Connection proxyConnection (Connection conn, String url, Properties info) throws SQLException {
 	return new AbstractProxyConnection(conn, this, url, info) {
 	    public Statement createStatement () throws SQLException {
-		return proxyStatement(this, getDelegate().createStatement());}
+		return proxyStatement(getDelegate().createStatement(), this);}
 	    public Statement createStatement (int resultSetType, int resultSetConcurrency) throws SQLException {
-		return proxyStatement(this, getDelegate().createStatement(resultSetType, resultSetConcurrency));}
+		return proxyStatement(getDelegate().createStatement(resultSetType, resultSetConcurrency), this);}
 	    public Statement createStatement (int resultSetType, int resultSetConcurrency, int resultSetHoldability) throws SQLException {
-		return proxyStatement(this, getDelegate().createStatement(resultSetType, resultSetConcurrency, resultSetHoldability));}};}
+		return proxyStatement(getDelegate().createStatement(resultSetType, resultSetConcurrency, resultSetHoldability), this);}};}
 
     protected Connection proxyConnection (Connection delegate, String url, Properties info, List<Connection> delegates) throws SQLException {
 	return new AbstractProxyConnection(delegate, this, url, info, delegates) {};}
 
-    protected Statement proxyStatement (Connection conn, Statement delegate) throws SQLException {
+    protected Statement proxyStatement (Statement delegate, Connection conn) throws SQLException {
 	return new AbstractProxyStatement(delegate, conn) {};}
 
     protected ResultSet proxyResultSet (Statement stmt, ResultSet delegate) throws SQLException {

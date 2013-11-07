@@ -30,7 +30,7 @@ public class LoggingDriver extends AbstractProxyDriver {
     protected String getLogName (Statement stmt) throws SQLException {
 	return ((Wrapper)stmt.getConnection()).unwrap(Connection.class).getMetaData().getURL();}
 
-    protected Statement proxyStatement (Connection conn, Statement delegate) throws SQLException {
+    protected Statement proxyStatement (Statement delegate, Connection conn) throws SQLException {
 	return new AbstractProxyStatement(delegate, conn) {
 	    private void log (String sql) throws SQLException {
 		Logger.getLogger(getLogName(this)).info(sql);}
