@@ -30,6 +30,7 @@ check: @PACKAGE@.jar
 	org.pjdbc.tests.DriverCompositionTest \
 	org.pjdbc.tests.FilteringDriverTest \
 	org.pjdbc.tests.LoggingDriverTest \
+	org.pjdbc.tests.PoolingDriverTest \
 	org.pjdbc.tests.SinkDriverTest \
 	org.pjdbc.tests.TeeDriverTest
 

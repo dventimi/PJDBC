@@ -56,7 +56,7 @@ public class MockDriver extends AbstractDriver {
     	if (!acceptsURL(url)) return null;
 	logs.put(url, new MyPrintWriter(new ByteArrayOutputStream()));
 	final PrintWriter l = logs.get(url);
-	return (Connection)Proxy.newProxyInstance(getClass().getClassLoader(), new Class[]{Connection.class}, new InvocationHandler () {
+	return (Connection)Proxy.newProxyInstance(getClass().getClassLoader(), new Class[]{Connection.class}, new InvocationHandler() {
 		public Object invoke (Object proxy, Method method, Object[] args) {
 		    if ("createStatement".equals(method.getName()))
 			return (Statement) 
