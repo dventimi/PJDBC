@@ -3,6 +3,17 @@
 * TODO Write a whole battery of tests just to check that JDBC methods are being called correctly.
 * TODO Test PoolingDriver.java.
 * TODO Test UserMappingDriver.java.
+* TODO Create Radium Salt image.
+  1. Activate the Ellipse Selection Tool.
+  2. right click on the background layer and choose Add Layer Mask.
+  3. click on the Quick Mask toggle.
+  4. Go to Filters > Blur > Gaussian Blur
+  5. click on the Quick Mask toggle again to exit.
+  6. Go to Select > Invert to reverse your selection
+  7. Go to Edit > Fill with FG color.
+  8. Select > None or press Shift-Ctrl-A
+  9. add a new background for the image,
+  10. go to the layers palette, and drag it below the background layer.
 
 #+STARTUP: hidestars:t odd:t
 #+TITLE:     PJDBC To-Do List
