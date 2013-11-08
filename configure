@@ -585,7 +585,7 @@ PACKAGE_STRING='PJDBC 0.9'
 PACKAGE_BUGREPORT='http://www.pjdbc.org'
 PACKAGE_URL=''
 
-ac_unique_file="src/org/pjdbc/AutoTest.java"
+ac_unique_file="src/org/pjdbc/util/AbstractDriver.java"
 ac_subst_vars='LTLIBOBJS
 LIBOBJS
 JAR
