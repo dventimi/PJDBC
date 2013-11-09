@@ -14,6 +14,10 @@ import java.util.Set;
 public class MultiMap<K, V> implements Map<K, V> {
     private static Random r = new Random();
     private final Map<K, List<V>> delegate = new HashMap<K, List<V>>();
+    protected Collection<V> allValues () {
+	Set<V> collector = new HashSet<V>();
+	for (List<V> bucket : delegate.values()) collector.addAll(bucket);
+	return collector;}
     public void clear () {
 	delegate.clear();}
     public boolean containsKey (Object key) {
