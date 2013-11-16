@@ -58,7 +58,6 @@ public class PoolingDriverTest extends AutoTest {
 
     public void testCallMethodOnClosedPooledConnectionThrowsSQLException () {new Script () {public void run () throws Exception {
     	Connection foo = DriverManager.getConnection("jdbc:pool:jdbc:mock:foo");
-	foo.createStatement();
 	try {foo.close();} catch (Exception e) {}
 	foo.createStatement();
     }};}

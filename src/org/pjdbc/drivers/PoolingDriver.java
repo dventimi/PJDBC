@@ -8,6 +8,7 @@ import java.sql.Driver;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.AbstractMap.SimpleImmutableEntry;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -34,12 +35,12 @@ public class PoolingDriver extends AbstractProxyDriver {
     protected Connection proxyConnection (final Connection conn, final String url, final Properties info, Driver driver) throws SQLException {
     	return (Connection)Proxy.newProxyInstance(getClass().getClassLoader(), new Class[]{Connection.class}, new InvocationHandler() {
     		public Object invoke (Object proxy, Method method, Object[] args) throws SQLException {
-    		    if ("close".equals(method.getName())) {
+		    if ("close".equals(method.getName())) {
 			pools.get(getPoolKey(url, info)).add((Connection)proxy);
-    			System.out.println("close method was called!");
-    			System.out.println("key = " + getPoolKey(url, info));
-    			return null;}
-    		    try {return method.invoke(conn, args);} catch (Exception e) {throw new SQLException();}}});}
+			System.out.println("close method was called!");
+			System.out.println("key = " + getPoolKey(url, info));
+			return null;}
+		    try {return method.invoke(conn, args);} catch (Exception e) {throw new SQLException();}}});}
 
     public Connection connect (String url, Properties info) throws SQLException {
     	if (!acceptsURL(url)) return null;

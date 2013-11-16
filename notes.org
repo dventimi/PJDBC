@@ -185,3 +185,8 @@
 ***** TODO Get jdep or something like it to help with compilation
 ***** TODO Get Radium Salt's macro expansion to work recursively.
 ***** TODO Move PJDBC and RadiumSalt into completely seperate projects.
+*** Experimental
+     #+CAPTION: This is the caption for the next figure link (or table)
+     #+LABEL:   fig:SED-HR4049
+     #+ATTR_HTML: alt="Galaxy Image" title="Galaxy!"
+     [[~/Downloads/background.jpg]]
