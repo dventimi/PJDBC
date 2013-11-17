@@ -60,18 +60,26 @@ public class MockDriver extends AbstractDriver {
 		public Object invoke (Object proxy, Method method, Object[] args) {
 		    if ("createStatement".equals(method.getName()))
 			return (Statement) 
-			    Proxy.newProxyInstance(getClass().getClassLoader(), new Class[]{Statement.class}, new LoggingInvocationHandler(l));
+			    Proxy.newProxyInstance(getClass().getClassLoader(), 
+						   new Class[]{Statement.class}, 
+						   new LoggingInvocationHandler(l));
 		    if ("prepareCall".equals(method.getName()))
 			return (Statement)
-			    Proxy.newProxyInstance(getClass().getClassLoader(), new Class[]{CallableStatement.class}, new LoggingInvocationHandler(l));
+			    Proxy.newProxyInstance(getClass().getClassLoader(), 
+						   new Class[]{CallableStatement.class}, 
+						   new LoggingInvocationHandler(l));
 		    if ("prepareStatement".equals(method.getName()))
 			return (Statement)
-			    Proxy.newProxyInstance(getClass().getClassLoader(), new Class[]{PreparedStatement.class}, new LoggingInvocationHandler(l));
+			    Proxy.newProxyInstance(getClass().getClassLoader(), 
+						   new Class[]{PreparedStatement.class}, 
+						   new LoggingInvocationHandler(l));
 		    if ("getMetaData".equals(method.getName()))
 			return (DatabaseMetaData)
-			    Proxy.newProxyInstance(getClass().getClassLoader(), new Class[]{DatabaseMetaData.class}, new InvocationHandler() {
-				    public Object invoke (Object proxy, Method method, Object[] args) {
-					return ("getURL".equals(method.getName())) ? url : null;}});
+			    Proxy.newProxyInstance(getClass().getClassLoader(), 
+						   new Class[]{DatabaseMetaData.class}, 
+						   new InvocationHandler() {
+						       public Object invoke (Object proxy, Method method, Object[] args) {
+							   return ("getURL".equals(method.getName())) ? url : null;}});
 		    if ("toString".equals(method.getName())) return "MockDriver[" + url + "]";
 		    if ("equals".equals(method.getName())) return proxy==args[0];
 		    return null;}});}}
