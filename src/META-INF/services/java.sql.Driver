@@ -1,7 +1,8 @@
 org.pjdbc.drivers.BasicDriver
-org.pjdbc.drivers.CatDriver
+org.pjdbc.drivers.FilteringDriver
 org.pjdbc.drivers.LoggingDriver
+org.pjdbc.drivers.MockDriver
 org.pjdbc.drivers.PoolingDriver
-org.pjdbc.drivers.SQLFilteringDriver
-org.pjdbc.drivers.SwallowingDriver
+org.pjdbc.drivers.SinkDriver
+org.pjdbc.drivers.TeeDriver
 org.pjdbc.drivers.UserMappingDriver

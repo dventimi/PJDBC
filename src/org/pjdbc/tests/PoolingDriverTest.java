@@ -62,4 +62,14 @@ public class PoolingDriverTest extends AutoTest {
 	try {foo.createStatement();} catch (SQLException e) {return;}
 	fail();
     }};}
+
+    public void testGetConnectionTwiceProducesTwoDistinctConnections () {new Script () {public void run () throws Exception {
+    	Connection foo1 = DriverManager.getConnection("jdbc:pool:jdbc:mock:foo");
+    	Connection foo2 = DriverManager.getConnection("jdbc:pool:jdbc:mock:foo");
+	assertNotSame(foo1, foo2);
+	foo1.close();
+	try {foo2.createStatement();} catch (SQLException e) {fail();}
+	try {foo1.createStatement();} catch (SQLException e) {return;}
+	fail();
+    }};}
 }
