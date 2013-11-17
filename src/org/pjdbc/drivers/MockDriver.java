@@ -72,4 +72,6 @@ public class MockDriver extends AbstractDriver {
 			    Proxy.newProxyInstance(getClass().getClassLoader(), new Class[]{DatabaseMetaData.class}, new InvocationHandler() {
 				    public Object invoke (Object proxy, Method method, Object[] args) {
 					return ("getURL".equals(method.getName())) ? url : null;}});
+		    if ("toString".equals(method.getName())) return "MockDriver[" + url + "]";
+		    if ("equals".equals(method.getName())) return proxy==args[0];
 		    return null;}});}}

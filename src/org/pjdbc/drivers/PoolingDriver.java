@@ -22,7 +22,7 @@ import org.pjdbc.util.SmartMultiMap;
 public class PoolingDriver extends AbstractProxyDriver {
     static {try {DriverManager.registerDriver(new PoolingDriver());} catch (Exception e) {throw new RuntimeException(e);}}
 
-    private final Map<Properties, Queue<Connection>> pools = new HashMap<Properties, Queue<Connection>>();
+    private static final Map<Properties, Queue<Connection>> pools = new HashMap<Properties, Queue<Connection>>();
 
     protected Properties getPoolKey (String url, Properties info) throws SQLException {
 	Properties key = new Properties(info);
@@ -36,10 +36,11 @@ public class PoolingDriver extends AbstractProxyDriver {
     	return (Connection)Proxy.newProxyInstance(getClass().getClassLoader(), new Class[]{Connection.class}, new InvocationHandler() {
     		public Object invoke (Object proxy, Method method, Object[] args) throws SQLException {
 		    if ("close".equals(method.getName())) {
-			pools.get(getPoolKey(url, info)).add((Connection)proxy);
-			System.out.println("close method was called!");
-			System.out.println("key = " + getPoolKey(url, info));
-			return null;}
+			pools.get(getPoolKey(url, info)).add(conn);
+			return proxy;}
+		    if (!"close".equals(method.getName())) if (pools.get(getPoolKey(url, info)).contains(conn)) throw new SQLException();
+		    if ("toString".equals(method.getName())) return conn.toString();
+		    if ("equals".equals(method.getName())) return proxy==args[0];
 		    try {return method.invoke(conn, args);} catch (Exception e) {throw new SQLException();}}});}
 
     public Connection connect (String url, Properties info) throws SQLException {
@@ -48,5 +49,4 @@ public class PoolingDriver extends AbstractProxyDriver {
 	if (!pools.containsKey(key)) pools.put(key, new LinkedList<Connection>());
 	Queue<Connection> pool = pools.get(key);
 	Connection conn = pool.poll();
-    	return (conn!=null) ? conn : super.connect(url, info);}}
-
+    	return proxyConnection(conn!=null ? conn : DriverManager.getConnection(subname(url)), subname(url), info, this);}}
