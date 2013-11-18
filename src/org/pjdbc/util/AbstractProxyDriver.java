@@ -2,6 +2,7 @@ package org.pjdbc.util;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Proxy;
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.Driver;
 import java.sql.DriverManager;
@@ -20,18 +21,33 @@ public abstract class AbstractProxyDriver extends AbstractDriver {
 
     protected Connection proxyConnection (Connection conn, String url, Properties info, Driver driver) throws SQLException {
 	return new AbstractProxyConnection(conn, this, url, info) {
-	    public Statement createStatement () throws SQLException {
+	    public Statement createStatement () 
+		throws SQLException {
 		return proxyStatement(getDelegate().createStatement(), this);}
-	    public Statement createStatement (int resultSetType, int resultSetConcurrency) throws SQLException {
+	    public Statement createStatement (int resultSetType, int resultSetConcurrency) 
+		throws SQLException {
 		return proxyStatement(getDelegate().createStatement(resultSetType, resultSetConcurrency), this);}
-	    public Statement createStatement (int resultSetType, int resultSetConcurrency, int resultSetHoldability) throws SQLException {
-		return proxyStatement(getDelegate().createStatement(resultSetType, resultSetConcurrency, resultSetHoldability), this);}};}
+	    public Statement createStatement (int resultSetType, int resultSetConcurrency, int resultSetHoldability) 
+		throws SQLException {
+		return proxyStatement(getDelegate().createStatement(resultSetType, resultSetConcurrency, resultSetHoldability), this);}
+	    public CallableStatement prepareCall (String sql) 
+		throws SQLException {
+		return proxyCallableStatement(getDelegate().prepareCall(sql), this);}
+	    public CallableStatement prepareCall (String sql, int resultSetType, int resultSetConcurrency) 
+		throws SQLException {
+		return proxyCallableStatement(getDelegate().prepareCall(sql, resultSetType, resultSetConcurrency), this);}
+	    public CallableStatement prepareCall (String sql, int resultSetType, int resultSetConcurrency, int resultSetHoldability) 
+		throws SQLException {
+		return proxyCallableStatement(getDelegate().prepareCall(sql, resultSetType, resultSetConcurrency, resultSetHoldability), this);}};}
 
     protected Connection proxyConnection (Connection delegate, String url, Properties info, List<Connection> delegates) throws SQLException {
 	return new AbstractProxyConnection(delegate, this, url, info, delegates) {};}
 
     protected Statement proxyStatement (Statement delegate, Connection conn) throws SQLException {
 	return new AbstractProxyStatement(delegate, conn) {};}
+
+    protected CallableStatement proxyCallableStatement (CallableStatement delegate, Connection conn) throws SQLException {
+	return new AbstractProxyCallableStatement(delegate, conn) {};}
 
     protected ResultSet proxyResultSet (Statement stmt, ResultSet delegate) throws SQLException {
 	return delegate;}

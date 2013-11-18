@@ -64,12 +64,12 @@ public class MockDriver extends AbstractDriver {
 						   new Class[]{Statement.class}, 
 						   new LoggingInvocationHandler(l));
 		    if ("prepareCall".equals(method.getName()))
-			return (Statement)
+			return (CallableStatement)
 			    Proxy.newProxyInstance(getClass().getClassLoader(), 
 						   new Class[]{CallableStatement.class}, 
 						   new LoggingInvocationHandler(l));
 		    if ("prepareStatement".equals(method.getName()))
-			return (Statement)
+			return (PreparedStatement)
 			    Proxy.newProxyInstance(getClass().getClassLoader(), 
 						   new Class[]{PreparedStatement.class}, 
 						   new LoggingInvocationHandler(l));
