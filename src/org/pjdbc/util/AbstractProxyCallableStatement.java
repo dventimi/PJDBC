@@ -1,38 +1,38 @@
 package org.pjdbc.util;
 
-import java.net.URL;
-import java.sql.Timestamp;
-import java.sql.Time;
-import java.sql.Ref;
-import java.sql.RowId;
-import java.sql.Date;
-import java.util.Calendar;
+import java.io.InputStream;
 import java.io.Reader;
 import java.math.BigDecimal;
-import java.io.InputStream;
+import java.net.URL;
 import java.sql.Array;
 import java.sql.Blob;
 import java.sql.CallableStatement;
 import java.sql.Clob;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
+import java.sql.Date;
 import java.sql.Driver;
 import java.sql.NClob;
+import java.sql.ParameterMetaData;
 import java.sql.PreparedStatement;
+import java.sql.Ref;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.RowId;
 import java.sql.SQLException;
 import java.sql.SQLWarning;
 import java.sql.SQLXML;
 import java.sql.Savepoint;
 import java.sql.Statement;
 import java.sql.Struct;
+import java.sql.Time;
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 import java.util.concurrent.Executor;
-import java.sql.ResultSetMetaData;
-import java.sql.ParameterMetaData;
 
 @SuppressWarnings("deprecation")
 public abstract class AbstractProxyCallableStatement extends AbstractProxyPreparedStatement implements CallableStatement {
@@ -284,5 +284,3 @@ public abstract class AbstractProxyCallableStatement extends AbstractProxyPrepar
 	for (CallableStatement s : delegates) s.setTimestamp(parameterName, x, cal);}
     public void setURL (String parameterName, URL val) throws SQLException {
 	for (CallableStatement s : delegates) s.setURL(parameterName, val);}}
-
-
