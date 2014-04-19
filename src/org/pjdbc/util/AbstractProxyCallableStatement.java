@@ -42,19 +42,16 @@ public abstract class AbstractProxyCallableStatement extends AbstractProxyPrepar
 
     protected CallableStatement getDelegate() {return this.delegate;}
 
-    public AbstractProxyCallableStatement (CallableStatement delegate, Connection conn)
-	throws SQLException {
+    public AbstractProxyCallableStatement (CallableStatement delegate, Connection conn)	throws SQLException {
 	super(delegate, conn);
 	this.delegates.add(delegate);
 	this.conn = conn;}
 
-    public AbstractProxyCallableStatement (CallableStatement delegate, Connection conn, List<CallableStatement> delegates) 
-	throws SQLException {
+    public AbstractProxyCallableStatement (CallableStatement delegate, Connection conn, List<CallableStatement> delegates) throws SQLException {
 	this(delegate, conn);
 	for (CallableStatement s : delegates) addDelegate(s);}
 
-    public AbstractProxyCallableStatement (CallableStatement delegate, Connection conn, CallableStatement... delegates) 
-	throws SQLException {
+    public AbstractProxyCallableStatement (CallableStatement delegate, Connection conn, CallableStatement... delegates) throws SQLException {
 	this(delegate, conn);
 	for (CallableStatement s : delegates) addDelegate(s);}
 

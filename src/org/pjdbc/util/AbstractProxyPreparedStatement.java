@@ -42,19 +42,16 @@ public abstract class AbstractProxyPreparedStatement extends AbstractProxyStatem
 
     protected PreparedStatement getDelegate() {return this.delegate;}
 
-    public AbstractProxyPreparedStatement (PreparedStatement delegate, Connection conn)
-	throws SQLException {
+    public AbstractProxyPreparedStatement (PreparedStatement delegate, Connection conn) throws SQLException {
 	super(delegate, conn);
 	this.delegates.add(delegate);
 	this.conn = conn;}
 
-    public AbstractProxyPreparedStatement (PreparedStatement delegate, Connection conn, List<PreparedStatement> delegates) 
-	throws SQLException {
+    public AbstractProxyPreparedStatement (PreparedStatement delegate, Connection conn, List<PreparedStatement> delegates) throws SQLException {
 	this(delegate, conn);
 	for (PreparedStatement s : delegates) addDelegate(s);}
 
-    public AbstractProxyPreparedStatement (PreparedStatement delegate, Connection conn, PreparedStatement... delegates) 
-	throws SQLException {
+    public AbstractProxyPreparedStatement (PreparedStatement delegate, Connection conn, PreparedStatement... delegates) throws SQLException {
 	this(delegate, conn);
 	for (PreparedStatement s : delegates) addDelegate(s);}
 
