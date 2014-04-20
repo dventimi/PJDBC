@@ -7,21 +7,17 @@ import java.sql.Connection;
 import java.sql.Driver;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.Map;
 import java.util.Properties;
-import java.util.Queue;
-import java.util.Set;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.TimeUnit;
 import org.pjdbc.util.AbstractProxyDriver;
-import org.pjdbc.util.SmartMultiMap;
 
 public class PoolingDriver extends AbstractProxyDriver {
     static {try {DriverManager.registerDriver(new PoolingDriver());} catch (Exception e) {throw new RuntimeException(e);}}
 
-    private static final Map<Properties, Queue<Connection>> pools = new HashMap<Properties, Queue<Connection>>();
+    private static final ConcurrentHashMap<Properties, BlockingQueue<Connection>> pools = new ConcurrentHashMap<Properties, BlockingQueue<Connection>>();
 
     protected Properties getPoolKey (String url, Properties info) throws SQLException {
 	Properties key = new Properties(info);
@@ -45,7 +41,9 @@ public class PoolingDriver extends AbstractProxyDriver {
     public Connection connect (String url, Properties info) throws SQLException {
     	if (!acceptsURL(url)) return null;
 	Properties key = getPoolKey(subname(url), info);
-	if (!pools.containsKey(key)) pools.put(key, new LinkedList<Connection>());
-	Queue<Connection> pool = pools.get(key);
-	Connection conn = pool.poll();
-    	return proxyConnection(conn!=null ? conn : DriverManager.getConnection(subname(url)), subname(url), info, this);}}
+	Connection conn = null;
+	if (!pools.containsKey(key)) pools.putIfAbsent(key, new LinkedBlockingQueue<Connection>());
+	try{conn = pools.get(key).poll(1L, TimeUnit.SECONDS);} catch (InterruptedException e) {}
+	if (conn!=null) return conn;
+	return proxyConnection(conn!=null ? conn : DriverManager.getConnection(subname(url)), subname(url), info, this);}}
+
