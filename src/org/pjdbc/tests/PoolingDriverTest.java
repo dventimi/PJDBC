@@ -9,71 +9,82 @@ import org.pjdbc.drivers.MockDriver;
 import org.pjdbc.drivers.PoolingDriver;
 import org.pjdbc.util.AutoTest;
 
-public class PoolingDriverTest extends AutoTest {
-    public static void main (String[] args) {autorun(new Exception());}
+public class PoolingDriverTest {
+    public static void main (String[] args) throws Exception {
+	setUp();
+	testVersionInfo();
+	testJDBCCompliance();
+	testAcceptsURL();
+	testConnectDirectly();
+	testConnectIndirectly();
+	testConnectDirectlyAndInvokeMethods();
+	testCallMethodOnClosedPooledConnectionThrowsSQLException();
+	testGetConnectionTwiceProducesTwoDistinctConnections();
+	tearDown();}
 
-    public void setUp () throws ClassNotFoundException, SQLException {
+    public static void setUp () throws Exception {
 	Class.forName("org.pjdbc.drivers.PoolingDriver");
 	Class.forName("org.pjdbc.drivers.MockDriver");}
 
-    public void testVersionInfo () {new Script () {public void run () throws Exception {
-    	assertEquals(1, new PoolingDriver().getMajorVersion());
-    	assertEquals(0, new PoolingDriver().getMinorVersion());
-    }};}
+    public static void tearDown () throws Exception {}
 
-    public void testJDBCCompliance () {	new Script () {public void run () throws Exception {
-    	assertFalse(new PoolingDriver().jdbcCompliant());
-    }};}
+    public static void testVersionInfo () {
+    	assert (1==new PoolingDriver().getMajorVersion());
+    	assert (0==new PoolingDriver().getMinorVersion());
+    }
 
-    public void testAcceptsURL () {new Script () {public void run () throws Exception {
-    	assertFalse(new PoolingDriver().acceptsURL("jdbc:pool"));
-    	assertFalse(new PoolingDriver().acceptsURL("jdbc:pool:"));
-    	assertFalse(new PoolingDriver().acceptsURL("jdbc:pool:foo"));
-    	assertTrue(new PoolingDriver().acceptsURL("jdbc:pool:jdbc:mock:foo"));
-    }};}
+    public static void testJDBCCompliance () {
+    	assert (new PoolingDriver().jdbcCompliant());
+    }
 
-    public void testConnectDirectly () {new Script () {public void run () throws Exception {
-    	assertFalse(new PoolingDriver().acceptsURL("foo"));
-    	assertNull(new PoolingDriver().connect("foo", null));
-    	assertNull(new PoolingDriver().connect("jdbc:pool", null));
-    	assertNull(new PoolingDriver().connect("jdbc:pool:", null));
-    	assertNotNull(new PoolingDriver().connect("jdbc:pool:jdbc:mock:foo", null));
-    }};}
+    public static void testAcceptsURL () {
+    	assert (!new PoolingDriver().acceptsURL("jdbc:pool"));
+	assert (!new PoolingDriver().acceptsURL("jdbc:pool:"));
+	assert (!new PoolingDriver().acceptsURL("jdbc:pool:foo"));
+    	assert ((new PoolingDriver().acceptsURL("jdbc:pool:jdbc:mock:foo")));
+    }
 
-    public void testConnectIndirectly () {new Script () {public void run () throws Exception {
-    	assertNotNull(DriverManager.getConnection("jdbc:pool:jdbc:mock:foo"));
-    }};}
+    public static void testConnectDirectly () throws Exception {
+	assert (!new PoolingDriver().acceptsURL("foo"));
+	assert (new PoolingDriver().connect("foo", null)==null);
+	assert (new PoolingDriver().connect("jdbc:pool", null)==null);
+	assert (new PoolingDriver().connect("jdbc:pool:", null)==null);
+	assert (new PoolingDriver().connect("jdbc:pool:jdbc:mock:foo", null)!=null);
+    }
 
-    public void testConnectDirectlyAndInvokeMethods () {new Script () {public void run () throws Exception {
-    	Connection c = (Connection)(new PoolingDriver().connect("jdbc:pool:jdbc:mock:foo", null));
-    	MockDriver d = (MockDriver)DriverManager.getDriver("jdbc:mock:foo");
-    	Statement stmt = c.createStatement();
-    	stmt.executeQuery("select * from person;");
-    	stmt.executeQuery("insert into person (last_name, first_name, age) values ('David', 'Ventimiglia', 42);");
-    	assertNotNull(d.getLog("jdbc:mock:foo"));
-    	assertEquals("executeQuery[select * from person;]\n"+
-    		     "executeQuery[insert into person (last_name, first_name, age) values ('David', 'Ventimiglia', 42);]", 
-    		     d.getLog("jdbc:mock:foo"));
-    }};}
+    public static void testConnectIndirectly () throws Exception {
+	assert (DriverManager.getConnection("jdbc:pool:jdbc:mock:foo")!=null);
+    }
 
-    public void testCallMethodOnClosedPooledConnectionThrowsSQLException () {new Script () {public void run () throws Exception {
-    	Connection foo = DriverManager.getConnection("jdbc:pool:jdbc:mock:foo");
+    public static void testConnectDirectlyAndInvokeMethods () throws Exception {
+	Connection c = (Connection)(new PoolingDriver().connect("jdbc:pool:jdbc:mock:foo", null));
+	MockDriver d = (MockDriver)DriverManager.getDriver("jdbc:mock:foo");
+	Statement stmt = c.createStatement();
+	stmt.executeQuery("select * from person;");
+	stmt.executeQuery("insert into person (last_name, first_name, age) values ('David', 'Ventimiglia', 42);");
+	assert (d.getLog("jdbc:mock:foo")!=null);
+	assert ("executeQuery[select * from perso;]\n"+
+		"executeQuery[insert into person (last_name, first_name, age) values ('David', 'Ventimiglia', 42);]"==d.getLog("jdbc:mock:foo"));
+    }
+
+    public static void testCallMethodOnClosedPooledConnectionThrowsSQLException () throws Exception {
+	Connection foo = DriverManager.getConnection("jdbc:pool:jdbc:mock:foo");
 	foo.close();
 	try {foo.createStatement();} catch (SQLException e) {return;}
-	fail();
-    }};}
+	assert false;
+    }
 
-    public void testGetConnectionTwiceProducesTwoDistinctConnections () {new Script () {public void run () throws Exception {
-    	Connection foo1 = DriverManager.getConnection("jdbc:pool:jdbc:mock:foo");
-    	Connection foo2 = DriverManager.getConnection("jdbc:pool:jdbc:mock:foo");
-	assertNotNull(foo1);
-	assertNotNull(foo2);
-	assertNotSame(foo1, foo2);
+    public static void testGetConnectionTwiceProducesTwoDistinctConnections () throws Exception {
+	Connection foo1 = DriverManager.getConnection("jdbc:pool:jdbc:mock:foo");
+	Connection foo2 = DriverManager.getConnection("jdbc:pool:jdbc:mock:foo");
+	assert (foo1!=null);
+	assert (foo2!=null);
+	assert (foo1!=foo2);
 	foo1.close();
 	// try {foo2.createStatement();} catch (SQLException e) {fail();}
 	foo1.createStatement();
 	System.out.println("But No exception was thrown.");
 	// try {foo1.createStatement();} catch (SQLException e) {return;}
 	// fail();
-    }};}
+    }
 }

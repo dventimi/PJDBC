@@ -1,0 +1,8 @@
+#!/usr/bin/bsh
+addClassPath("pjdbc.jar");
+import org.pjdbc.drivers.*;
+public assert (boolean assertion) {
+    if (!assertion) System.exit(1);
+}
+getClass("org.pjdbc.drivers.PoolingDriver");
+getClass("org.pjdbc.drivers.MockDriver");

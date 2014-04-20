@@ -11,3 +11,4 @@ configure
 pjdbc.jar
 *.stamp
 *.log
+*.trs

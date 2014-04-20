@@ -1,0 +1,6 @@
+#!/usr/bin/bsh
+source("tests/setUp.bsh");
+assert(1==new PoolingDriver().getMajorVersion());
+assert(0==new PoolingDriver().getMinorVersion());
+source("tests/tearDown.bsh");
+

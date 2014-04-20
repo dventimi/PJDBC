@@ -3,6 +3,8 @@ LIB_DIR = lib
 BIN_DIR = bin
 OBJ_DIR = classes
 
+TESTS = tests/testVersionInfo.bsh
+
 dist_pkgdata_DATA = @PACKAGE@.jar $(shell find $(srcdir)/$(LIB_DIR) -type f -iname '*.jar') 
 dist_java_JAVA = $(shell find $(srcdir)/$(SRC_DIR) -type f -iname '*.java')
 javadir = $(datadir)/java
@@ -24,13 +26,13 @@ $(shell mkdir -p $(OBJ_DIR))
 clean-local:
 	rm -rf $(OBJ_DIR)
 
-check: @PACKAGE@.jar
-	@@JAVA@ -cp $(CLASSPATH):@PACKAGE@.jar org.junit.runner.JUnitCore \
-	org.pjdbc.tests.CatDriverTest \
-	org.pjdbc.tests.DriverCompositionTest \
-	org.pjdbc.tests.FilteringDriverTest \
-	org.pjdbc.tests.LoggingDriverTest \
-	org.pjdbc.tests.PoolingDriverTest \
-	org.pjdbc.tests.SinkDriverTest \
-	org.pjdbc.tests.TeeDriverTest
+# check: @PACKAGE@.jar
+# 	@@JAVA@ -cp $(CLASSPATH):@PACKAGE@.jar org.junit.runner.JUnitCore \
+# 	org.pjdbc.tests.CatDriverTest \
+# 	org.pjdbc.tests.DriverCompositionTest \
+# 	org.pjdbc.tests.FilteringDriverTest \
+# 	org.pjdbc.tests.LoggingDriverTest \
+# 	org.pjdbc.tests.PoolingDriverTest \
+# 	org.pjdbc.tests.SinkDriverTest \
+# 	org.pjdbc.tests.TeeDriverTest
 
