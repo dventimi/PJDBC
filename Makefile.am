@@ -33,13 +33,3 @@ $(shell mkdir -p $(OBJ_DIR))
 clean-local:
 	rm -rf $(OBJ_DIR)
 
-# check: @PACKAGE@.jar
-# 	@@JAVA@ -cp $(CLASSPATH):@PACKAGE@.jar org.junit.runner.JUnitCore \
-# 	org.pjdbc.tests.CatDriverTest \
-# 	org.pjdbc.tests.DriverCompositionTest \
-# 	org.pjdbc.tests.FilteringDriverTest \
-# 	org.pjdbc.tests.LoggingDriverTest \
-# 	org.pjdbc.tests.PoolingDriverTest \
-# 	org.pjdbc.tests.SinkDriverTest \
-# 	org.pjdbc.tests.TeeDriverTest
-
