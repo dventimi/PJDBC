@@ -29,27 +29,22 @@ public abstract class AbstractProxyStatement implements Statement {
 
     protected Statement getDelegate() {return this.delegate;}
 
-    public AbstractProxyStatement (Statement delegate, Connection conn)
-	throws SQLException {
+    public AbstractProxyStatement (Statement delegate, Connection conn)	throws SQLException {
 	this.delegates.add(delegate);
 	this.conn = conn;}
 
-    public AbstractProxyStatement (Statement delegate, Connection conn, List<Statement> delegates) 
-	throws SQLException {
+    public AbstractProxyStatement (Statement delegate, Connection conn, List<Statement> delegates) throws SQLException {
 	this(delegate, conn);
 	for (Statement s : delegates) addDelegate(s);}
 
-    public AbstractProxyStatement (Statement delegate, Connection conn, Statement... delegates) 
-	throws SQLException {
+    public AbstractProxyStatement (Statement delegate, Connection conn, Statement... delegates) throws SQLException {
 	this(delegate, conn);
 	for (Statement s : delegates) addDelegate(s);}
 
-    public boolean addDelegate (Statement stmt) 
-	throws SQLException {
+    public boolean addDelegate (Statement stmt) throws SQLException {
 	return this.delegates.add(stmt);}
 
-    public boolean removeDelegate (Statement stmt) 
-	throws SQLException {
+    public boolean removeDelegate (Statement stmt) throws SQLException {
 	return this.delegates.remove(stmt);}
 
     public void addBatch (String sql) throws SQLException {for (Statement d : delegates) d.addBatch(sql);}
