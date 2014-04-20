@@ -1,0 +1,4 @@
+assertFalse(new LoggingDriver().acceptsURL("jdbc:log"));
+assertFalse(new LoggingDriver().acceptsURL("jdbc:log:"));
+assertFalse(new LoggingDriver().acceptsURL("jdbc:log:foo"));
+assertTrue(new LoggingDriver().acceptsURL("jdbc:log:jdbc:mock:foo"));

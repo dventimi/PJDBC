@@ -1,0 +1,5 @@
+assertFalse(new TeeDriver().acceptsURL("foo"));
+assertNull(new TeeDriver().connect("foo", null));
+assertNull(new TeeDriver().connect("jdbc:tee", null));
+assertNull(new TeeDriver().connect("jdbc:tee:", null));
+assertNotNull(new TeeDriver().connect("jdbc:tee:jdbc:mock:foo;jdbc:mock:foo", null));

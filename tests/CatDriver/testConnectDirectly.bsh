@@ -1,0 +1,5 @@
+    assertFalse(new CatDriver().acceptsURL("foo"));
+    assertNull(new CatDriver().connect("foo", null));
+    assertNull(new CatDriver().connect("jdbc:cat", null));
+    assertNull(new CatDriver().connect("jdbc:cat:", null));
+    assertNotNull(new CatDriver().connect("jdbc:cat:jdbc:mock:foo", null));

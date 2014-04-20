@@ -1,0 +1,13 @@
+Connection c = DriverManager.getConnection("jdbc:tee:jdbc:sink:jdbc:mock:foo;jdbc:mock:bar");
+MockDriver foo = (MockDriver)DriverManager.getDriver("jdbc:mock:foo");
+MockDriver bar = (MockDriver)DriverManager.getDriver("jdbc:mock:bar");
+assertSame(foo, bar);
+Statement stmt = c.createStatement();
+stmt.executeQuery("select * from person;");
+stmt.executeQuery("insert into person (last_name, first_name, age) values ('David', 'Ventimiglia', 42);");
+assertNotNull(foo.getLog("jdbc:mock:foo"));
+assertNotNull(bar.getLog("jdbc:mock:bar"));
+assertEquals("", foo.getLog("jdbc:mock:foo"));
+assertEquals("executeQuery[select * from person;]\n"+
+	     "executeQuery[insert into person (last_name, first_name, age) values ('David', 'Ventimiglia', 42);]", 
+	     bar.getLog("jdbc:mock:bar"));

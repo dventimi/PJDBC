@@ -1,0 +1,1 @@
+try{DriverManager.getConnection("jdbc:tee:jdbc:mock:foo;jdbc:mock:foo");} catch (SQLException e) {fail(e.toString());}

@@ -1,0 +1,1 @@
+assertNotNull(DriverManager.getConnection("jdbc:filter:jdbc:mock:foo"));

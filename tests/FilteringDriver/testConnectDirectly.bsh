@@ -1,0 +1,5 @@
+assertFalse(new FilteringDriver().acceptsURL("foo"));
+assertNull(new FilteringDriver().connect("foo", null));
+assertNull(new FilteringDriver().connect("jdbc:filtering", null));
+assertNull(new FilteringDriver().connect("jdbc:filter:", null));
+assertNotNull(new FilteringDriver().connect("jdbc:filter:jdbc:mock:foo", null));
