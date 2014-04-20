@@ -1,8 +1,9 @@
 #!/usr/bin/bsh
-source("tests/setUp.bsh");
-assert(!new PoolingDriver().acceptsURL("foo"));
-assert(new PoolingDriver().connect("foo", null)==null);
-assert(new PoolingDriver().connect("jdbc:pool", null)==null);
-assert(new PoolingDriver().connect("jdbc:pool:", null)==null);
-assert(new PoolingDriver().connect("jdbc:pool:jdbc:mock:foo", null)!=null);
-source("tests/tearDown.bsh");
+source("tests/setUp.bsh");;
+    assert(!new PoolingDriver().acceptsURL("foo"));
+    assert(new PoolingDriver().connect("foo", null)==null);
+    assert(new PoolingDriver().connect("jdbc:pool", null)==null);
+    assert(new PoolingDriver().connect("jdbc:pool:", null)==null);
+    assert(new PoolingDriver().connect("jdbc:pool:jdbc:mock:foo", null)!=null);
+    source("tests/tearDown.bsh");
+

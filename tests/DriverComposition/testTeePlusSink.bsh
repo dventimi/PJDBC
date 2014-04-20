@@ -1,3 +1,5 @@
+#!/usr/bin/bsh
+source("tests/setUp.bsh");
 Connection c = DriverManager.getConnection("jdbc:tee:jdbc:mock:foo;jdbc:sink:jdbc:mock:bar");
 MockDriver foo = (MockDriver)DriverManager.getDriver("jdbc:mock:foo");
 MockDriver bar = (MockDriver)DriverManager.getDriver("jdbc:mock:bar");
@@ -8,6 +10,7 @@ stmt.executeQuery("insert into person (last_name, first_name, age) values ('Davi
 assertNotNull(foo.getLog("jdbc:mock:foo"));
 assertNotNull(bar.getLog("jdbc:mock:bar"));
 assertEquals("executeQuery[select * from person;]\n"+
-	     "executeQuery[insert into person (last_name, first_name, age) values ('David', 'Ventimiglia', 42);]", 
-	     foo.getLog("jdbc:mock:foo"));
+    "executeQuery[insert into person (last_name, first_name, age) values ('David', 'Ventimiglia', 42);]", 
+    foo.getLog("jdbc:mock:foo"));
 assertEquals("", bar.getLog("jdbc:mock:bar"));
+source("tests/tearDown.sh");

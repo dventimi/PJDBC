@@ -1,5 +1,8 @@
+#!/usr/bin/bsh
+source("tests/setUp.bsh");
 assertFalse(new CatDriver().acceptsURL("jdbc:cat"));
 assertFalse(new CatDriver().acceptsURL("jdbc:cat:"));
 assertFalse(new CatDriver().acceptsURL("jdbc:cat:foo"));
 assertTrue(new CatDriver().acceptsURL("jdbc:cat:jdbc:mock:foo"));
 
+source("tests/tearDown.sh");

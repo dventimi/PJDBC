@@ -1,7 +1,8 @@
 #!/usr/bin/bsh
-source("tests/setUp.bsh");
-Connection foo = DriverManager.getConnection("jdbc:pool:jdbc:mock:foo");
-foo.close();
-try {foo.createStatement();} catch (SQLException e) {return;}
-assert(false);
-source("tests/tearDown.bsh");
+source("tests/setUp.bsh");;
+    Connection foo = DriverManager.getConnection("jdbc:pool:jdbc:mock:foo");
+    foo.close();
+    try {foo.createStatement();} catch (SQLException e) {return;}
+    assert(false);
+    source("tests/tearDown.bsh");
+

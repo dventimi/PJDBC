@@ -1,4 +1,7 @@
+#!/usr/bin/bsh
+source("tests/setUp.bsh");
 assertNotNull(DriverManager.getConnection("jdbc:cat:jdbc:mock:foo"));
 assertNotNull(DriverManager.getConnection("jdbc:cat:jdbc:sink:jdbc:mock:foo"));
 assertNotNull(DriverManager.getConnection("jdbc:log:jdbc:filter:jdbc:cat:jdbc:sink:jdbc:mock:foo"));
 assertNotNull(DriverManager.getConnection("jdbc:log:jdbc:filter:jdbc:cat:jdbc:tee:jdbc:sink:jdbc:mock:foo;jdbc:mock:bar"));
+source("tests/tearDown.sh");

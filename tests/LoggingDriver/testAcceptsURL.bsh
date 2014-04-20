@@ -1,4 +1,7 @@
+#!/usr/bin/bsh
+source("tests/setUp.bsh");
 assertFalse(new LoggingDriver().acceptsURL("jdbc:log"));
 assertFalse(new LoggingDriver().acceptsURL("jdbc:log:"));
 assertFalse(new LoggingDriver().acceptsURL("jdbc:log:foo"));
 assertTrue(new LoggingDriver().acceptsURL("jdbc:log:jdbc:mock:foo"));
+source("tests/tearDown.sh");

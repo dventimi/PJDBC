@@ -1,1 +1,4 @@
+#!/usr/bin/bsh
+source("tests/setUp.bsh");
 assertNotNull(DriverManager.getConnection("jdbc:filter:jdbc:mock:foo"));
+source("tests/tearDown.sh");

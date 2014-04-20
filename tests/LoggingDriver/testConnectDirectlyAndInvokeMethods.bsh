@@ -1,3 +1,5 @@
+#!/usr/bin/bsh
+source("tests/setUp.bsh");
 ByteArrayOutputStream out = new ByteArrayOutputStream();
 Logger.getLogger("jdbc:mock:foo").setLevel(Level.INFO);
 Logger.getLogger("jdbc:mock:foo").setUseParentHandlers(false);
@@ -10,8 +12,9 @@ stmt.executeQuery("insert into person (last_name, first_name, age) values ('Davi
 for (Handler h : Logger.getLogger("jdbc:mock:foo").getHandlers()) h.flush();
 assertNotNull(d.getLog("jdbc:mock:foo"));
 assertEquals("executeQuery[select * from person;]\n" +
-	     "executeQuery[insert into person (last_name, first_name, age) values ('David', 'Ventimiglia', 42);]", 
-	     d.getLog("jdbc:mock:foo"));
+    "executeQuery[insert into person (last_name, first_name, age) values ('David', 'Ventimiglia', 42);]", 
+    d.getLog("jdbc:mock:foo"));
 assertEquals("select * from person;\n" +
-	     "insert into person (last_name, first_name, age) values ('David', 'Ventimiglia', 42);", 
-	     out.toString().trim());
+    "insert into person (last_name, first_name, age) values ('David', 'Ventimiglia', 42);", 
+    out.toString().trim());
+source("tests/tearDown.sh");

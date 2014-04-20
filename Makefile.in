@@ -427,14 +427,49 @@ SRC_DIR = src
 LIB_DIR = lib
 BIN_DIR = bin
 OBJ_DIR = classes
-TESTS = tests/PoolingDriver/testAcceptsURL.bsh \
-	tests/PoolingDriver/testCallMethodOnClosedPooledConnectionThrowsSQLException.bsh \
-	tests/PoolingDriver/testConnectDirectlyAndInvokeMethods.bsh \
-	tests/PoolingDriver/testConnectDirectly.bsh \
-	tests/PoolingDriver/testConnectIndirectly.bsh \
+TESTS = tests/CatDriver/testJDBCCompliance.bsh \
+	tests/CatDriver/testConnectDirectlyAndInvokeMethods.bsh \
+	tests/CatDriver/testVersionInfo.bsh \
+	tests/CatDriver/testConnectIndirectly.bsh \
+	tests/CatDriver/testAcceptsURL.bsh \
+	tests/CatDriver/testConnectDirectly.bsh \
+	tests/TeeDriver/testJDBCCompliance.bsh \
+	tests/TeeDriver/testConnectDirectlyAndInvokeMethods.bsh \
+	tests/TeeDriver/testVersionInfo.bsh \
+	tests/TeeDriver/testAcceptsURL.bsh \
+	tests/TeeDriver/testConnectIndirectlyWithBadURLFails.bsh \
+	tests/TeeDriver/testConnectIndirectlyWithGoodURLSucceeds.bsh \
+	tests/TeeDriver/testConnectDirectly.bsh \
 	tests/PoolingDriver/testGetConnectionTwiceProducesTwoDistinctConnections.bsh \
 	tests/PoolingDriver/testJDBCCompliance.bsh \
-	tests/PoolingDriver/testVersionInfo.bsh
+	tests/PoolingDriver/testConnectDirectlyAndInvokeMethods.bsh \
+	tests/PoolingDriver/testVersionInfo.bsh \
+	tests/PoolingDriver/testCallMethodOnClosedPooledConnectionThrowsSQLException.bsh \
+	tests/PoolingDriver/testConnectIndirectly.bsh \
+	tests/PoolingDriver/testAcceptsURL.bsh \
+	tests/PoolingDriver/testConnectDirectly.bsh \
+	tests/DriverComposition/testTeePlusSinkButReverseOrder.bsh \
+	tests/DriverComposition/testUrlsCanHaveWhitespace.bsh \
+	tests/DriverComposition/testProgressiveComposition.bsh \
+	tests/DriverComposition/testTeePlusSink.bsh \
+	tests/LoggingDriver/testJDBCCompliance.bsh \
+	tests/LoggingDriver/testConnectDirectlyAndInvokeMethods.bsh \
+	tests/LoggingDriver/testVersionInfo.bsh \
+	tests/LoggingDriver/testConnectIndirectly.bsh \
+	tests/LoggingDriver/testAcceptsURL.bsh \
+	tests/LoggingDriver/testConnectDirectly.bsh \
+	tests/SinkDriver/testJDBCCompliance.bsh \
+	tests/SinkDriver/testConnectDirectlyAndInvokeMethods.bsh \
+	tests/SinkDriver/testVersionInfo.bsh \
+	tests/SinkDriver/testConnectIndirectly.bsh \
+	tests/SinkDriver/testAcceptsURL.bsh \
+	tests/SinkDriver/testConnectDirectly.bsh \
+	tests/FilteringDriver/testJDBCCompliance.bsh \
+	tests/FilteringDriver/testConnectDirectlyAndInvokeMethods.bsh \
+	tests/FilteringDriver/testVersionInfo.bsh \
+	tests/FilteringDriver/testConnectIndirectly.bsh \
+	tests/FilteringDriver/testAcceptsURL.bsh \
+	tests/FilteringDriver/testConnectDirectly.bsh
 
 dist_pkgdata_DATA = @PACKAGE@.jar $(shell find $(srcdir)/$(LIB_DIR) -type f -iname '*.jar') 
 dist_java_JAVA = $(shell find $(srcdir)/$(SRC_DIR) -type f -iname '*.java')
@@ -682,37 +717,93 @@ recheck: all
 	        am__force_recheck=am--force-recheck \
 	        TEST_LOGS="$$log_list"; \
 	exit $$?
-tests/PoolingDriver/testAcceptsURL.bsh.log: tests/PoolingDriver/testAcceptsURL.bsh
-	@p='tests/PoolingDriver/testAcceptsURL.bsh'; \
-	b='tests/PoolingDriver/testAcceptsURL.bsh'; \
+tests/CatDriver/testJDBCCompliance.bsh.log: tests/CatDriver/testJDBCCompliance.bsh
+	@p='tests/CatDriver/testJDBCCompliance.bsh'; \
+	b='tests/CatDriver/testJDBCCompliance.bsh'; \
 	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
 	--log-file $$b.log --trs-file $$b.trs \
 	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
 	"$$tst" $(AM_TESTS_FD_REDIRECT)
-tests/PoolingDriver/testCallMethodOnClosedPooledConnectionThrowsSQLException.bsh.log: tests/PoolingDriver/testCallMethodOnClosedPooledConnectionThrowsSQLException.bsh
-	@p='tests/PoolingDriver/testCallMethodOnClosedPooledConnectionThrowsSQLException.bsh'; \
-	b='tests/PoolingDriver/testCallMethodOnClosedPooledConnectionThrowsSQLException.bsh'; \
+tests/CatDriver/testConnectDirectlyAndInvokeMethods.bsh.log: tests/CatDriver/testConnectDirectlyAndInvokeMethods.bsh
+	@p='tests/CatDriver/testConnectDirectlyAndInvokeMethods.bsh'; \
+	b='tests/CatDriver/testConnectDirectlyAndInvokeMethods.bsh'; \
 	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
 	--log-file $$b.log --trs-file $$b.trs \
 	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
 	"$$tst" $(AM_TESTS_FD_REDIRECT)
-tests/PoolingDriver/testConnectDirectlyAndInvokeMethods.bsh.log: tests/PoolingDriver/testConnectDirectlyAndInvokeMethods.bsh
-	@p='tests/PoolingDriver/testConnectDirectlyAndInvokeMethods.bsh'; \
-	b='tests/PoolingDriver/testConnectDirectlyAndInvokeMethods.bsh'; \
+tests/CatDriver/testVersionInfo.bsh.log: tests/CatDriver/testVersionInfo.bsh
+	@p='tests/CatDriver/testVersionInfo.bsh'; \
+	b='tests/CatDriver/testVersionInfo.bsh'; \
 	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
 	--log-file $$b.log --trs-file $$b.trs \
 	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
 	"$$tst" $(AM_TESTS_FD_REDIRECT)
-tests/PoolingDriver/testConnectDirectly.bsh.log: tests/PoolingDriver/testConnectDirectly.bsh
-	@p='tests/PoolingDriver/testConnectDirectly.bsh'; \
-	b='tests/PoolingDriver/testConnectDirectly.bsh'; \
+tests/CatDriver/testConnectIndirectly.bsh.log: tests/CatDriver/testConnectIndirectly.bsh
+	@p='tests/CatDriver/testConnectIndirectly.bsh'; \
+	b='tests/CatDriver/testConnectIndirectly.bsh'; \
 	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
 	--log-file $$b.log --trs-file $$b.trs \
 	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
 	"$$tst" $(AM_TESTS_FD_REDIRECT)
-tests/PoolingDriver/testConnectIndirectly.bsh.log: tests/PoolingDriver/testConnectIndirectly.bsh
-	@p='tests/PoolingDriver/testConnectIndirectly.bsh'; \
-	b='tests/PoolingDriver/testConnectIndirectly.bsh'; \
+tests/CatDriver/testAcceptsURL.bsh.log: tests/CatDriver/testAcceptsURL.bsh
+	@p='tests/CatDriver/testAcceptsURL.bsh'; \
+	b='tests/CatDriver/testAcceptsURL.bsh'; \
+	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
+	--log-file $$b.log --trs-file $$b.trs \
+	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
+	"$$tst" $(AM_TESTS_FD_REDIRECT)
+tests/CatDriver/testConnectDirectly.bsh.log: tests/CatDriver/testConnectDirectly.bsh
+	@p='tests/CatDriver/testConnectDirectly.bsh'; \
+	b='tests/CatDriver/testConnectDirectly.bsh'; \
+	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
+	--log-file $$b.log --trs-file $$b.trs \
+	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
+	"$$tst" $(AM_TESTS_FD_REDIRECT)
+tests/TeeDriver/testJDBCCompliance.bsh.log: tests/TeeDriver/testJDBCCompliance.bsh
+	@p='tests/TeeDriver/testJDBCCompliance.bsh'; \
+	b='tests/TeeDriver/testJDBCCompliance.bsh'; \
+	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
+	--log-file $$b.log --trs-file $$b.trs \
+	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
+	"$$tst" $(AM_TESTS_FD_REDIRECT)
+tests/TeeDriver/testConnectDirectlyAndInvokeMethods.bsh.log: tests/TeeDriver/testConnectDirectlyAndInvokeMethods.bsh
+	@p='tests/TeeDriver/testConnectDirectlyAndInvokeMethods.bsh'; \
+	b='tests/TeeDriver/testConnectDirectlyAndInvokeMethods.bsh'; \
+	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
+	--log-file $$b.log --trs-file $$b.trs \
+	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
+	"$$tst" $(AM_TESTS_FD_REDIRECT)
+tests/TeeDriver/testVersionInfo.bsh.log: tests/TeeDriver/testVersionInfo.bsh
+	@p='tests/TeeDriver/testVersionInfo.bsh'; \
+	b='tests/TeeDriver/testVersionInfo.bsh'; \
+	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
+	--log-file $$b.log --trs-file $$b.trs \
+	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
+	"$$tst" $(AM_TESTS_FD_REDIRECT)
+tests/TeeDriver/testAcceptsURL.bsh.log: tests/TeeDriver/testAcceptsURL.bsh
+	@p='tests/TeeDriver/testAcceptsURL.bsh'; \
+	b='tests/TeeDriver/testAcceptsURL.bsh'; \
+	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
+	--log-file $$b.log --trs-file $$b.trs \
+	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
+	"$$tst" $(AM_TESTS_FD_REDIRECT)
+tests/TeeDriver/testConnectIndirectlyWithBadURLFails.bsh.log: tests/TeeDriver/testConnectIndirectlyWithBadURLFails.bsh
+	@p='tests/TeeDriver/testConnectIndirectlyWithBadURLFails.bsh'; \
+	b='tests/TeeDriver/testConnectIndirectlyWithBadURLFails.bsh'; \
+	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
+	--log-file $$b.log --trs-file $$b.trs \
+	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
+	"$$tst" $(AM_TESTS_FD_REDIRECT)
+tests/TeeDriver/testConnectIndirectlyWithGoodURLSucceeds.bsh.log: tests/TeeDriver/testConnectIndirectlyWithGoodURLSucceeds.bsh
+	@p='tests/TeeDriver/testConnectIndirectlyWithGoodURLSucceeds.bsh'; \
+	b='tests/TeeDriver/testConnectIndirectlyWithGoodURLSucceeds.bsh'; \
+	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
+	--log-file $$b.log --trs-file $$b.trs \
+	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
+	"$$tst" $(AM_TESTS_FD_REDIRECT)
+tests/TeeDriver/testConnectDirectly.bsh.log: tests/TeeDriver/testConnectDirectly.bsh
+	@p='tests/TeeDriver/testConnectDirectly.bsh'; \
+	b='tests/TeeDriver/testConnectDirectly.bsh'; \
 	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
 	--log-file $$b.log --trs-file $$b.trs \
 	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
@@ -731,9 +822,198 @@ tests/PoolingDriver/testJDBCCompliance.bsh.log: tests/PoolingDriver/testJDBCComp
 	--log-file $$b.log --trs-file $$b.trs \
 	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
 	"$$tst" $(AM_TESTS_FD_REDIRECT)
+tests/PoolingDriver/testConnectDirectlyAndInvokeMethods.bsh.log: tests/PoolingDriver/testConnectDirectlyAndInvokeMethods.bsh
+	@p='tests/PoolingDriver/testConnectDirectlyAndInvokeMethods.bsh'; \
+	b='tests/PoolingDriver/testConnectDirectlyAndInvokeMethods.bsh'; \
+	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
+	--log-file $$b.log --trs-file $$b.trs \
+	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
+	"$$tst" $(AM_TESTS_FD_REDIRECT)
 tests/PoolingDriver/testVersionInfo.bsh.log: tests/PoolingDriver/testVersionInfo.bsh
 	@p='tests/PoolingDriver/testVersionInfo.bsh'; \
 	b='tests/PoolingDriver/testVersionInfo.bsh'; \
+	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
+	--log-file $$b.log --trs-file $$b.trs \
+	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
+	"$$tst" $(AM_TESTS_FD_REDIRECT)
+tests/PoolingDriver/testCallMethodOnClosedPooledConnectionThrowsSQLException.bsh.log: tests/PoolingDriver/testCallMethodOnClosedPooledConnectionThrowsSQLException.bsh
+	@p='tests/PoolingDriver/testCallMethodOnClosedPooledConnectionThrowsSQLException.bsh'; \
+	b='tests/PoolingDriver/testCallMethodOnClosedPooledConnectionThrowsSQLException.bsh'; \
+	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
+	--log-file $$b.log --trs-file $$b.trs \
+	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
+	"$$tst" $(AM_TESTS_FD_REDIRECT)
+tests/PoolingDriver/testConnectIndirectly.bsh.log: tests/PoolingDriver/testConnectIndirectly.bsh
+	@p='tests/PoolingDriver/testConnectIndirectly.bsh'; \
+	b='tests/PoolingDriver/testConnectIndirectly.bsh'; \
+	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
+	--log-file $$b.log --trs-file $$b.trs \
+	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
+	"$$tst" $(AM_TESTS_FD_REDIRECT)
+tests/PoolingDriver/testAcceptsURL.bsh.log: tests/PoolingDriver/testAcceptsURL.bsh
+	@p='tests/PoolingDriver/testAcceptsURL.bsh'; \
+	b='tests/PoolingDriver/testAcceptsURL.bsh'; \
+	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
+	--log-file $$b.log --trs-file $$b.trs \
+	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
+	"$$tst" $(AM_TESTS_FD_REDIRECT)
+tests/PoolingDriver/testConnectDirectly.bsh.log: tests/PoolingDriver/testConnectDirectly.bsh
+	@p='tests/PoolingDriver/testConnectDirectly.bsh'; \
+	b='tests/PoolingDriver/testConnectDirectly.bsh'; \
+	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
+	--log-file $$b.log --trs-file $$b.trs \
+	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
+	"$$tst" $(AM_TESTS_FD_REDIRECT)
+tests/DriverComposition/testTeePlusSinkButReverseOrder.bsh.log: tests/DriverComposition/testTeePlusSinkButReverseOrder.bsh
+	@p='tests/DriverComposition/testTeePlusSinkButReverseOrder.bsh'; \
+	b='tests/DriverComposition/testTeePlusSinkButReverseOrder.bsh'; \
+	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
+	--log-file $$b.log --trs-file $$b.trs \
+	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
+	"$$tst" $(AM_TESTS_FD_REDIRECT)
+tests/DriverComposition/testUrlsCanHaveWhitespace.bsh.log: tests/DriverComposition/testUrlsCanHaveWhitespace.bsh
+	@p='tests/DriverComposition/testUrlsCanHaveWhitespace.bsh'; \
+	b='tests/DriverComposition/testUrlsCanHaveWhitespace.bsh'; \
+	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
+	--log-file $$b.log --trs-file $$b.trs \
+	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
+	"$$tst" $(AM_TESTS_FD_REDIRECT)
+tests/DriverComposition/testProgressiveComposition.bsh.log: tests/DriverComposition/testProgressiveComposition.bsh
+	@p='tests/DriverComposition/testProgressiveComposition.bsh'; \
+	b='tests/DriverComposition/testProgressiveComposition.bsh'; \
+	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
+	--log-file $$b.log --trs-file $$b.trs \
+	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
+	"$$tst" $(AM_TESTS_FD_REDIRECT)
+tests/DriverComposition/testTeePlusSink.bsh.log: tests/DriverComposition/testTeePlusSink.bsh
+	@p='tests/DriverComposition/testTeePlusSink.bsh'; \
+	b='tests/DriverComposition/testTeePlusSink.bsh'; \
+	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
+	--log-file $$b.log --trs-file $$b.trs \
+	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
+	"$$tst" $(AM_TESTS_FD_REDIRECT)
+tests/LoggingDriver/testJDBCCompliance.bsh.log: tests/LoggingDriver/testJDBCCompliance.bsh
+	@p='tests/LoggingDriver/testJDBCCompliance.bsh'; \
+	b='tests/LoggingDriver/testJDBCCompliance.bsh'; \
+	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
+	--log-file $$b.log --trs-file $$b.trs \
+	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
+	"$$tst" $(AM_TESTS_FD_REDIRECT)
+tests/LoggingDriver/testConnectDirectlyAndInvokeMethods.bsh.log: tests/LoggingDriver/testConnectDirectlyAndInvokeMethods.bsh
+	@p='tests/LoggingDriver/testConnectDirectlyAndInvokeMethods.bsh'; \
+	b='tests/LoggingDriver/testConnectDirectlyAndInvokeMethods.bsh'; \
+	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
+	--log-file $$b.log --trs-file $$b.trs \
+	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
+	"$$tst" $(AM_TESTS_FD_REDIRECT)
+tests/LoggingDriver/testVersionInfo.bsh.log: tests/LoggingDriver/testVersionInfo.bsh
+	@p='tests/LoggingDriver/testVersionInfo.bsh'; \
+	b='tests/LoggingDriver/testVersionInfo.bsh'; \
+	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
+	--log-file $$b.log --trs-file $$b.trs \
+	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
+	"$$tst" $(AM_TESTS_FD_REDIRECT)
+tests/LoggingDriver/testConnectIndirectly.bsh.log: tests/LoggingDriver/testConnectIndirectly.bsh
+	@p='tests/LoggingDriver/testConnectIndirectly.bsh'; \
+	b='tests/LoggingDriver/testConnectIndirectly.bsh'; \
+	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
+	--log-file $$b.log --trs-file $$b.trs \
+	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
+	"$$tst" $(AM_TESTS_FD_REDIRECT)
+tests/LoggingDriver/testAcceptsURL.bsh.log: tests/LoggingDriver/testAcceptsURL.bsh
+	@p='tests/LoggingDriver/testAcceptsURL.bsh'; \
+	b='tests/LoggingDriver/testAcceptsURL.bsh'; \
+	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
+	--log-file $$b.log --trs-file $$b.trs \
+	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
+	"$$tst" $(AM_TESTS_FD_REDIRECT)
+tests/LoggingDriver/testConnectDirectly.bsh.log: tests/LoggingDriver/testConnectDirectly.bsh
+	@p='tests/LoggingDriver/testConnectDirectly.bsh'; \
+	b='tests/LoggingDriver/testConnectDirectly.bsh'; \
+	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
+	--log-file $$b.log --trs-file $$b.trs \
+	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
+	"$$tst" $(AM_TESTS_FD_REDIRECT)
+tests/SinkDriver/testJDBCCompliance.bsh.log: tests/SinkDriver/testJDBCCompliance.bsh
+	@p='tests/SinkDriver/testJDBCCompliance.bsh'; \
+	b='tests/SinkDriver/testJDBCCompliance.bsh'; \
+	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
+	--log-file $$b.log --trs-file $$b.trs \
+	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
+	"$$tst" $(AM_TESTS_FD_REDIRECT)
+tests/SinkDriver/testConnectDirectlyAndInvokeMethods.bsh.log: tests/SinkDriver/testConnectDirectlyAndInvokeMethods.bsh
+	@p='tests/SinkDriver/testConnectDirectlyAndInvokeMethods.bsh'; \
+	b='tests/SinkDriver/testConnectDirectlyAndInvokeMethods.bsh'; \
+	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
+	--log-file $$b.log --trs-file $$b.trs \
+	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
+	"$$tst" $(AM_TESTS_FD_REDIRECT)
+tests/SinkDriver/testVersionInfo.bsh.log: tests/SinkDriver/testVersionInfo.bsh
+	@p='tests/SinkDriver/testVersionInfo.bsh'; \
+	b='tests/SinkDriver/testVersionInfo.bsh'; \
+	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
+	--log-file $$b.log --trs-file $$b.trs \
+	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
+	"$$tst" $(AM_TESTS_FD_REDIRECT)
+tests/SinkDriver/testConnectIndirectly.bsh.log: tests/SinkDriver/testConnectIndirectly.bsh
+	@p='tests/SinkDriver/testConnectIndirectly.bsh'; \
+	b='tests/SinkDriver/testConnectIndirectly.bsh'; \
+	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
+	--log-file $$b.log --trs-file $$b.trs \
+	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
+	"$$tst" $(AM_TESTS_FD_REDIRECT)
+tests/SinkDriver/testAcceptsURL.bsh.log: tests/SinkDriver/testAcceptsURL.bsh
+	@p='tests/SinkDriver/testAcceptsURL.bsh'; \
+	b='tests/SinkDriver/testAcceptsURL.bsh'; \
+	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
+	--log-file $$b.log --trs-file $$b.trs \
+	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
+	"$$tst" $(AM_TESTS_FD_REDIRECT)
+tests/SinkDriver/testConnectDirectly.bsh.log: tests/SinkDriver/testConnectDirectly.bsh
+	@p='tests/SinkDriver/testConnectDirectly.bsh'; \
+	b='tests/SinkDriver/testConnectDirectly.bsh'; \
+	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
+	--log-file $$b.log --trs-file $$b.trs \
+	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
+	"$$tst" $(AM_TESTS_FD_REDIRECT)
+tests/FilteringDriver/testJDBCCompliance.bsh.log: tests/FilteringDriver/testJDBCCompliance.bsh
+	@p='tests/FilteringDriver/testJDBCCompliance.bsh'; \
+	b='tests/FilteringDriver/testJDBCCompliance.bsh'; \
+	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
+	--log-file $$b.log --trs-file $$b.trs \
+	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
+	"$$tst" $(AM_TESTS_FD_REDIRECT)
+tests/FilteringDriver/testConnectDirectlyAndInvokeMethods.bsh.log: tests/FilteringDriver/testConnectDirectlyAndInvokeMethods.bsh
+	@p='tests/FilteringDriver/testConnectDirectlyAndInvokeMethods.bsh'; \
+	b='tests/FilteringDriver/testConnectDirectlyAndInvokeMethods.bsh'; \
+	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
+	--log-file $$b.log --trs-file $$b.trs \
+	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
+	"$$tst" $(AM_TESTS_FD_REDIRECT)
+tests/FilteringDriver/testVersionInfo.bsh.log: tests/FilteringDriver/testVersionInfo.bsh
+	@p='tests/FilteringDriver/testVersionInfo.bsh'; \
+	b='tests/FilteringDriver/testVersionInfo.bsh'; \
+	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
+	--log-file $$b.log --trs-file $$b.trs \
+	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
+	"$$tst" $(AM_TESTS_FD_REDIRECT)
+tests/FilteringDriver/testConnectIndirectly.bsh.log: tests/FilteringDriver/testConnectIndirectly.bsh
+	@p='tests/FilteringDriver/testConnectIndirectly.bsh'; \
+	b='tests/FilteringDriver/testConnectIndirectly.bsh'; \
+	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
+	--log-file $$b.log --trs-file $$b.trs \
+	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
+	"$$tst" $(AM_TESTS_FD_REDIRECT)
+tests/FilteringDriver/testAcceptsURL.bsh.log: tests/FilteringDriver/testAcceptsURL.bsh
+	@p='tests/FilteringDriver/testAcceptsURL.bsh'; \
+	b='tests/FilteringDriver/testAcceptsURL.bsh'; \
+	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
+	--log-file $$b.log --trs-file $$b.trs \
+	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
+	"$$tst" $(AM_TESTS_FD_REDIRECT)
+tests/FilteringDriver/testConnectDirectly.bsh.log: tests/FilteringDriver/testConnectDirectly.bsh
+	@p='tests/FilteringDriver/testConnectDirectly.bsh'; \
+	b='tests/FilteringDriver/testConnectDirectly.bsh'; \
 	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
 	--log-file $$b.log --trs-file $$b.trs \
 	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \

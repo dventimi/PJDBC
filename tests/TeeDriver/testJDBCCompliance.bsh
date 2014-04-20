@@ -1,1 +1,4 @@
+#!/usr/bin/bsh
+source("tests/setUp.bsh");
 assertFalse(new TeeDriver().jdbcCompliant());
+source("tests/tearDown.sh");

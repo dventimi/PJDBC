@@ -1,2 +1,5 @@
+#!/usr/bin/bsh
+source("tests/setUp.bsh");
 assertEquals(1, new LoggingDriver().getMajorVersion());
 assertEquals(0, new LoggingDriver().getMinorVersion());
+source("tests/tearDown.sh");

@@ -1,5 +1,8 @@
+#!/usr/bin/bsh
+source("tests/setUp.bsh");
 assertFalse(new SinkDriver().acceptsURL("foo"));
 assertNull(new SinkDriver().connect("foo", null));
 assertNull(new SinkDriver().connect("jdbc:sink", null));
 assertNull(new SinkDriver().connect("jdbc:sink:", null));
 assertNotNull(new SinkDriver().connect("jdbc:sink:jdbc:mock:foo", null));
+source("tests/tearDown.sh");

@@ -1,4 +1,7 @@
+#!/usr/bin/bsh
+source("tests/setUp.bsh");
 assertFalse(new FilteringDriver().acceptsURL("jdbc:filtering"));
 assertFalse(new FilteringDriver().acceptsURL("jdbc:filter:"));
 assertFalse(new FilteringDriver().acceptsURL("jdbc:filter:foo"));
 assertTrue(new FilteringDriver().acceptsURL("jdbc:filter:jdbc:mock:foo"));
+source("tests/tearDown.sh");
