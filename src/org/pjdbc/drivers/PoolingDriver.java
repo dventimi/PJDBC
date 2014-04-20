@@ -31,9 +31,16 @@ public class PoolingDriver extends AbstractProxyDriver {
     	return (Connection)Proxy.newProxyInstance(getClass().getClassLoader(), new Class[]{Connection.class}, new InvocationHandler() {
     		public Object invoke (Object proxy, Method method, Object[] args) throws SQLException {
 		    if ("close".equals(method.getName())) {
-			pools.get(getPoolKey(url, info)).add(conn);
+			pools.get(getPoolKey(url, info)).add(conn); 
+			System.out.println("\nadding\n");
+			System.out.println(pools.get(getPoolKey(url, info)).contains(conn));
 			return proxy;}
-		    if (!"close".equals(method.getName())) if (pools.get(getPoolKey(url, info)).contains(conn)) throw new SQLException();
+		    if (!"close".equals(method.getName())) 
+			if (pools.get(getPoolKey(url, info)).contains(conn)) {
+			    System.out.println(method.getName());
+			    System.out.println(pools.get(getPoolKey(url, info)).contains(conn));
+			    System.out.println("About to throw a SQLException");
+			    throw new SQLException("here it comes");}
 		    if ("toString".equals(method.getName())) return conn.toString();
 		    if ("equals".equals(method.getName())) return proxy==args[0];
 		    try {return method.invoke(conn, args);} catch (Exception e) {throw new SQLException();}}});}
@@ -43,7 +50,7 @@ public class PoolingDriver extends AbstractProxyDriver {
 	Properties key = getPoolKey(subname(url), info);
 	Connection conn = null;
 	if (!pools.containsKey(key)) pools.putIfAbsent(key, new LinkedBlockingQueue<Connection>());
-	try{conn = pools.get(key).poll(1L, TimeUnit.SECONDS);} catch (InterruptedException e) {}
+	try {conn = pools.get(key).poll(1L, TimeUnit.SECONDS);} catch (InterruptedException e) {}
 	if (conn!=null) return conn;
 	return proxyConnection(conn!=null ? conn : DriverManager.getConnection(subname(url)), subname(url), info, this);}}
 
