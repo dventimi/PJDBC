@@ -3,7 +3,14 @@ LIB_DIR = lib
 BIN_DIR = bin
 OBJ_DIR = classes
 
-TESTS = tests/testVersionInfo.bsh
+TESTS = tests/testAcceptsURL.bsh \
+	tests/testCallMethodOnClosedPooledConnectionThrowsSQLException.bsh \
+	tests/testConnectDirectlyAndInvokeMethods.bsh \
+	tests/testConnectDirectly.bsh \
+	tests/testConnectIndirectly.bsh \
+	tests/testGetConnectionTwiceProducesTwoDistinctConnections.bsh \
+	tests/testJDBCCompliance.bsh \
+	tests/testVersionInfo.bsh
 
 dist_pkgdata_DATA = @PACKAGE@.jar $(shell find $(srcdir)/$(LIB_DIR) -type f -iname '*.jar') 
 dist_java_JAVA = $(shell find $(srcdir)/$(SRC_DIR) -type f -iname '*.java')

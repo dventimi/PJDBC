@@ -1,0 +1,4 @@
+#!/usr/bin/bsh
+source("tests/setUp.bsh");
+assert(!new PoolingDriver().jdbcCompliant());
+source("tests/tearDown.bsh");

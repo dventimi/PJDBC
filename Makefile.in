@@ -427,7 +427,15 @@ SRC_DIR = src
 LIB_DIR = lib
 BIN_DIR = bin
 OBJ_DIR = classes
-TESTS = tests/testVersionInfo.bsh
+TESTS = tests/testAcceptsURL.bsh \
+	tests/testCallMethodOnClosedPooledConnectionThrowsSQLException.bsh \
+	tests/testConnectDirectlyAndInvokeMethods.bsh \
+	tests/testConnectDirectly.bsh \
+	tests/testConnectIndirectly.bsh \
+	tests/testGetConnectionTwiceProducesTwoDistinctConnections.bsh \
+	tests/testJDBCCompliance.bsh \
+	tests/testVersionInfo.bsh
+
 dist_pkgdata_DATA = @PACKAGE@.jar $(shell find $(srcdir)/$(LIB_DIR) -type f -iname '*.jar') 
 dist_java_JAVA = $(shell find $(srcdir)/$(SRC_DIR) -type f -iname '*.java')
 javadir = $(datadir)/java
@@ -674,6 +682,55 @@ recheck: all
 	        am__force_recheck=am--force-recheck \
 	        TEST_LOGS="$$log_list"; \
 	exit $$?
+tests/testAcceptsURL.bsh.log: tests/testAcceptsURL.bsh
+	@p='tests/testAcceptsURL.bsh'; \
+	b='tests/testAcceptsURL.bsh'; \
+	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
+	--log-file $$b.log --trs-file $$b.trs \
+	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
+	"$$tst" $(AM_TESTS_FD_REDIRECT)
+tests/testCallMethodOnClosedPooledConnectionThrowsSQLException.bsh.log: tests/testCallMethodOnClosedPooledConnectionThrowsSQLException.bsh
+	@p='tests/testCallMethodOnClosedPooledConnectionThrowsSQLException.bsh'; \
+	b='tests/testCallMethodOnClosedPooledConnectionThrowsSQLException.bsh'; \
+	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
+	--log-file $$b.log --trs-file $$b.trs \
+	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
+	"$$tst" $(AM_TESTS_FD_REDIRECT)
+tests/testConnectDirectlyAndInvokeMethods.bsh.log: tests/testConnectDirectlyAndInvokeMethods.bsh
+	@p='tests/testConnectDirectlyAndInvokeMethods.bsh'; \
+	b='tests/testConnectDirectlyAndInvokeMethods.bsh'; \
+	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
+	--log-file $$b.log --trs-file $$b.trs \
+	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
+	"$$tst" $(AM_TESTS_FD_REDIRECT)
+tests/testConnectDirectly.bsh.log: tests/testConnectDirectly.bsh
+	@p='tests/testConnectDirectly.bsh'; \
+	b='tests/testConnectDirectly.bsh'; \
+	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
+	--log-file $$b.log --trs-file $$b.trs \
+	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
+	"$$tst" $(AM_TESTS_FD_REDIRECT)
+tests/testConnectIndirectly.bsh.log: tests/testConnectIndirectly.bsh
+	@p='tests/testConnectIndirectly.bsh'; \
+	b='tests/testConnectIndirectly.bsh'; \
+	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
+	--log-file $$b.log --trs-file $$b.trs \
+	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
+	"$$tst" $(AM_TESTS_FD_REDIRECT)
+tests/testGetConnectionTwiceProducesTwoDistinctConnections.bsh.log: tests/testGetConnectionTwiceProducesTwoDistinctConnections.bsh
+	@p='tests/testGetConnectionTwiceProducesTwoDistinctConnections.bsh'; \
+	b='tests/testGetConnectionTwiceProducesTwoDistinctConnections.bsh'; \
+	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
+	--log-file $$b.log --trs-file $$b.trs \
+	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
+	"$$tst" $(AM_TESTS_FD_REDIRECT)
+tests/testJDBCCompliance.bsh.log: tests/testJDBCCompliance.bsh
+	@p='tests/testJDBCCompliance.bsh'; \
+	b='tests/testJDBCCompliance.bsh'; \
+	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
+	--log-file $$b.log --trs-file $$b.trs \
+	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
+	"$$tst" $(AM_TESTS_FD_REDIRECT)
 tests/testVersionInfo.bsh.log: tests/testVersionInfo.bsh
 	@p='tests/testVersionInfo.bsh'; \
 	b='tests/testVersionInfo.bsh'; \
