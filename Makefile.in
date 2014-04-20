@@ -427,14 +427,14 @@ SRC_DIR = src
 LIB_DIR = lib
 BIN_DIR = bin
 OBJ_DIR = classes
-TESTS = tests/testAcceptsURL.bsh \
-	tests/testCallMethodOnClosedPooledConnectionThrowsSQLException.bsh \
-	tests/testConnectDirectlyAndInvokeMethods.bsh \
-	tests/testConnectDirectly.bsh \
-	tests/testConnectIndirectly.bsh \
-	tests/testGetConnectionTwiceProducesTwoDistinctConnections.bsh \
-	tests/testJDBCCompliance.bsh \
-	tests/testVersionInfo.bsh
+TESTS = tests/PoolingDriver/testAcceptsURL.bsh \
+	tests/PoolingDriver/testCallMethodOnClosedPooledConnectionThrowsSQLException.bsh \
+	tests/PoolingDriver/testConnectDirectlyAndInvokeMethods.bsh \
+	tests/PoolingDriver/testConnectDirectly.bsh \
+	tests/PoolingDriver/testConnectIndirectly.bsh \
+	tests/PoolingDriver/testGetConnectionTwiceProducesTwoDistinctConnections.bsh \
+	tests/PoolingDriver/testJDBCCompliance.bsh \
+	tests/PoolingDriver/testVersionInfo.bsh
 
 dist_pkgdata_DATA = @PACKAGE@.jar $(shell find $(srcdir)/$(LIB_DIR) -type f -iname '*.jar') 
 dist_java_JAVA = $(shell find $(srcdir)/$(SRC_DIR) -type f -iname '*.java')
@@ -682,58 +682,58 @@ recheck: all
 	        am__force_recheck=am--force-recheck \
 	        TEST_LOGS="$$log_list"; \
 	exit $$?
-tests/testAcceptsURL.bsh.log: tests/testAcceptsURL.bsh
-	@p='tests/testAcceptsURL.bsh'; \
-	b='tests/testAcceptsURL.bsh'; \
+tests/PoolingDriver/testAcceptsURL.bsh.log: tests/PoolingDriver/testAcceptsURL.bsh
+	@p='tests/PoolingDriver/testAcceptsURL.bsh'; \
+	b='tests/PoolingDriver/testAcceptsURL.bsh'; \
 	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
 	--log-file $$b.log --trs-file $$b.trs \
 	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
 	"$$tst" $(AM_TESTS_FD_REDIRECT)
-tests/testCallMethodOnClosedPooledConnectionThrowsSQLException.bsh.log: tests/testCallMethodOnClosedPooledConnectionThrowsSQLException.bsh
-	@p='tests/testCallMethodOnClosedPooledConnectionThrowsSQLException.bsh'; \
-	b='tests/testCallMethodOnClosedPooledConnectionThrowsSQLException.bsh'; \
+tests/PoolingDriver/testCallMethodOnClosedPooledConnectionThrowsSQLException.bsh.log: tests/PoolingDriver/testCallMethodOnClosedPooledConnectionThrowsSQLException.bsh
+	@p='tests/PoolingDriver/testCallMethodOnClosedPooledConnectionThrowsSQLException.bsh'; \
+	b='tests/PoolingDriver/testCallMethodOnClosedPooledConnectionThrowsSQLException.bsh'; \
 	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
 	--log-file $$b.log --trs-file $$b.trs \
 	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
 	"$$tst" $(AM_TESTS_FD_REDIRECT)
-tests/testConnectDirectlyAndInvokeMethods.bsh.log: tests/testConnectDirectlyAndInvokeMethods.bsh
-	@p='tests/testConnectDirectlyAndInvokeMethods.bsh'; \
-	b='tests/testConnectDirectlyAndInvokeMethods.bsh'; \
+tests/PoolingDriver/testConnectDirectlyAndInvokeMethods.bsh.log: tests/PoolingDriver/testConnectDirectlyAndInvokeMethods.bsh
+	@p='tests/PoolingDriver/testConnectDirectlyAndInvokeMethods.bsh'; \
+	b='tests/PoolingDriver/testConnectDirectlyAndInvokeMethods.bsh'; \
 	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
 	--log-file $$b.log --trs-file $$b.trs \
 	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
 	"$$tst" $(AM_TESTS_FD_REDIRECT)
-tests/testConnectDirectly.bsh.log: tests/testConnectDirectly.bsh
-	@p='tests/testConnectDirectly.bsh'; \
-	b='tests/testConnectDirectly.bsh'; \
+tests/PoolingDriver/testConnectDirectly.bsh.log: tests/PoolingDriver/testConnectDirectly.bsh
+	@p='tests/PoolingDriver/testConnectDirectly.bsh'; \
+	b='tests/PoolingDriver/testConnectDirectly.bsh'; \
 	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
 	--log-file $$b.log --trs-file $$b.trs \
 	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
 	"$$tst" $(AM_TESTS_FD_REDIRECT)
-tests/testConnectIndirectly.bsh.log: tests/testConnectIndirectly.bsh
-	@p='tests/testConnectIndirectly.bsh'; \
-	b='tests/testConnectIndirectly.bsh'; \
+tests/PoolingDriver/testConnectIndirectly.bsh.log: tests/PoolingDriver/testConnectIndirectly.bsh
+	@p='tests/PoolingDriver/testConnectIndirectly.bsh'; \
+	b='tests/PoolingDriver/testConnectIndirectly.bsh'; \
 	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
 	--log-file $$b.log --trs-file $$b.trs \
 	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
 	"$$tst" $(AM_TESTS_FD_REDIRECT)
-tests/testGetConnectionTwiceProducesTwoDistinctConnections.bsh.log: tests/testGetConnectionTwiceProducesTwoDistinctConnections.bsh
-	@p='tests/testGetConnectionTwiceProducesTwoDistinctConnections.bsh'; \
-	b='tests/testGetConnectionTwiceProducesTwoDistinctConnections.bsh'; \
+tests/PoolingDriver/testGetConnectionTwiceProducesTwoDistinctConnections.bsh.log: tests/PoolingDriver/testGetConnectionTwiceProducesTwoDistinctConnections.bsh
+	@p='tests/PoolingDriver/testGetConnectionTwiceProducesTwoDistinctConnections.bsh'; \
+	b='tests/PoolingDriver/testGetConnectionTwiceProducesTwoDistinctConnections.bsh'; \
 	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
 	--log-file $$b.log --trs-file $$b.trs \
 	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
 	"$$tst" $(AM_TESTS_FD_REDIRECT)
-tests/testJDBCCompliance.bsh.log: tests/testJDBCCompliance.bsh
-	@p='tests/testJDBCCompliance.bsh'; \
-	b='tests/testJDBCCompliance.bsh'; \
+tests/PoolingDriver/testJDBCCompliance.bsh.log: tests/PoolingDriver/testJDBCCompliance.bsh
+	@p='tests/PoolingDriver/testJDBCCompliance.bsh'; \
+	b='tests/PoolingDriver/testJDBCCompliance.bsh'; \
 	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
 	--log-file $$b.log --trs-file $$b.trs \
 	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
 	"$$tst" $(AM_TESTS_FD_REDIRECT)
-tests/testVersionInfo.bsh.log: tests/testVersionInfo.bsh
-	@p='tests/testVersionInfo.bsh'; \
-	b='tests/testVersionInfo.bsh'; \
+tests/PoolingDriver/testVersionInfo.bsh.log: tests/PoolingDriver/testVersionInfo.bsh
+	@p='tests/PoolingDriver/testVersionInfo.bsh'; \
+	b='tests/PoolingDriver/testVersionInfo.bsh'; \
 	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
 	--log-file $$b.log --trs-file $$b.trs \
 	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
