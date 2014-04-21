@@ -1,8 +1,10 @@
 #!/usr/bin/bsh
-source("tests/setUp.bsh");;
-    assert(!new PoolingDriver().acceptsURL("jdbc:pool"));
-    assert(!new PoolingDriver().acceptsURL("jdbc:pool:"));
-    assert(!new PoolingDriver().acceptsURL("jdbc:pool:foo"));
-    assert((new PoolingDriver().acceptsURL("jdbc:pool:jdbc:mock:foo")));
-    source("tests/tearDown.bsh");
-
+    try {
+	source("tests/init.bsh");
+	addClassPath("pjdbc.jar");
+	new MockDriver();
+	assert(!new PoolingDriver().acceptsURL("jdbc:pool"));
+	assert(!new PoolingDriver().acceptsURL("jdbc:pool:"));
+	assert(!new PoolingDriver().acceptsURL("jdbc:pool:foo"));
+	assert((new PoolingDriver().acceptsURL("jdbc:pool:jdbc:mock:foo")));
+    } catch (e) {System.exit(1);}

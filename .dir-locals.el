@@ -11,4 +11,4 @@
 		       :web-site-url "http://www.pjdbc.org"
 		       :file "/home/dventimi/work/pjdbc/README"
 		       :srcroot '("src")
-		       :localclasspath '("lib/junit-4.8.2.jar"))))))
+		       :localclasspath nil))))

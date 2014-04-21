@@ -1,7 +1,9 @@
 #!/usr/bin/bsh
-source("tests/setUp.bsh");
-assertFalse(new LoggingDriver().acceptsURL("jdbc:log"));
-assertFalse(new LoggingDriver().acceptsURL("jdbc:log:"));
-assertFalse(new LoggingDriver().acceptsURL("jdbc:log:foo"));
-assertTrue(new LoggingDriver().acceptsURL("jdbc:log:jdbc:mock:foo"));
-source("tests/tearDown.sh");
+    try {
+	source("tests/init.bsh");
+	addClassPath("pjdbc.jar");
+	assertFalse(new LoggingDriver().acceptsURL("jdbc:log"));
+	assertFalse(new LoggingDriver().acceptsURL("jdbc:log:"));
+	assertFalse(new LoggingDriver().acceptsURL("jdbc:log:foo"));
+	assertTrue(new LoggingDriver().acceptsURL("jdbc:log:jdbc:mock:foo"));
+    } catch (e) {System.exit(1);}

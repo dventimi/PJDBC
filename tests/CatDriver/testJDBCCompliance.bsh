@@ -1,4 +1,8 @@
 #!/usr/bin/bsh
-source("tests/setUp.bsh");
-assertFalse(new CatDriver().jdbcCompliant());
-source("tests/tearDown.sh");
+    try {
+	source("tests/init.bsh");
+	addClassPath("pjdbc.jar");
+	import org.pjdbc.drivers.*;
+	assertFalse(new CatDriver().jdbcCompliant());
+    } catch (e) {System.exit(1);}
+

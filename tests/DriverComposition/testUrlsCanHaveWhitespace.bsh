@@ -1,7 +1,9 @@
 #!/usr/bin/bsh
-source("tests/setUp.bsh");
-assertNotNull(DriverManager.getConnection("jdbc: cat:jdbc:\nmock:foo"));
-assertNotNull(DriverManager.getConnection("jdbc: cat:jdbc:\nsink:jdbc:mock:foo"));
-assertNotNull(DriverManager.getConnection("jdbc: log:jdbc:\nfilter:jdbc:cat:jdbc:sink:jdbc:mock:foo"));
-assertNotNull(DriverManager.getConnection("jdbc: log:jdbc:\nfilter:jdbc\n:cat :  jdbc:\ntee:jdbc:sink :jdbc:mock:foo ;\njdbc:mock:bar"));
-source("tests/tearDown.sh");
+    try {
+	source("tests/init.bsh");
+	addClassPath("pjdbc.jar");
+	assertNotNull(DriverManager.getConnection("jdbc: cat:jdbc:\nmock:foo"));
+	assertNotNull(DriverManager.getConnection("jdbc: cat:jdbc:\nsink:jdbc:mock:foo"));
+	assertNotNull(DriverManager.getConnection("jdbc: log:jdbc:\nfilter:jdbc:cat:jdbc:sink:jdbc:mock:foo"));
+	assertNotNull(DriverManager.getConnection("jdbc: log:jdbc:\nfilter:jdbc\n:cat :  jdbc:\ntee:jdbc:sink :jdbc:mock:foo ;\njdbc:mock:bar"));
+    } catch (e) {System.exit(1);}

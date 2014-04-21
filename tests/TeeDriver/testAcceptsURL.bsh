@@ -1,7 +1,9 @@
 #!/usr/bin/bsh
-source("tests/setUp.bsh");
-assertFalse(new TeeDriver().acceptsURL("jdbc:tee"));
-assertFalse(new TeeDriver().acceptsURL("jdbc:tee:"));
-assertFalse(new TeeDriver().acceptsURL("jdbc:tee:foo"));
-assertTrue(new TeeDriver().acceptsURL("jdbc:tee:jdbc:mock:foo;jdbc:mock:foo"));
-source("tests/tearDown.sh");
+    try {
+	source("tests/init.bsh");
+	addClassPath("pjdbc.jar");
+	assertFalse(new TeeDriver().acceptsURL("jdbc:tee"));
+	assertFalse(new TeeDriver().acceptsURL("jdbc:tee:"));
+	assertFalse(new TeeDriver().acceptsURL("jdbc:tee:foo"));
+	assertTrue(new TeeDriver().acceptsURL("jdbc:tee:jdbc:mock:foo;jdbc:mock:foo"));
+    } catch (e) {System.exit(1);}

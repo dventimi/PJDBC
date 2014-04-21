@@ -1,6 +1,7 @@
 #!/usr/bin/bsh
-source("tests/setUp.bsh");;
-    assert(1==new PoolingDriver().getMajorVersion());
-    assert(0==new PoolingDriver().getMinorVersion());
-    source("tests/tearDown.bsh");
-
+    try {
+	source("tests/init.bsh");
+	addClassPath("pjdbc.jar");
+	assert(1==new PoolingDriver().getMajorVersion());
+	assert(0==new PoolingDriver().getMinorVersion());
+    } catch (e) {System.exit(1);}

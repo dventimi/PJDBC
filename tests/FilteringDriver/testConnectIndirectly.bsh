@@ -1,4 +1,6 @@
 #!/usr/bin/bsh
-source("tests/setUp.bsh");
-assertNotNull(DriverManager.getConnection("jdbc:filter:jdbc:mock:foo"));
-source("tests/tearDown.sh");
+    try {
+	source("tests/init.bsh");
+	addClassPath("pjdbc.jar");
+	assertNotNull(DriverManager.getConnection("jdbc:filter:jdbc:mock:foo"));
+    } catch (e) {System.exit(1);}

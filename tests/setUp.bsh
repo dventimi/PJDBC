@@ -1,31 +1,4 @@
 #!/usr/bin/bsh
-
+source("tests/init.bsh");
 addClassPath("pjdbc.jar");
-
 import org.pjdbc.drivers.*;
-
-public assert (boolean assertion) {if (!assertion) System.exit(1);}
-
-public assertFalse (boolean assert) {assert(!assertion);}
-
-public assertTrue (boolean assert) {assert(assertion);}
-
-public assertNotNull (Object val) {assert((value!=null));}
-
-public assertEquals (Object val1, Object val2) {assert((val1.equals(val2)));}
-
-public assertSame (Object val1, Object val2) {assert((val1==val2));}
-
-public assertNotSame (Object val1, Object val2) {assert((val1!=val2));}
-
-// public class UpcaseFilter extends FilteringDriver.AbstractFilter {
-//     public String apply (String sql) {return sql==null ? sql : sql.toUpperCase();}}
-
-getClass("org.pjdbc.drivers.CatDriver");
-getClass("org.pjdbc.drivers.FilteringDriver");
-getClass("org.pjdbc.drivers.LoggingDriver");
-getClass("org.pjdbc.drivers.MockDriver");
-getClass("org.pjdbc.drivers.PoolingDriver");
-getClass("org.pjdbc.drivers.SinkDriver");
-getClass("org.pjdbc.drivers.TeeDriver");
-getClass("org.pjdbc.drivers.UserMappingDriver");

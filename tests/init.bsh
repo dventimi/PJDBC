@@ -1,0 +1,9 @@
+#!/usr/bin/bsh
+
+public assert (boolean assertion) {if (!assertion) System.exit(1);}
+public assertFalse (boolean assert) {assert(!assertion);}
+public assertTrue (boolean assert) {assert(assertion);}
+public assertNotNull (Object val) {assert((value!=null));}
+public assertEquals (Object val1, Object val2) {assert((val1.equals(val2)));}
+public assertSame (Object val1, Object val2) {assert((val1==val2));}
+public assertNotSame (Object val1, Object val2) {assert((val1!=val2));}

@@ -1,5 +1,7 @@
 #!/usr/bin/bsh
-source("tests/setUp.bsh");
-try{DriverManager.getConnection("jdbc:tee:jdbc:mock:foo");} catch (SQLException e) {return;}
-fail("jdbc:tee:jdbc:mock:foo should have no registered driver!");
-source("tests/tearDown.sh");
+    try {
+	source("tests/init.bsh");
+	addClassPath("pjdbc.jar");
+	try{DriverManager.getConnection("jdbc:tee:jdbc:mock:foo");} catch (SQLException e) {return;}
+	fail("jdbc:tee:jdbc:mock:foo should have no registered driver!");
+    } catch (e) {System.exit(1);}

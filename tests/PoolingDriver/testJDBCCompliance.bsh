@@ -1,5 +1,6 @@
 #!/usr/bin/bsh
-source("tests/setUp.bsh");;
-    assert(!new PoolingDriver().jdbcCompliant());
-    source("tests/tearDown.bsh");
-
+    try {
+	source("tests/init.bsh");
+	addClassPath("pjdbc.jar");
+	assert(!new PoolingDriver().jdbcCompliant());
+    } catch (e) {System.exit(1);}
