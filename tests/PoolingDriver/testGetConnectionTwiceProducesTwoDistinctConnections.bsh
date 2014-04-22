@@ -8,9 +8,8 @@
 	assert(foo2!=null);
 	assert(foo1!=foo2);
 	foo1.close();
-	// try {foo2.createStatement();} catch (SQLException e) {fail();}
+	try {foo2.createStatement();} catch (SQLException e) {fail();}
 	foo1.createStatement();
-	System.out.println("But No exception was thrown.");
-	// try {foo1.createStatement();} catch (SQLException e) {return;}
-	// fail();
+	try {foo1.createStatement();} catch (SQLException e) {return;}
+	fail();
     } catch (e) {System.exit(1);}

@@ -30,20 +30,11 @@ public class PoolingDriver extends AbstractProxyDriver {
     protected Connection proxyConnection (final Connection conn, final String url, final Properties info, Driver driver) throws SQLException {
     	return (Connection)Proxy.newProxyInstance(getClass().getClassLoader(), new Class[]{Connection.class}, new InvocationHandler() {
     		public Object invoke (Object proxy, Method method, Object[] args) throws SQLException {
-		    if ("close".equals(method.getName())) {
-			pools.get(getPoolKey(url, info)).add(conn); 
-			System.out.println("\nadding\n");
-			System.out.println(pools.get(getPoolKey(url, info)).contains(conn));
-			return proxy;}
-		    if (!"close".equals(method.getName())) 
-			if (pools.get(getPoolKey(url, info)).contains(conn)) {
-			    System.out.println(method.getName());
-			    System.out.println(pools.get(getPoolKey(url, info)).contains(conn));
-			    System.out.println("About to throw a SQLException");
-			    throw new SQLException("here it comes");}
+		    if ("close".equals(method.getName())) {pools.get(getPoolKey(url, info)).add(conn); return proxy;}
+		    if (!"close".equals(method.getName())) if (pools.get(getPoolKey(url, info)).contains(conn)) throw new SQLException();
 		    if ("toString".equals(method.getName())) return conn.toString();
 		    if ("equals".equals(method.getName())) return proxy==args[0];
-		    try {return method.invoke(conn, args);} catch (Exception e) {throw new SQLException();}}});}
+		    try {return method.invoke(conn, args);} catch (Exception e) {throw new SQLException(e);}}});}
 
     public Connection connect (String url, Properties info) throws SQLException {
     	if (!acceptsURL(url)) return null;
