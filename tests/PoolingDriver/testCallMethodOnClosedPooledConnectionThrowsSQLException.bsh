@@ -1,9 +1,18 @@
-#!/usr/bin/bsh
+#!/bin/sh
+set -e
+bsh -classpath pjdbc.jar <<EOF
     try {
 	source("tests/init.bsh");
-	addClassPath("pjdbc.jar");
+	import java.sql.*;
+	getClass("org.pjdbc.drivers.MockDriver");
+	getClass("org.pjdbc.drivers.PoolingDriver");
 	Connection foo = DriverManager.getConnection("jdbc:pool:jdbc:mock:foo");
 	foo.close();
 	try {foo.createStatement();} catch (SQLException e) {return;}
 	assert(false);
     } catch (e) {System.exit(1);}
+EOF
+
+# Local Variables:
+# mode: java
+# End:

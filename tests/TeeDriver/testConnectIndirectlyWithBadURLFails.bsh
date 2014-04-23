@@ -1,7 +1,14 @@
-#!/usr/bin/bsh
+#!/bin/sh
+set -e
+bsh -classpath pjdbc.jar <<EOF
     try {
 	source("tests/init.bsh");
-	addClassPath("pjdbc.jar");
+	import java.sql.*;
 	try{DriverManager.getConnection("jdbc:tee:jdbc:mock:foo");} catch (SQLException e) {return;}
 	fail("jdbc:tee:jdbc:mock:foo should have no registered driver!");
     } catch (e) {System.exit(1);}
+EOF
+
+# Local Variables:
+# mode: java
+# End:

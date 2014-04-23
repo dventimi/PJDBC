@@ -1,7 +1,14 @@
-#!/usr/bin/bsh
+#!/bin/sh
+set -e
+bsh -classpath pjdbc.jar <<EOF
     try {
 	source("tests/init.bsh");
-	addClassPath("pjdbc.jar");
+	import java.io.*;
+	import java.sql.*;
+	import java.util.*;
+	import java.util.logging.*;
+	import org.pjdbc.drivers.*;
+	getClass("org.pjdbc.drivers.MockDriver");
 	ByteArrayOutputStream out = new ByteArrayOutputStream();
 	Logger.getLogger("jdbc:mock:foo").setLevel(Level.INFO);
 	Logger.getLogger("jdbc:mock:foo").setUseParentHandlers(false);
@@ -20,3 +27,8 @@
 		     "insert into person (last_name, first_name, age) values ('David', 'Ventimiglia', 42);", 
 		     out.toString().trim());
     } catch (e) {System.exit(1);}
+EOF
+
+# Local Variables:
+# mode: java
+# End:

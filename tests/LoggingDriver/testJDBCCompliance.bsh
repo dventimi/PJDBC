@@ -1,6 +1,10 @@
-#!/usr/bin/bsh
     try {
 	source("tests/init.bsh");
-	addClassPath("pjdbc.jar");
+	import org.pjdbc.drivers.*;
 	assertFalse(new LoggingDriver().jdbcCompliant());
     } catch (e) {System.exit(1);}
+EOF
+
+# Local Variables:
+# mode: java
+# End:

@@ -1,9 +1,20 @@
-#!/usr/bin/bsh
+#!/bin/sh
+set -e
+bsh -classpath pjdbc.jar <<EOF
     try {
 	source("tests/init.bsh");
-	addClassPath("pjdbc.jar");
-	assertNotNull(DriverManager.getConnection("jdbc: cat:jdbc:\nmock:foo"));
-	assertNotNull(DriverManager.getConnection("jdbc: cat:jdbc:\nsink:jdbc:mock:foo"));
-	assertNotNull(DriverManager.getConnection("jdbc: log:jdbc:\nfilter:jdbc:cat:jdbc:sink:jdbc:mock:foo"));
-	assertNotNull(DriverManager.getConnection("jdbc: log:jdbc:\nfilter:jdbc\n:cat :  jdbc:\ntee:jdbc:sink :jdbc:mock:foo ;\njdbc:mock:bar"));
+	import java.sql.*;
+	getClass("org.pjdbc.drivers.MockDriver");
+	getClass("org.pjdbc.drivers.SinkDriver");
+	getClass("org.pjdbc.drivers.FilterDriver");
+	getClass("org.pjdbc.drivers.TeeDriver");
+	assertNull(DriverManager.getConnection("jdbc: cat:jdbc:\nmock:foo"));
+	assertNull(DriverManager.getConnection("jdbc: cat:jdbc:\nsink:jdbc:mock:foo"));
+	assertNull(DriverManager.getConnection("jdbc: log:jdbc:\nfilter:jdbc:cat:jdbc:sink:jdbc:mock:foo"));
+	assertNull(DriverManager.getConnection("jdbc: log:jdbc:\nfilter:jdbc\n:cat :  jdbc:\ntee:jdbc:sink :jdbc:mock:foo ;\njdbc:mock:bar"));
     } catch (e) {System.exit(1);}
+EOF
+
+# Local Variables:
+# mode: java
+# End:

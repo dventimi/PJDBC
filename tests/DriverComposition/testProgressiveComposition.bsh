@@ -1,9 +1,20 @@
-#!/usr/bin/bsh
+#!/bin/sh
+set -e
+bsh -classpath pjdbc.jar <<EOF
     try {
 	source("tests/init.bsh");
-	addClassPath("pjdbc.jar");
+	import java.sql.*;
+	getClass("org.pjdbc.drivers.MockDriver");
+	getClass("org.pjdbc.drivers.SinkDriver");
+	getClass("org.pjdbc.drivers.FilterDriver");
+	getClass("org.pjdbc.drivers.TeeDriver");
 	assertNotNull(DriverManager.getConnection("jdbc:cat:jdbc:mock:foo"));
 	assertNotNull(DriverManager.getConnection("jdbc:cat:jdbc:sink:jdbc:mock:foo"));
 	assertNotNull(DriverManager.getConnection("jdbc:log:jdbc:filter:jdbc:cat:jdbc:sink:jdbc:mock:foo"));
 	assertNotNull(DriverManager.getConnection("jdbc:log:jdbc:filter:jdbc:cat:jdbc:tee:jdbc:sink:jdbc:mock:foo;jdbc:mock:bar"));
     } catch (e) {System.exit(1);}
+EOF
+
+# Local Variables:
+# mode: java
+# End:

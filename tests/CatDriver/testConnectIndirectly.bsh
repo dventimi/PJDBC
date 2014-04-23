@@ -1,6 +1,11 @@
-#!/usr/bin/bsh
+#!/bin/sh
+set -e
+bsh -classpath pjdbc.jar <<EOF
     try {
 	source("tests/init.bsh");
-	addClassPath("pjdbc.jar");
+	import java.sql.*;
+	getClass("org.pjdbc.drivers.CatDriver");
+	getClass("org.pjdbc.drivers.MockDriver");
 	assertNotNull(DriverManager.getConnection("jdbc:cat:jdbc:mock:foo"));
     } catch (e) {System.exit(1);}
+EOF

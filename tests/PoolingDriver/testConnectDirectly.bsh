@@ -1,11 +1,18 @@
-#!/usr/bin/bsh
+#!/bin/sh
+set -e
+bsh -classpath pjdbc.jar <<EOF
     try {
 	source("tests/init.bsh");
-	addClassPath("pjdbc.jar");
-	new MockDriver();
+	import org.pjdbc.drivers.*;
+	getClass("org.pjdbc.drivers.MockDriver");
 	assert(!new PoolingDriver().acceptsURL("foo"));
 	assert(new PoolingDriver().connect("foo", null)==null);
 	assert(new PoolingDriver().connect("jdbc:pool", null)==null);
 	assert(new PoolingDriver().connect("jdbc:pool:", null)==null);
 	assert(new PoolingDriver().connect("jdbc:pool:jdbc:mock:foo", null)!=null);
     } catch (e) {System.exit(1);}
+EOF
+
+# Local Variables:
+# mode: java
+# End:

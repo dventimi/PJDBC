@@ -1,7 +1,13 @@
-#!/usr/bin/bsh
+#!/bin/sh
+set -e
+bsh -classpath pjdbc.jar <<EOF
     try {
 	source("tests/init.bsh");
-	addClassPath("pjdbc.jar");
+	import java.sql.*;
+	import org.pjdbc.drivers.*;
+	getClass("org.pjdbc.drivers.MockDriver");
+	getClass("org.pjdbc.drivers.SinkDriver");
+	getClass("org.pjdbc.drivers.TeeDriver");
 	Connection c = DriverManager.getConnection("jdbc:tee:jdbc:sink:jdbc:mock:foo;jdbc:mock:bar");
 	MockDriver foo = (MockDriver)DriverManager.getDriver("jdbc:mock:foo");
 	MockDriver bar = (MockDriver)DriverManager.getDriver("jdbc:mock:bar");
@@ -16,3 +22,8 @@
 		     "executeQuery[insert into person (last_name, first_name, age) values ('David', 'Ventimiglia', 42);]", 
 		     bar.getLog("jdbc:mock:bar"));
     } catch (e) {System.exit(1);}
+EOF
+
+# Local Variables:
+# mode: java
+# End:

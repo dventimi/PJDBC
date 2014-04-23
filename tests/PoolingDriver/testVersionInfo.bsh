@@ -1,7 +1,14 @@
-#!/usr/bin/bsh
+#!/bin/sh
+set -e
+bsh -classpath pjdbc.jar <<EOF
     try {
 	source("tests/init.bsh");
-	addClassPath("pjdbc.jar");
+	import org.pjdbc.drivers.*;
 	assert(1==new PoolingDriver().getMajorVersion());
 	assert(0==new PoolingDriver().getMinorVersion());
     } catch (e) {System.exit(1);}
+EOF
+
+# Local Variables:
+# mode: java
+# End:
