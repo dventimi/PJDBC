@@ -1,5 +1,3 @@
-#!/usr/bin/bsh
-
 public succeed () {}
 public fail () {System.exit(1);}
 public assert (boolean assertion) {if (assertion) succeed(); else fail();}
