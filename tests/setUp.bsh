@@ -1,4 +1,0 @@
-#!/usr/bin/bsh
-source("tests/init.bsh");
-addClassPath("pjdbc.jar");
-import org.pjdbc.drivers.*;
