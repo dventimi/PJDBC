@@ -11,3 +11,7 @@ bsh -classpath pjdbc.jar <<EOF
 	assertTrue(new CatDriver().acceptsURL("jdbc:cat:jdbc:mock:foo"));
     } catch (e) {System.exit(1);}
 EOF
+
+# Local Variables:
+# mode: java
+# End:
