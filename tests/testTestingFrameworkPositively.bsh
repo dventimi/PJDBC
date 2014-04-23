@@ -1,0 +1,13 @@
+#!/usr/bin/bsh
+    try {
+	source("tests/init.bsh");
+	assert(true);
+	assertTrue(true);
+	assertFalse(false);
+	assertNull(null);
+	assertNotNull("");
+	assertEquals("a", "a");
+	assertNotEquals("a", "b");
+	assertSame("a", "a");
+	assertNotSame("a", "b");
+    } catch (e) {System.exit(1);}
