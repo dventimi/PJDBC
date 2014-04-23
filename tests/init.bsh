@@ -1,11 +1,12 @@
 #!/usr/bin/bsh
 
+public succeed () {}
 public fail () {System.exit(1);}
-public assert (boolean assertion) {if (!assertion) fail();}
-public assertTrue (boolean assert) {assert(assertion);}
-public assertFalse (boolean assert) {assert(!assertion);}
-public assertNull (Object val) {assert(value==null);}
-public assertNotNull (Object val) {assert(value!=null);}
+public assert (boolean assertion) {if (assertion) succeed(); else fail();}
+public assertTrue (boolean assertion) {assert(assertion);}
+public assertFalse (boolean assertion) {assert(!assertion);}
+public assertNull (Object val) {assert(val==null);}
+public assertNotNull (Object val) {assert(val!=null);}
 public assertEquals (Object val1, Object val2) {assert(val1.equals(val2));}
 public assertNotEquals (Object val1, Object val2) {assert(!val1.equals(val2));}
 public assertSame (Object val1, Object val2) {assert(val1==val2);}
