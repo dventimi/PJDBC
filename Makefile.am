@@ -3,7 +3,9 @@ LIB_DIR = lib
 BIN_DIR = bin
 OBJ_DIR = classes
 
-TESTS =	tests/CatDriver/testJDBCCompliance.bsh \
+TESTS =	tests/testTestingFrameworkNegatively.bsh \
+	tests/testTestingFrameworkPositively.bsh \
+	tests/CatDriver/testJDBCCompliance.bsh \
 	tests/CatDriver/testConnectDirectlyAndInvokeMethods.bsh \
 	tests/CatDriver/testVersionInfo.bsh \
 	tests/CatDriver/testConnectIndirectly.bsh \
@@ -46,6 +48,8 @@ TESTS =	tests/CatDriver/testJDBCCompliance.bsh \
 	tests/FilteringDriver/testConnectIndirectly.bsh \
 	tests/FilteringDriver/testAcceptsURL.bsh \
 	tests/FilteringDriver/testConnectDirectly.bsh
+
+XFAIL_TESTS = tests/testTestingFrameworkNegatively.bsh
 
 dist_pkgdata_DATA = @PACKAGE@.jar $(shell find $(srcdir)/$(LIB_DIR) -type f -iname '*.jar') 
 dist_java_JAVA = $(shell find $(srcdir)/$(SRC_DIR) -type f -iname '*.java')
