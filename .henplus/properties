@@ -1,0 +1,8 @@
+#user properties
+#Wed Apr 23 19:10:36 PDT 2014
+sql-result-limit=2000
+column-delimiter=|
+sql-result-showheader=true
+sql-result-showfooter=true
+comments-remove=true
+echo-commands=false

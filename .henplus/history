@@ -1,0 +1,25 @@
+help
+list-drivers 
+exit
+list-drivers
+help
+help register
+register SQLite org.sqlite.JDBC jdbc:sqlite:foobar.db
+list-drivers
+exit
+list-drivers
+help
+help connect
+connect jdbc:sqlite:test.db
+tables
+help unregister 
+unregister SQLite 
+exit
+register SQLite org.sqlite.JDBC jdbc:sqlite:foobar.db
+connect jdbc:sqlite:test.db
+tables
+select * from person ;
+insert into person values ('Catherine', 'Kennedy', 30);
+PRAGMA journal_mode;
+select * from person ;
+exit

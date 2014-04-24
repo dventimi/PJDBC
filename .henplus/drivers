@@ -1,0 +1,16 @@
+#JDBC drivers
+#Wed Apr 23 19:10:35 PDT 2014
+driver.SQLite.class=org.sqlite.JDBC
+driver.Adabas.example=jdbc\:adabasd\://localhost\:7200/work
+driver.SQLite.example=jdbc\:sqlite\:foobar.db
+driver.Oracle.class=oracle.jdbc.driver.OracleDriver
+driver.Postgres.example=jdbc\:postgresql\://localhost/foobar
+driver.SAP-DB.example=jdbc\:sapdb\://localhost/foobar
+driver.MySQL.class=org.gjt.mm.mysql.Driver
+driver.MySQL.example=jdbc\:mysql\://localhost/foobar
+driver.SAP-DB.class=com.sap.dbtech.jdbc.DriverSapDB
+driver.DB2.example=jdbc\:db2\://localhost\:6789/foobar
+driver.Oracle.example=jdbc\:oracle\:thin\:@localhost\:1521\:ORCL
+driver.Adabas.class=de.sag.jdbc.adabasd.ADriver
+driver.Postgres.class=org.postgresql.Driver
+driver.DB2.class=COM.ibm.db2.jdbc.net.DB2Driver
