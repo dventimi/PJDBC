@@ -12,3 +12,7 @@ pjdbc.jar
 *.stamp
 *.log
 *.trs
+*.db
+*.db*
+*.txt
+*.orig
