@@ -72,3 +72,11 @@ $(shell mkdir -p $(OBJ_DIR))
 clean-local:
 	rm -rf $(OBJ_DIR)
 
+rmi:
+	rmic -d . com.jw.server.RemoteDriverImpl
+	rmic -d . com.jw.server.RemoteConnectionImpl
+	rmic -d . com.jw.server.RemoteStatementImpl
+	rmic -d . com.jw.server.RemoteResultSetImpl
+
+server:
+	java -Djava.security.policy=./java.policy com.jw.server.RemoteDriverImpl
