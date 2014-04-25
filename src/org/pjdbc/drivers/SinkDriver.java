@@ -1,13 +1,8 @@
 package org.pjdbc.drivers;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.Properties;
-import org.pjdbc.util.AbstractProxyDriver;
-import org.pjdbc.util.AbstractProxyStatement;
+import java.sql.*;
+import java.util.*;
+import org.pjdbc.util.*;
 
 public class SinkDriver extends AbstractProxyDriver {
     static {try {DriverManager.registerDriver(new SinkDriver());} catch (Exception e) {throw new RuntimeException(e);}}

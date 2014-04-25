@@ -1,18 +1,8 @@
 package org.pjdbc.util;
 
-import java.lang.reflect.InvocationHandler;
-import java.lang.reflect.Proxy;
-import java.sql.CallableStatement;
-import java.sql.Connection;
-import java.sql.Driver;
-import java.sql.DriverManager;
-import java.sql.DriverPropertyInfo;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.List;
-import java.util.Properties;
+import java.lang.reflect.*;
+import java.sql.*;
+import java.util.*;
 
 public abstract class AbstractProxyDriver extends AbstractDriver {
     protected boolean acceptsSubName (String subname) {

@@ -1,38 +1,11 @@
 package org.pjdbc.util;
 
-import java.io.InputStream;
-import java.io.Reader;
-import java.math.BigDecimal;
-import java.net.URL;
-import java.sql.Array;
-import java.sql.Blob;
-import java.sql.CallableStatement;
-import java.sql.Clob;
-import java.sql.Connection;
-import java.sql.DatabaseMetaData;
-import java.sql.Date;
-import java.sql.Driver;
-import java.sql.NClob;
-import java.sql.ParameterMetaData;
-import java.sql.PreparedStatement;
-import java.sql.Ref;
-import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
-import java.sql.RowId;
-import java.sql.SQLException;
-import java.sql.SQLWarning;
-import java.sql.SQLXML;
-import java.sql.Savepoint;
-import java.sql.Statement;
-import java.sql.Struct;
-import java.sql.Time;
-import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
-import java.util.concurrent.Executor;
+import java.io.*;
+import java.math.*;
+import java.net.*;
+import java.sql.*;
+import java.util.*;
+import java.util.concurrent.*;
 
 @SuppressWarnings("deprecation")
 public abstract class AbstractProxyCallableStatement extends AbstractProxyPreparedStatement implements CallableStatement {
@@ -77,13 +50,13 @@ public abstract class AbstractProxyCallableStatement extends AbstractProxyPrepar
 	return delegates.get(0).getClob(parameterName);}
     public Clob getClob (int parameterIndex) throws SQLException {
 	return delegates.get(0).getClob(parameterIndex);}
-    public Date getDate (String parameterName) throws SQLException {
+    public java.sql.Date getDate (String parameterName) throws SQLException {
 	return delegates.get(0).getDate(parameterName);}
-    public Date getDate (String parameterName, Calendar cal) throws SQLException {
+    public java.sql.Date getDate (String parameterName, Calendar cal) throws SQLException {
 	return delegates.get(0).getDate(parameterName, cal);}
-    public Date getDate (int parameterIndex) throws SQLException {
+    public java.sql.Date getDate (int parameterIndex) throws SQLException {
 	return delegates.get(0).getDate(parameterIndex);}
-    public Date getDate (int parameterIndex, Calendar cal) throws SQLException {
+    public java.sql.Date getDate (int parameterIndex, Calendar cal) throws SQLException {
 	return delegates.get(0).getDate(parameterIndex, cal);}
     public NClob getNClob (String parameterName) throws SQLException {
 	return delegates.get(0).getNClob(parameterName);}
@@ -229,9 +202,9 @@ public abstract class AbstractProxyCallableStatement extends AbstractProxyPrepar
 	for (CallableStatement s : delegates) s.setClob(parameterName, reader);}
     public void setClob (String parameterName, Reader reader, long length) throws SQLException {
 	for (CallableStatement s : delegates) s.setClob(parameterName, reader, length);}
-    public void setDate (String parameterName, Date x) throws SQLException {
+    public void setDate (String parameterName, java.sql.Date x) throws SQLException {
 	for (CallableStatement s : delegates) s.setDate(parameterName, x);}
-    public void setDate (String parameterName, Date x, Calendar cal) throws SQLException {
+    public void setDate (String parameterName, java.sql.Date x, Calendar cal) throws SQLException {
 	for (CallableStatement s : delegates) s.setDate(parameterName, x, cal);}
     public void setDouble (String parameterName, double x) throws SQLException {
 	for (CallableStatement s : delegates) s.setDouble(parameterName, x);}

@@ -1,25 +1,11 @@
 package org.pjdbc.drivers;
 
-import java.io.ByteArrayOutputStream;
-import java.lang.reflect.InvocationHandler;
-import java.lang.reflect.Method;
-import java.lang.reflect.Proxy;
-import java.sql.Connection;
-import java.sql.Driver;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.sql.Wrapper;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Properties;
-import java.util.logging.Level;
-import java.util.logging.LogManager;
-import java.util.logging.Logger;
-import org.pjdbc.util.AbstractProxyDriver;
-import org.pjdbc.util.AbstractProxyStatement;
+import java.io.*;
+import java.lang.reflect.*;
+import java.sql.*;
+import java.util.*;
+import java.util.logging.*;
+import org.pjdbc.util.*;
 
 public class LoggingDriver extends AbstractProxyDriver {
     static {try {DriverManager.registerDriver(new LoggingDriver());} catch (Exception e) {throw new RuntimeException(e);}}

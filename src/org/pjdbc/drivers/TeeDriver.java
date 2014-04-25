@@ -1,17 +1,8 @@
 package org.pjdbc.drivers;
 
-import java.sql.Connection;
-import java.sql.Driver;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Properties;
-import org.pjdbc.util.AbstractProxyConnection;
-import org.pjdbc.util.AbstractProxyDriver;
-import org.pjdbc.util.AbstractProxyStatement;
+import java.sql.*;
+import java.util.*;
+import org.pjdbc.util.*;
 
 public class TeeDriver extends AbstractProxyDriver {
     static {try {DriverManager.registerDriver(new TeeDriver());} catch (Exception e) {throw new RuntimeException(e);}}

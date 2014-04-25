@@ -1,8 +1,6 @@
 package org.pjdbc.util;
 
-import java.util.Collection;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public class SmartMultiMap<K, V extends SmartMultiMap.Notifiable> extends MultiMap<K, V> {
     public interface Notifiable {

@@ -1,15 +1,6 @@
 package org.pjdbc.util;
 
-import java.util.AbstractCollection;
-import java.util.AbstractMap;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
-import java.util.Set;
+import java.util.*;
 
 public class MultiMap<K, V> implements Map<K, V> {
     private static Random r = new Random();

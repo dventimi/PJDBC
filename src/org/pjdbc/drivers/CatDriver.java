@@ -1,7 +1,7 @@
 package org.pjdbc.drivers;
 
-import java.sql.DriverManager;
-import org.pjdbc.util.AbstractProxyDriver;
+import java.sql.*;
+import org.pjdbc.util.*;
 
 public class CatDriver extends AbstractProxyDriver {
     static {try {DriverManager.registerDriver(new CatDriver());} catch (Exception e) {throw new RuntimeException(e);}}

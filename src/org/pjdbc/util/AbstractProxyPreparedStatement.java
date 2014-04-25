@@ -1,38 +1,11 @@
 package org.pjdbc.util;
 
-import java.io.InputStream;
-import java.io.Reader;
-import java.math.BigDecimal;
-import java.net.URL;
-import java.sql.Array;
-import java.sql.Blob;
-import java.sql.CallableStatement;
-import java.sql.Clob;
-import java.sql.Connection;
-import java.sql.DatabaseMetaData;
-import java.sql.Date;
-import java.sql.Driver;
-import java.sql.NClob;
-import java.sql.ParameterMetaData;
-import java.sql.PreparedStatement;
-import java.sql.Ref;
-import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
-import java.sql.RowId;
-import java.sql.SQLException;
-import java.sql.SQLWarning;
-import java.sql.SQLXML;
-import java.sql.Savepoint;
-import java.sql.Statement;
-import java.sql.Struct;
-import java.sql.Time;
-import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
-import java.util.concurrent.Executor;
+import java.io.*;
+import java.math.*;
+import java.net.*;
+import java.sql.*;
+import java.util.*;
+import java.util.concurrent.*;
 
 @SuppressWarnings("deprecation")
 public abstract class AbstractProxyPreparedStatement extends AbstractProxyStatement implements PreparedStatement {
@@ -109,9 +82,9 @@ public abstract class AbstractProxyPreparedStatement extends AbstractProxyStatem
 	for (PreparedStatement s : delegates) s.setClob(parameterIndex, reader);}
     public void setClob (int parameterIndex, Reader reader, long length) throws SQLException {
 	for (PreparedStatement s : delegates) s.setClob(parameterIndex, reader, length);}
-    public void setDate (int parameterIndex, Date x) throws SQLException {
+    public void setDate (int parameterIndex, java.sql.Date x) throws SQLException {
 	for (PreparedStatement s : delegates) s.setDate(parameterIndex, x);}
-    public void setDate (int parameterIndex, Date x, Calendar cal) throws SQLException {
+    public void setDate (int parameterIndex, java.sql.Date x, Calendar cal) throws SQLException {
 	for (PreparedStatement s : delegates) s.setDate(parameterIndex, x, cal);}
     public void setDouble (int parameterIndex, double x) throws SQLException {
 	for (PreparedStatement s : delegates) s.setDouble(parameterIndex, x);}

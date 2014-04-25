@@ -1,18 +1,10 @@
 package org.pjdbc.drivers;
 
-import java.lang.reflect.InvocationHandler;
-import java.lang.reflect.Method;
-import java.lang.reflect.Proxy;
-import java.sql.Connection;
-import java.sql.Driver;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.util.Properties;
-import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.LinkedBlockingQueue;
-import java.util.concurrent.TimeUnit;
-import org.pjdbc.util.AbstractProxyDriver;
+import java.lang.reflect.*;
+import java.sql.*;
+import java.util.*;
+import java.util.concurrent.*;
+import org.pjdbc.util.*;
 
 public class PoolingDriver extends AbstractProxyDriver {
     static {try {DriverManager.registerDriver(new PoolingDriver());} catch (Exception e) {throw new RuntimeException(e);}}
