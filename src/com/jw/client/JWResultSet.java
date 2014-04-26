@@ -100,25 +100,19 @@ public abstract class JWResultSet implements ResultSet {
 	return java.sql.Timestamp.valueOf((String)row[columnIndex-1]);}
 
     public InputStream getAsciiStream(int columnIndex) throws SQLException {
-	if (row[columnIndex-1]==null)
-	    return null;
-
+	if (row[columnIndex-1]==null) return null;
 	byte[] byteArray = (byte[])row[columnIndex-1];
 	InputStream inStrm = new ByteArrayInputStream(byteArray);
 	return inStrm;}
 
     public InputStream getUnicodeStream(int columnIndex) throws SQLException {
-	if (row[columnIndex-1]==null)
-	    return null;
-
+	if (row[columnIndex-1]==null) return null;
 	byte[] byteArray = (byte[])row[columnIndex-1];
 	InputStream inStrm = new ByteArrayInputStream(byteArray);
 	return inStrm;}
 
     public InputStream getBinaryStream(int columnIndex) throws SQLException {
-	if (row[columnIndex-1]==null)
-	    return null;
-
+	if (row[columnIndex-1]==null) return null;
 	byte[] byteArray = (byte[])row[columnIndex-1];
 	InputStream inStrm = new ByteArrayInputStream(byteArray);
 	return inStrm;}
@@ -128,9 +122,7 @@ public abstract class JWResultSet implements ResultSet {
 	return obj;}
 
     public BigDecimal getBigDecimal(int columnIndex) throws SQLException {
-	if (row[columnIndex-1]==null)
-	    return null;
-
+	if (row[columnIndex-1]==null) return null;
 	String bigdStr = (String)row[columnIndex-1];
 	Long bigdObj = Long.valueOf(bigdStr);
 	BigDecimal  bigd = BigDecimal.valueOf(bigdObj.longValue());
@@ -138,74 +130,50 @@ public abstract class JWResultSet implements ResultSet {
 
     public boolean getBoolean(String columnName) throws SQLException {
 	Integer index= (Integer) columnList.get(columnName);
-	if (row[(index.intValue())-1]==null)
-	    {
-		return false;
-	    }
-	else
-	    {
-		String currentObj = (String)row[(index.intValue())-1];
-		Boolean current= Boolean.valueOf(currentObj);
-		return current.booleanValue();
-	    }}
+	if (row[(index.intValue())-1]==null) return false;
+	else {
+	    String currentObj = (String)row[(index.intValue())-1];
+	    Boolean current= Boolean.valueOf(currentObj);
+	    return current.booleanValue();}}
 
-    public byte getByte(String columnName) throws SQLException {
+    public byte getByte (String columnName) throws SQLException {
 	Integer index= (Integer)columnList.get(columnName);
-	if (row[(index.intValue())-1]==null)
-	    {
-		return 0;
-	    }
-	else
-	    {
-		String byeObj = (String)row[(index.intValue())-1];
-		Byte bye = Byte.valueOf(byeObj);
-		return bye.byteValue();
-	    }}
+	if (row[(index.intValue())-1]==null) return 0;
+	else {
+	    String byeObj = (String)row[(index.intValue())-1];
+	    Byte bye = Byte.valueOf(byeObj);
+	    return bye.byteValue();}}
 
-    public short getShort(String columnName) throws SQLException {
+    public short getShort (String columnName) throws SQLException {
 	Integer index= (Integer)columnList.get(columnName);
-	if (row[(index.intValue())-1]==null)
-	    {
-		return 0;
-	    }
-	else
-	    {
-		String sortObj = (String)row[(index.intValue())-1];
-		Short sort = Short.valueOf(sortObj);
-		return sort.shortValue();
-	    }}
+	if (row[(index.intValue())-1]==null) return 0;
+	else {
+	    String sortObj = (String)row[(index.intValue())-1];
+	    Short sort = Short.valueOf(sortObj);
+	    return sort.shortValue();}}
 
     public long getLong(String columnName) throws SQLException {
 	Integer index= (Integer)columnList.get(columnName);
 	if (row[(index.intValue())-1]==null) return 0;
-	else
-	    {
-		String langObj = (String)row[(index.intValue())-1];
-		Long lang = Long.valueOf(langObj);
-		return lang.longValue();
-	    }}
+	else {
+	    String langObj = (String)row[(index.intValue())-1];
+	    Long lang = Long.valueOf(langObj);
+	    return lang.longValue();}}
 
     public double getDouble(String columnName) throws SQLException {
 	Integer index= (Integer)columnList.get(columnName);
 	if (row[(index.intValue())-1]==null) return 0;
-	else
-	    {
-		String dubObj = (String)row[(index.intValue())-1];
-		Double dub = Double.valueOf(dubObj);
-		return dub.doubleValue();
-	    }}
-
-    public BigDecimal getBigDecimal(String columnName,int scale) throws SQLException {
-	throw new SQLException("Not Supported");}
+	else {
+	    String dubObj = (String)row[(index.intValue())-1];
+	    Double dub = Double.valueOf(dubObj);
+	    return dub.doubleValue();}}
 
     public byte[] getBytes(String columnName) throws SQLException {
 	Integer index = (Integer)columnList.get(columnName);
 	if (row[(index.intValue())-1]==null) return null;
-	else
-	    {
-		byte Array[] = (byte[])row[(index.intValue())-1];
-		return Array;
-	    }}
+	else {
+	    byte Array[] = (byte[])row[(index.intValue())-1];
+	    return Array;}}
 
     public java.sql.Date getDate(String columnName) throws SQLException {
 	Integer index = (Integer)columnList.get(columnName);
@@ -291,254 +259,88 @@ public abstract class JWResultSet implements ResultSet {
 	Reader rdrStream = new InputStreamReader(new ByteArrayInputStream(byteArray));
 	return rdrStream;}
 
-    public boolean isBeforeFirst() throws SQLException {
-	throw new SQLException("Not Supported");}
-
-    public boolean isAfterLast() throws SQLException {
-	throw new SQLException("Not Supported");}
-
-    public boolean isFirst() throws SQLException {
-	throw new SQLException("Not Supported");}
-
-    public boolean isLast() throws SQLException {
-	throw new SQLException("Not Supported");}
-
-    public void beforeFirst() throws SQLException {
-	throw new SQLException("Not Supported");}
-
-    public void afterLast() throws SQLException {
-	throw new SQLException("Not Supported");}
-
-    public boolean first() throws SQLException {
-	throw new SQLException("Not Supported");}
-
-    public boolean last() throws SQLException {
-	throw new SQLException("Not Supported");}
-
-    public int getRow() throws SQLException {
-	throw new SQLException("Not Supported");}
-
-    public boolean absolute(int row) throws SQLException {
-	throw new SQLException("Not Supported");}
-
-    public boolean relative(int rows) throws SQLException {
-	throw new SQLException("Not Supported");}
-
-    public boolean previous() throws SQLException {
-	throw new SQLException("Not Supported");}
-
-    public void setFetchDirection(int direction) throws SQLException {
-	throw new SQLException("Not Supported");}
-
-    public int getFetchDirection() throws SQLException {
-	throw new SQLException("Not Supported");}
-
-    public void setFetchSize(int rows) throws SQLException {
-	throw new SQLException("Not Supported");}
-
-    public int getFetchSize() throws SQLException {
-	throw new SQLException("Not Supported");}
-
-    public int getType() throws SQLException {
-	throw new SQLException("Not Supported");}
-
-    public int getConcurrency() throws SQLException {
-	throw new SQLException("Not Supported");}
-
-    public boolean rowUpdated() throws SQLException {
-	throw new SQLException("Not Supported");}
-
-    public boolean rowInserted() throws SQLException {
-	throw new SQLException("Not Supported");}
-
-    public boolean rowDeleted() throws SQLException {
-	throw new SQLException("Not Supported");}
-
-    public void updateNull(int columnIndex) throws SQLException {
-	throw new SQLException("Not Supported");}
-
-    public void updateBoolean(int columnIndex,boolean x) throws SQLException {
-	throw new SQLException("Not Supported");}
-
-    public void updateByte(int columnIndex, byte x) throws SQLException {
-	throw new SQLException("Not Supported");}
-
-    public void updateShort(int columnIndex,short x) throws SQLException {
-	throw new SQLException("Not Supported");}
-
-    public void updateInt(int columnIndex,int x) throws SQLException {
-	throw new SQLException("Not Supported");}
-
-    public void updateLong(int columnIndex,long x) throws SQLException {
-	throw new SQLException("Not Supported");}
-
-    public void updateFloat(int columnIndex,float x) throws SQLException {
-	throw new SQLException("Not Supported");}
-
-    public void updateDouble(int columnIndex,double x) throws SQLException {
-	throw new SQLException("Not Supported");}
-
-    public void updateBigDecimal(int columnIndex,BigDecimal x) throws SQLException {
-	throw new SQLException("Not Supported");}
-
-    public void updateString(int columnIndex,String x) throws SQLException {
-	throw new SQLException("Not Supported");}
-
-    public void updateBytes(int columnIndex,byte[] x) throws SQLException {
-	throw new SQLException("Not Supported");}
-
-    public void updateDate(int columnIndex,java.sql.Date x) throws SQLException {
-	throw new SQLException("Not Supported");}
-
-    public void updateTime(int columnIndex,Time x) throws SQLException {
-	throw new SQLException("Not Supported");}
-
-    public void updateTimestamp(int columnIndex,Timestamp x) throws SQLException {
-	throw new SQLException("Not Supported");}
-
-    public void updateBinaryStream(int columnIndex,InputStream x,int length) throws SQLException {
-	throw new SQLException("Not Supported");}
-
-    public void updateCharacterStream(int columnIndex,Reader x,int length) throws SQLException {
-	throw new SQLException("Not Supported");}
-
-    public void updateObject(int columnIndex,Object x,int scale) throws SQLException {
-	throw new SQLException("Not Supported");}
-
-    public void updateObject(int columnIndex,Object x) throws SQLException {
-	throw new SQLException("Not Supported");}
-
-    public void updateNull(String columnName) throws SQLException {
-	throw new SQLException("Not Supported");}
-
-    public void updateByte(String columnName, byte x) throws SQLException {
-	throw new SQLException("Not Supported");}
-
-    public void updateShort(String columnName, short x) throws SQLException {
-	throw new SQLException("Not Supported");}
-
-    public void updateInt(String columnName,int x) throws SQLException {
-	throw new SQLException("Not Supported");}
-
-    public void updateLong(String columnName,long x) throws SQLException {
-	throw new SQLException("Not Supported");}
-
-    public void updateFloat(String columnName, float x) throws SQLException {
-	throw new SQLException("Not Supported");}
-
-    public void updateDouble(String columnName,double x) throws SQLException {
-	throw new SQLException("Not Supported");}
-
-    public void updateBigDecimal(String columnName,BigDecimal x) throws SQLException {
-	throw new SQLException("Not Supported");}
-
-    public void updateString(String columnName,String x) throws SQLException {
-	throw new SQLException("Not Supported");}
-
-    public void updateBytes(String columnName,byte[] x) throws SQLException {
-	throw new SQLException("Not Supported");}
-
-    public void updateDate(String columnName,java.sql.Date x) throws SQLException {
-	throw new SQLException("Not Supported");}
-
-    public void updateTime(String columnName, Time x) throws SQLException {
-	throw new SQLException("Not Supported");}
-
-    public void updateTimestamp(String columnName,Timestamp x) throws SQLException {
-	throw new SQLException("Not Supported");}
-
-    public void updateAsciiStream(String columnName,InputStream x,int length) throws SQLException {
-	throw new SQLException("Not Supported");}
-
-    public void updateBinaryStream(String columnName,InputStream x,int length) throws SQLException {
-	throw new SQLException("Not Supported");}
-
-    public void updateCharacterStream(String columnName,Reader reader,int length) throws SQLException {
-	throw new SQLException("Not Supported");}
-
-    public void updateObject(String columnName,Object x,int scale) throws SQLException {
-	throw new SQLException("Not Supported");}
-
-    public void updateObject(String columnName,Object x) throws SQLException {
-	throw new SQLException("Not Supported");}
-
-    public void insertRow() throws SQLException {
-	throw new SQLException("Not Supported");}
-
-    public void updateRow() throws SQLException {
-	throw new SQLException("Not Supported");}
-
-    public void deleteRow()  throws SQLException {
-	throw new SQLException("Not Supported");}
-
-    public void refreshRow()  throws SQLException {
-	throw new SQLException("Not Supported");}
-
-    public void cancelRowUpdates() throws SQLException {
-	throw new SQLException("Not Supported");}
-
-    public void moveToInsertRow() throws SQLException {
-	throw new SQLException("Not Supported");}
-
-    public void moveToCurrentRow() throws SQLException {
-	throw new SQLException("Not Supported");}
-
-    public Statement getStatement()  throws SQLException {
-	throw new SQLException("Not Supported");}
-
-    public java.sql.Date getDate(int columnIndex,Calendar cal) throws SQLException {
-	throw new SQLException("Not Supported");}
-
-    public java.sql.Date getDate(String columnName,Calendar cal) throws SQLException {
-	throw new SQLException("Not Supported");}
-
-    public Time getTime(int columnIndex,Calendar cal) throws SQLException {
-	throw new SQLException("Not Supported");}
-
-    public Time getTime(String columnName,Calendar cal) throws SQLException {
-	throw new SQLException("Not Supported");}
-
-    public Timestamp getTimestamp(int columnIndex,Calendar cal) throws SQLException {
-	throw new SQLException("Not Supported");}
-
-    public Timestamp getTimestamp(String columnName,Calendar cal) throws SQLException {
-	throw new SQLException("Not Supported");}
-
-    public boolean wasNull() throws SQLException {
-	throw new SQLException("Not Supported");}
-
-    public void updateBoolean(String columnName, boolean x) throws SQLException {
-	throw new SQLException("Not Supported");}
-
-    public void updateAsciiStream(int columnIndex, InputStream x, int length) throws SQLException {
-	throw new SQLException("Not Supported");}
-
-    public Object getObject(int i, Map map) throws SQLException {
-	throw new SQLException("Not Supported");}
-
-    public Ref getRef(int i) throws SQLException {
-	throw new SQLException("Not Supported");}
-
-    public Blob getBlob(int i) throws SQLException {
-	throw new SQLException("Not Supported");}
-
-    public Clob getClob(int i) throws SQLException {
-	throw new SQLException("Not Supported");}
-
-    public Array getArray(int i) throws SQLException {
-	throw new SQLException("Not Supported");}
-
-    public Object getObject(String colName, Map map) throws SQLException {
-	throw new SQLException("Not Supported");}
-
-    public Ref getRef(String colName) throws SQLException {
-	throw new SQLException("Not Supported");}
-
-    public Blob getBlob(String colName) throws SQLException {
-	throw new SQLException("Not Supported");}
-
-    public Clob getClob(String colName) throws SQLException {
-	throw new SQLException("Not Supported");}
-    public Array getArray(String colName) throws SQLException {
-	throw new SQLException("Not Supported");}
-}
+    public BigDecimal getBigDecimal (String columnName,int scale) throws SQLException {throw new SQLException("Not Supported");}
+    public boolean isBeforeFirst () throws SQLException {throw new SQLException("Not supported");}
+    public boolean isAfterLast () throws SQLException {throw new SQLException("Not supported");}
+    public boolean isFirst () throws SQLException {throw new SQLException("Not supported");}
+    public boolean isLast () throws SQLException {throw new SQLException("Not supported");}
+    public void beforeFirst () throws SQLException {throw new SQLException("Not supported");}
+    public void afterLast () throws SQLException {throw new SQLException("Not supported");}
+    public boolean first () throws SQLException {throw new SQLException("Not supported");}
+    public boolean last () throws SQLException {throw new SQLException("Not supported");}
+    public int getRow () throws SQLException {throw new SQLException("Not supported");}
+    public boolean absolute (int row) throws SQLException {throw new SQLException("Not supported");}
+    public boolean relative (int rows) throws SQLException {throw new SQLException("Not supported");}
+    public boolean previous () throws SQLException {throw new SQLException("Not supported");}
+    public void setFetchDirection (int direction) throws SQLException {throw new SQLException("Not supported");}
+    public int getFetchDirection () throws SQLException {throw new SQLException("Not supported");}
+    public void setFetchSize (int rows) throws SQLException {throw new SQLException("Not supported");}
+    public int getFetchSize () throws SQLException {throw new SQLException("Not supported");}
+    public int getType () throws SQLException {throw new SQLException("Not supported");}
+    public int getConcurrency () throws SQLException {throw new SQLException("Not supported");}
+    public boolean rowUpdated () throws SQLException {throw new SQLException("Not supported");}
+    public boolean rowInserted () throws SQLException {throw new SQLException("Not supported");}
+    public boolean rowDeleted () throws SQLException {throw new SQLException("Not supported");}
+    public void updateNull (int columnIndex) throws SQLException {throw new SQLException("Not supported");}
+    public void updateBoolean (int columnIndex, boolean x) throws SQLException {throw new SQLException("Not supported");}
+    public void updateByte (int columnIndex, byte x) throws SQLException {throw new SQLException("Not supported");}
+    public void updateShort (int columnIndex, short x) throws SQLException {throw new SQLException("Not supported");}
+    public void updateInt (int columnIndex, int x) throws SQLException {throw new SQLException("Not supported");}
+    public void updateLong (int columnIndex, long x) throws SQLException {throw new SQLException("Not supported");}
+    public void updateFloat (int columnIndex, float x) throws SQLException {throw new SQLException("Not supported");}
+    public void updateDouble (int columnIndex, double x) throws SQLException {throw new SQLException("Not supported");}
+    public void updateBigDecimal (int columnIndex, BigDecimal x) throws SQLException {throw new SQLException("Not supported");}
+    public void updateString (int columnIndex, String x) throws SQLException {throw new SQLException("Not supported");}
+    public void updateBytes (int columnIndex, byte[] x) throws SQLException {throw new SQLException("Not supported");}
+    public void updateDate (int columnIndex, java.sql.Date x) throws SQLException {throw new SQLException("Not supported");}
+    public void updateTime (int columnIndex, Time x) throws SQLException {throw new SQLException("Not supported");}
+    public void updateTimestamp (int columnIndex, Timestamp x) throws SQLException {throw new SQLException("Not supported");}
+    public void updateBinaryStream (int columnIndex, InputStream x, int length) throws SQLException {throw new SQLException("Not supported");}
+    public void updateCharacterStream (int columnIndex, Reader x, int length) throws SQLException {throw new SQLException("Not supported");}
+    public void updateObject (int columnIndex, Object x, int scale) throws SQLException {throw new SQLException("Not supported");}
+    public void updateObject (int columnIndex, Object x) throws SQLException {throw new SQLException("Not supported");}
+    public void updateNull (String columnName) throws SQLException {throw new SQLException("Not supported");}
+    public void updateByte (String columnName, byte x) throws SQLException {throw new SQLException("Not supported");}
+    public void updateShort (String columnName, short x) throws SQLException {throw new SQLException("Not supported");}
+    public void updateInt (String columnName, int x) throws SQLException {throw new SQLException("Not supported");}
+    public void updateLong (String columnName, long x) throws SQLException {throw new SQLException("Not supported");}
+    public void updateFloat (String columnName, float x) throws SQLException {throw new SQLException("Not supported");}
+    public void updateDouble (String columnName, double x) throws SQLException {throw new SQLException("Not supported");}
+    public void updateBigDecimal (String columnName, BigDecimal x) throws SQLException {throw new SQLException("Not supported");}
+    public void updateString (String columnName, String x) throws SQLException {throw new SQLException("Not supported");}
+    public void updateBytes (String columnName, byte[] x) throws SQLException {throw new SQLException("Not supported");}
+    public void updateDate (String columnName, java.sql.Date x) throws SQLException {throw new SQLException("Not supported");}
+    public void updateTime (String columnName, Time x) throws SQLException {throw new SQLException("Not supported");}
+    public void updateTimestamp (String columnName, Timestamp x) throws SQLException {throw new SQLException("Not supported");}
+    public void updateAsciiStream (String columnName, InputStream x, int length) throws SQLException {throw new SQLException("Not supported");}
+    public void updateBinaryStream (String columnName, InputStream x, int length) throws SQLException {throw new SQLException("Not supported");}
+    public void updateCharacterStream (String columnName, Reader reader, int length) throws SQLException {throw new SQLException("Not supported");}
+    public void updateObject (String columnName, Object x, int scale) throws SQLException {throw new SQLException("Not supported");}
+    public void updateObject (String columnName, Object x) throws SQLException {throw new SQLException("Not supported");}
+    public void insertRow () throws SQLException {throw new SQLException("Not supported");}
+    public void updateRow () throws SQLException {throw new SQLException("Not supported");}
+    public void deleteRow ()  throws SQLException {throw new SQLException("Not supported");}
+    public void refreshRow ()  throws SQLException {throw new SQLException("Not supported");}
+    public void cancelRowUpdates () throws SQLException {throw new SQLException("Not supported");}
+    public void moveToInsertRow () throws SQLException {throw new SQLException("Not supported");}
+    public void moveToCurrentRow () throws SQLException {throw new SQLException("Not supported");}
+    public Statement getStatement ()  throws SQLException {throw new SQLException("Not supported");}
+    public java.sql.Date getDate (int columnIndex, Calendar cal) throws SQLException {throw new SQLException("Not supported");}
+    public java.sql.Date getDate (String columnName, Calendar cal) throws SQLException {throw new SQLException("Not supported");}
+    public Time getTime (int columnIndex, Calendar cal) throws SQLException {throw new SQLException("Not supported");}
+    public Time getTime (String columnName, Calendar cal) throws SQLException {throw new SQLException("Not supported");}
+    public Timestamp getTimestamp (int columnIndex, Calendar cal) throws SQLException {throw new SQLException("Not supported");}
+    public Timestamp getTimestamp (String columnName, Calendar cal) throws SQLException {throw new SQLException("Not supported");}
+    public boolean wasNull () throws SQLException {throw new SQLException("Not supported");}
+    public void updateBoolean (String columnName, boolean x) throws SQLException {throw new SQLException("Not supported");}
+    public void updateAsciiStream (int columnIndex, InputStream x, int length) throws SQLException {throw new SQLException("Not supported");}
+    public Object getObject (int i, Map map) throws SQLException {throw new SQLException("Not supported");}
+    public Ref getRef (int i) throws SQLException {throw new SQLException("Not supported");}
+    public Blob getBlob (int i) throws SQLException {throw new SQLException("Not supported");}
+    public Clob getClob (int i) throws SQLException {throw new SQLException("Not supported");}
+    public Array getArray (int i) throws SQLException {throw new SQLException("Not supported");}
+    public Object getObject (String colName, Map map) throws SQLException {throw new SQLException("Not supported");}
+    public Ref getRef (String colName) throws SQLException {throw new SQLException("Not supported");}
+    public Blob getBlob (String colName) throws SQLException {throw new SQLException("Not supported");}
+    public Clob getClob (String colName) throws SQLException {throw new SQLException("Not supported");}
+    public Array getArray (String colName) throws SQLException {throw new SQLException("Not supported");}}
