@@ -45,4 +45,4 @@ public abstract class JWConnection implements Connection {
     public CallableStatement prepareCall(String sql,int resultSetType,int resultSetConcurrency) throws SQLException {throw new SQLException("Not supported");}
     public Statement createStatement(int resultSetType,int resultSetConcurrency) throws SQLException {throw new SQLException("Not supported");}
     public void setTypeMap(Map map) throws SQLException {throw new SQLException("Not supported");}
-    public Map getTypeMap() throws SQLException {throw new SQLException("Not supported");}}
+    public Map<String, Class<?>> getTypeMap() throws SQLException {throw new SQLException("Not supported");}}

@@ -9,7 +9,7 @@ import java.util.*;
 
 public abstract class JWResultSet implements ResultSet {
     private IRemoteResultSet remoteResultSet;
-    Hashtable columnList = null;
+    Map<String, Integer> columnList = null;
     private ResultSetChunk rsChunkData = null;
     private Object[] row;
 
@@ -80,8 +80,8 @@ public abstract class JWResultSet implements ResultSet {
 	if (row[columnIndex-1]==null) return 0;
 	else return Double.valueOf((String)row[columnIndex-1]).doubleValue();}
 
-    public BigDecimal getBigDecimal (int columnIndex,int scale) throws SQLException {
-	throw new SQLException("Not Supported");}
+    // public BigDecimal getBigDecimal (int columnIndex,int scale) throws SQLException {
+    // 	throw new SQLException("Not Supported");}
 
     public byte[] getBytes(int columnIndex) throws SQLException {
 	if (row[columnIndex-1]==null) return null;
@@ -105,11 +105,11 @@ public abstract class JWResultSet implements ResultSet {
 	InputStream inStrm = new ByteArrayInputStream(byteArray);
 	return inStrm;}
 
-    public InputStream getUnicodeStream(int columnIndex) throws SQLException {
-	if (row[columnIndex-1]==null) return null;
-	byte[] byteArray = (byte[])row[columnIndex-1];
-	InputStream inStrm = new ByteArrayInputStream(byteArray);
-	return inStrm;}
+    // public InputStream getUnicodeStream(int columnIndex) throws SQLException {
+    // 	if (row[columnIndex-1]==null) return null;
+    // 	byte[] byteArray = (byte[])row[columnIndex-1];
+    // 	InputStream inStrm = new ByteArrayInputStream(byteArray);
+    // 	return inStrm;}
 
     public InputStream getBinaryStream(int columnIndex) throws SQLException {
 	if (row[columnIndex-1]==null) return null;
@@ -216,12 +216,12 @@ public abstract class JWResultSet implements ResultSet {
 	InputStream inStrm = new ByteArrayInputStream(byteArray);
 	return inStrm;}
 
-    public InputStream getUnicodeStream(String columnName) throws SQLException {
-	Integer index= (Integer)columnList.get(columnName);
-	if (row[(index.intValue())-1]==null) return null;
-	byte[] byteArray = (byte[])row[(index.intValue())-1];
-	InputStream inStrm = new ByteArrayInputStream(byteArray);
-	return inStrm;}
+    // public InputStream getUnicodeStream(String columnName) throws SQLException {
+    // 	Integer index= (Integer)columnList.get(columnName);
+    // 	if (row[(index.intValue())-1]==null) return null;
+    // 	byte[] byteArray = (byte[])row[(index.intValue())-1];
+    // 	InputStream inStrm = new ByteArrayInputStream(byteArray);
+    // 	return inStrm;}
 
     public InputStream getBinaryStream(String columnName) throws SQLException {
 	Integer index= (Integer)columnList.get(columnName);
@@ -259,7 +259,7 @@ public abstract class JWResultSet implements ResultSet {
 	Reader rdrStream = new InputStreamReader(new ByteArrayInputStream(byteArray));
 	return rdrStream;}
 
-    public BigDecimal getBigDecimal (String columnName,int scale) throws SQLException {throw new SQLException("Not Supported");}
+    // public BigDecimal getBigDecimal (String columnName,int scale) throws SQLException {throw new SQLException("Not Supported");}
     public boolean isBeforeFirst () throws SQLException {throw new SQLException("Not supported");}
     public boolean isAfterLast () throws SQLException {throw new SQLException("Not supported");}
     public boolean isFirst () throws SQLException {throw new SQLException("Not supported");}

@@ -7,4 +7,4 @@ import java.util.*;
 public interface IRemoteResultSet extends Remote {
     ResultSetChunk getNextChunk() throws RemoteException,SQLException;
     void close() throws RemoteException, SQLException;
-    Hashtable getColumnList() throws RemoteException, SQLException;}
+    Map<String, Integer> getColumnList() throws RemoteException, SQLException;}

@@ -10,27 +10,27 @@ public class RemoteResultSetImpl extends UnicastRemoteObject implements IRemoteR
     private ResultSet sqlRs;
     private ResultSetMetaData rsmd;
     int colNum;
-    Hashtable columnList;
+    Map<String, Integer> columnList;
     private static int CHUNK_SIZE = 50;
 
-    public RemoteResultSetImpl (ResultSet rs) throws RemoteException,SQLException {
+    public RemoteResultSetImpl (ResultSet rs) throws RemoteException, SQLException {
 	super();
 	sqlRs = rs;
 	rsmd = sqlRs.getMetaData();
 	colNum = rsmd.getColumnCount();
-	columnList = new Hashtable(20,10);
+	columnList = new HashMap<String, Integer>();
 	for (int i = 1; i <= colNum; i++) {
 	    String columnName = rsmd.getColumnName(i);
 	    Integer columnIndex = new Integer(i);
-	    columnList.put(columnName,columnIndex);}}
+	    columnList.put(columnName, columnIndex);}}
 
-    public ResultSetChunk getNextChunk () throws RemoteException,SQLException {
-	Vector rsDataChunk = new Vector();
+    public ResultSetChunk getNextChunk () throws RemoteException, SQLException {
+	List<Object> rsDataChunk = new ArrayList<Object>();
 	for (int curRowIndex = 0; curRowIndex < CHUNK_SIZE; curRowIndex++) {
 	    if (sqlRs.next() == false) break;
 	    Object []row = new Object[colNum];
 	    for (int i = 1; i <= colNum; i++) row[i-1] = sqlRs.getString(i);
-	    rsDataChunk.addElement(row);}
+	    rsDataChunk.add(row);}
 	if (rsDataChunk.size()==0) return null;
 	ResultSetChunk rsChunk = new ResultSetChunk(rsDataChunk);
 	return rsChunk;}
@@ -38,5 +38,5 @@ public class RemoteResultSetImpl extends UnicastRemoteObject implements IRemoteR
     public void close () throws RemoteException, SQLException {
 	sqlRs.close();}
 
-    public Hashtable getColumnList () throws RemoteException, SQLException {
+    public Map<String, Integer> getColumnList () throws RemoteException, SQLException {
 	return columnList;}}
