@@ -1,5 +1,5 @@
 #JDBC drivers
-#Wed Apr 23 19:10:35 PDT 2014
+#Sat Apr 26 08:58:02 PDT 2014
 driver.SQLite.class=org.sqlite.JDBC
 driver.Adabas.example=jdbc\:adabasd\://localhost\:7200/work
 driver.SQLite.example=jdbc\:sqlite\:foobar.db
