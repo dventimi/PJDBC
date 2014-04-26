@@ -14,8 +14,8 @@ public class RemoteConnectionImpl extends UnicastRemoteObject implements IRemote
         sqlConnection = sqlCon;}
 
     public IRemoteStatement createStatement () throws RemoteException, SQLException {
-        RemoteStatementImpl StmtImplInstance =  new RemoteStatementImpl(sqlConnection.createStatement());
+        RemoteStatementImpl StmtImplInstance = new RemoteStatementImpl(sqlConnection.createStatement());
         return  (IRemoteStatement)StmtImplInstance;}
 
-    public void closeConnection() throws RemoteException,SQLException {
+    public void closeConnection() throws RemoteException, SQLException {
         ConnectionPool.getInstance().addConnection(sqlConnection);}}
