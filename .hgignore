@@ -16,3 +16,4 @@ pjdbc.jar
 *.db*
 *.txt
 *.orig
+*.html
