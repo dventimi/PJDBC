@@ -33,3 +33,4 @@
 *** TODO Create a User's Guide texinfo document.
 *** TODO Create a Driver Writer's Guide texinfo document.
 *** TODO Create a Developer's Guide either as a Markdown document.
+* TODO Move the init.bsh bootstrap tests into the java-project-template project.
