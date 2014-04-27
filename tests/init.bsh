@@ -1,8 +1,8 @@
 public succeed () {}
 public fail () {System.exit(1);}
-public assert (boolean assertion) {if (assertion) succeed(); else fail();}
-public assertTrue (boolean assertion) {assert(assertion);}
-public assertFalse (boolean assertion) {assert(!assertion);}
+public assert (boolean condition) {if (condition) succeed(); else fail();}
+public assertTrue (boolean condition) {assert(condition);}
+public assertFalse (boolean condition) {assert(!condition);}
 public assertNull (Object val) {assert(val==null);}
 public assertNotNull (Object val) {assert(val!=null);}
 public assertEquals (Object val1, Object val2) {assert(val1.equals(val2));}
