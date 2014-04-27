@@ -1,6 +1,35 @@
 # -*- mode:org; -*-
 
-* TODO Write a whole battery of tests just to check that JDBC methods are being called correctly.
-* TODO Test PoolingDriver.java.
-* TODO Test UserMappingDriver.java.
-* TODO Clean up and trim down the test classes.
+#+TITLE:     TODO
+#+AUTHOR:    David A. Ventimiglia
+#+EMAIL:     dventimi@dventimi-EB1501
+#+DATE:      2014-04-27 Sun
+#+OPTIONS:   H:3 num:t toc:nil \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t
+#+OPTIONS:   TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
+#+INFOJS_OPT: view:nil toc:nil ltoc:t mouse:underline buttons:0 path:http://orgmode.org/org-info.js
+#+EXPORT_SELECT_TAGS: export
+#+EXPORT_EXCLUDE_TAGS: noexport
+#+XSLT:
+#+STARTUP: hidestars
+#+STARTUP: odd
+
+* TODO Make AbstractProxyConnection etc. should broadcast operations to all delegates.
+* TODO Put all simply-overridden methods of AbstractProxyConnection etc. into super classes.
+* TODO Investigate turning the assertions in init.bsh into BeanShell commands.
+* TODO Investigate templatizing the delegation aspects of AbstractProxyConnection etc.
+* TODO Look at JWDriver for inspiration vis a vis connection pooling.
+* TODO Refactor the URL parsing machinery in AbstractDriver and AbstractProxyDriver.
+* TODO Create AbstractProxyXXX classes for the other java.sql.XXX types (e.g., CallableStatement, DatabaseMetaData, etc.)
+* TODO Finish RemoteDriver.java
+*** TODO Create InvocationHandler implementations for the other java.sql.XXX types (e.g., CallableStatement, etc.)
+*** TODO Write the code to handle URL parsing for this special case
+    - JDBC URLs should be of this form:
+      =jdbc:cat:jdbc:rcat:[rmi://rmiregistry_host:1099/binding_name]:jdbc:tee:jdbc:sink:jdbc:mock:foo;jdbc:mock:bar=
+    - That should get split on =[:]jdbc:= into:
+      =cat rcat:[rmi://rmiregistry_host:1099/binding_name] tee sink mock:foo;jdbc:mock:bar=
+* TODO Investigate getting the configure script to fail outright if requirements are not met.
+* TODO Investigate an Autoconf test for checking the JDK version.
+* TODO Write documentation
+*** TODO Create a User's Guide texinfo document.
+*** TODO Create a Driver Writer's Guide texinfo document.
+*** TODO Create a Developer's Guide either as a Markdown document.
