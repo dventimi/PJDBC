@@ -18,36 +18,36 @@ TESTS =	tests/testTestingFrameworkNegatively.bsh \
 	tests/TeeDriver/testConnectIndirectlyWithBadURLFails.bsh \
 	tests/TeeDriver/testConnectIndirectlyWithGoodURLSucceeds.bsh \
 	tests/TeeDriver/testConnectDirectly.bsh \
-	tests/PoolingDriver/testGetConnectionTwiceProducesTwoDistinctConnections.bsh \
-	tests/PoolingDriver/testJDBCCompliance.bsh \
-	tests/PoolingDriver/testConnectDirectlyAndInvokeMethods.bsh \
-	tests/PoolingDriver/testVersionInfo.bsh \
-	tests/PoolingDriver/testCallMethodOnClosedPooledConnectionThrowsSQLException.bsh \
-	tests/PoolingDriver/testConnectIndirectly.bsh \
-	tests/PoolingDriver/testAcceptsURL.bsh \
-	tests/PoolingDriver/testConnectDirectly.bsh \
+	tests/PoolDriver/testGetConnectionTwiceProducesTwoDistinctConnections.bsh \
+	tests/PoolDriver/testJDBCCompliance.bsh \
+	tests/PoolDriver/testConnectDirectlyAndInvokeMethods.bsh \
+	tests/PoolDriver/testVersionInfo.bsh \
+	tests/PoolDriver/testCallMethodOnClosedPooledConnectionThrowsSQLException.bsh \
+	tests/PoolDriver/testConnectIndirectly.bsh \
+	tests/PoolDriver/testAcceptsURL.bsh \
+	tests/PoolDriver/testConnectDirectly.bsh \
 	tests/DriverComposition/testTeePlusSinkButReverseOrder.bsh \
 	tests/DriverComposition/testUrlsCanHaveWhitespace.bsh \
 	tests/DriverComposition/testProgressiveComposition.bsh \
 	tests/DriverComposition/testTeePlusSink.bsh \
-	tests/LoggingDriver/testJDBCCompliance.bsh \
-	tests/LoggingDriver/testConnectDirectlyAndInvokeMethods.bsh \
-	tests/LoggingDriver/testVersionInfo.bsh \
-	tests/LoggingDriver/testConnectIndirectly.bsh \
-	tests/LoggingDriver/testAcceptsURL.bsh \
-	tests/LoggingDriver/testConnectDirectly.bsh \
+	tests/LogDriver/testJDBCCompliance.bsh \
+	tests/LogDriver/testConnectDirectlyAndInvokeMethods.bsh \
+	tests/LogDriver/testVersionInfo.bsh \
+	tests/LogDriver/testConnectIndirectly.bsh \
+	tests/LogDriver/testAcceptsURL.bsh \
+	tests/LogDriver/testConnectDirectly.bsh \
 	tests/SinkDriver/testJDBCCompliance.bsh \
 	tests/SinkDriver/testConnectDirectlyAndInvokeMethods.bsh \
 	tests/SinkDriver/testVersionInfo.bsh \
 	tests/SinkDriver/testConnectIndirectly.bsh \
 	tests/SinkDriver/testAcceptsURL.bsh \
 	tests/SinkDriver/testConnectDirectly.bsh \
-	tests/FilteringDriver/testJDBCCompliance.bsh \
-	tests/FilteringDriver/testConnectDirectlyAndInvokeMethods.bsh \
-	tests/FilteringDriver/testVersionInfo.bsh \
-	tests/FilteringDriver/testConnectIndirectly.bsh \
-	tests/FilteringDriver/testAcceptsURL.bsh \
-	tests/FilteringDriver/testConnectDirectly.bsh
+	tests/FilterDriver/testJDBCCompliance.bsh \
+	tests/FilterDriver/testConnectDirectlyAndInvokeMethods.bsh \
+	tests/FilterDriver/testVersionInfo.bsh \
+	tests/FilterDriver/testConnectIndirectly.bsh \
+	tests/FilterDriver/testAcceptsURL.bsh \
+	tests/FilterDriver/testConnectDirectly.bsh
 
 XFAIL_TESTS = tests/testTestingFrameworkNegatively.bsh
 
