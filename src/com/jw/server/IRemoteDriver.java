@@ -4,4 +4,4 @@ import java.rmi.*;
 import java.sql.*;
 
 public interface IRemoteDriver extends Remote {
-    IRemoteConnection getConnection() throws RemoteException,SQLException;}
+    IRemoteConnection getConnection() throws RemoteException, SQLException;}

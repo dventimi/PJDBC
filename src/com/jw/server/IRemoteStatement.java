@@ -4,6 +4,6 @@ import java.rmi.*;
 import java.sql.*;
 
 public interface IRemoteStatement extends Remote {
-    IRemoteResultSet executeQuery(String Query) throws RemoteException,SQLException;
-    int executeUpdate(String Query) throws RemoteException,SQLException;
-    void close() throws RemoteException,SQLException;}
+    IRemoteResultSet executeQuery(String Query) throws RemoteException, SQLException;
+    int executeUpdate(String Query) throws RemoteException, SQLException;
+    void close() throws RemoteException, SQLException;}

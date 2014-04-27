@@ -6,17 +6,17 @@ import java.rmi.*;
 import java.sql.*;
 import java.util.*;
 
-public abstract class JWDriver implements java.sql.Driver {
+public abstract class JWDriver implements Driver {
     static IRemoteDriver remoteDriver = null;
     private static final String URL_PREFIX = "jdbc:JWDriver:";
     private static final int MAJOR_VERSION = 1;
     private static final int MINOR_VERSION = 0;
     // static {
-    // 	try {
-	    //System.setSecurityManager(new RMISecurityManager());
-	    // JWDriver driverInst = new JWDriver();
-	    // DriverManager.registerDriver(driverInst);}
-	// catch (Exception e) {}}
+    //  try {
+    //System.setSecurityManager(new RMISecurityManager());
+    // JWDriver driverInst = new JWDriver();
+    // DriverManager.registerDriver(driverInst);}
+    // catch (Exception e) {}}
 
     public static String getURLPrefix () {
 	return URL_PREFIX;}
@@ -28,7 +28,7 @@ public abstract class JWDriver implements java.sql.Driver {
 		String serverName = url.substring(URL_PREFIX.length(),url.length());
 		connectRemote(serverName);
 		IRemoteConnection remoteConInstance = (IRemoteConnection)remoteDriver.getConnection();}
-		// localConInstance = new JWConnection(remoteConInstance);}
+	    // localConInstance = new JWConnection(remoteConInstance);}
 	    catch (RemoteException ex) {throw new SQLException(ex.getMessage());}
 	    catch (Exception ex) {throw(new SQLException(ex.getMessage()));}}
 	return (Connection)localConInstance;}
@@ -48,5 +48,5 @@ public abstract class JWDriver implements java.sql.Driver {
     public DriverPropertyInfo[] getPropertyInfo (String url, Properties loginProps) throws SQLException {
 	return new DriverPropertyInfo[0];}
 
-    public boolean jdbcCompliant ()	{
+    public boolean jdbcCompliant () {
 	return false;}}
