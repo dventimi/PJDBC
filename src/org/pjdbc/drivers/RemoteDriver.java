@@ -14,8 +14,5 @@ public class RemoteDriver extends AbstractDriver {
 	return true;}
 
     public Connection connect (String url, Properties info) throws SQLException {
-	try {
-	    Registry registry = LocateRegistry.getRegistry();
-	    DriverHandler dh = (DriverHandler)registry.lookup("foo");
-	    return dh.connect(url, info);}
+	try {return GenericProxyFactory.getProxy(Connection.class, ((DriverHandler)LocateRegistry.getRegistry().lookup("foo")).connect(url, info));}
 	catch (Exception e) {throw new SQLException();}}}
