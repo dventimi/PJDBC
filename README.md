@@ -1,9 +1,11 @@
+<!-- -*- mode: markdown; -*- -->
+
 PJDBC (README)
 ====================
 This is the README for the PJDBC application, which is kept in a
 GitHub repository at
 
-    https://bitbucket.org/dventimi/PJDBC
+    https://bitbucket.org/neptunestation/PJDBC
 
 
 POSIX Installation
@@ -44,4 +46,3 @@ Requirements
 1. PJDBC is written in Java, and JDK 1.7
    (http://www.oracle.com/technetwork/java/javase/downloads/jdk7-downloads-1880260.html)
    is required.
-
