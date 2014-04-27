@@ -2,7 +2,7 @@
 set -e
 bsh -classpath pjdbc.jar <<EOF
     try {
-	source("tests/init.bsh");
+	source("init.bsh");
 	import java.io.*;
 	import java.sql.*;
 	import java.util.*;

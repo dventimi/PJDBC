@@ -2,7 +2,7 @@
 set -e
 bsh -classpath pjdbc.jar <<EOF
     try {
-	source("tests/init.bsh");
+	source("init.bsh");
 	import org.pjdbc.drivers.*;
 	assertEquals(1, new SinkDriver().getMajorVersion());
 	assertEquals(0, new SinkDriver().getMinorVersion());

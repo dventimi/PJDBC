@@ -2,7 +2,7 @@
 set -e
 bsh -classpath pjdbc.jar <<EOF
     try {
-	source("tests/init.bsh");
+	source("init.bsh");
 	import java.sql.*;
 	try{DriverManager.getConnection("jdbc:tee:jdbc:mock:foo;jdbc:mock:foo");} catch (SQLException e) {fail(e.toString());}
     } catch (e) {System.exit(1);}

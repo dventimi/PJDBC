@@ -1,6 +1,6 @@
 #!/usr/bin/bsh
     try {
-	source("tests/init.bsh");
+	source("init.bsh");
 	assert(true);
 	assertTrue(true);
 	assertFalse(false);

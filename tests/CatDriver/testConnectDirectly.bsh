@@ -2,7 +2,7 @@
 set -e
 bsh -classpath pjdbc.jar <<EOF
     try {
-	source("tests/init.bsh");
+	source("init.bsh");
 	import org.pjdbc.drivers.*;
 	getClass("org.pjdbc.drivers.MockDriver");
 	assertFalse(new CatDriver().acceptsURL("foo"));

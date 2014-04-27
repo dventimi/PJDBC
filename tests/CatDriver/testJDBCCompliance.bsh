@@ -2,7 +2,7 @@
 set -e
 bsh -classpath pjdbc.jar <<EOF
     try {
-	source("tests/init.bsh");
+	source("init.bsh");
 	import org.pjdbc.drivers.*;
 	assertFalse(new CatDriver().jdbcCompliant());
     } catch (e) {System.exit(1);}

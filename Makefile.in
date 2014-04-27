@@ -78,6 +78,7 @@ PRE_UNINSTALL = :
 POST_UNINSTALL = :
 build_triplet = @build@
 host_triplet = @host@
+XFAIL_TESTS =
 subdir = .
 DIST_COMMON = INSTALL NEWS README AUTHORS ChangeLog \
 	$(srcdir)/Makefile.in $(srcdir)/Makefile.am \
@@ -427,9 +428,7 @@ SRC_DIR = src
 LIB_DIR = lib
 BIN_DIR = bin
 OBJ_DIR = classes
-TESTS = tests/testTestingFrameworkNegatively.bsh \
-	tests/testTestingFrameworkPositively.bsh \
-	tests/CatDriver/testJDBCCompliance.bsh \
+TESTS = tests/CatDriver/testJDBCCompliance.bsh \
 	tests/CatDriver/testConnectDirectlyAndInvokeMethods.bsh \
 	tests/CatDriver/testVersionInfo.bsh \
 	tests/CatDriver/testConnectIndirectly.bsh \
@@ -473,7 +472,6 @@ TESTS = tests/testTestingFrameworkNegatively.bsh \
 	tests/FilterDriver/testAcceptsURL.bsh \
 	tests/FilterDriver/testConnectDirectly.bsh
 
-XFAIL_TESTS = tests/testTestingFrameworkNegatively.bsh
 dist_pkgdata_DATA = @PACKAGE@.jar $(shell find $(srcdir)/$(LIB_DIR) -type f -iname '*.jar') 
 dist_java_JAVA = $(shell find $(srcdir)/$(SRC_DIR) -type f -iname '*.java')
 javadir = $(datadir)/java
@@ -720,20 +718,6 @@ recheck: all
 	        am__force_recheck=am--force-recheck \
 	        TEST_LOGS="$$log_list"; \
 	exit $$?
-tests/testTestingFrameworkNegatively.bsh.log: tests/testTestingFrameworkNegatively.bsh
-	@p='tests/testTestingFrameworkNegatively.bsh'; \
-	b='tests/testTestingFrameworkNegatively.bsh'; \
-	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
-	--log-file $$b.log --trs-file $$b.trs \
-	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
-	"$$tst" $(AM_TESTS_FD_REDIRECT)
-tests/testTestingFrameworkPositively.bsh.log: tests/testTestingFrameworkPositively.bsh
-	@p='tests/testTestingFrameworkPositively.bsh'; \
-	b='tests/testTestingFrameworkPositively.bsh'; \
-	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
-	--log-file $$b.log --trs-file $$b.trs \
-	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
-	"$$tst" $(AM_TESTS_FD_REDIRECT)
 tests/CatDriver/testJDBCCompliance.bsh.log: tests/CatDriver/testJDBCCompliance.bsh
 	@p='tests/CatDriver/testJDBCCompliance.bsh'; \
 	b='tests/CatDriver/testJDBCCompliance.bsh'; \
