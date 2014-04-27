@@ -7,7 +7,7 @@ import java.rmi.*;
 import java.sql.*;
 import java.util.*;
 
-public interface CallableStatementHandler extends PreparedStatementHandler, Remote {
+public interface CallableStatementRemoteProxy extends PreparedStatementRemoteProxy, Remote {
     Array getArray (int parameterIndex) throws RemoteException;
     Array getArray (String parameterName) throws RemoteException;
     BigDecimal getBigDecimal (int parameterIndex) throws RemoteException;

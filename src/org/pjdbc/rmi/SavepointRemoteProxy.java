@@ -2,6 +2,6 @@ package org.pjdbc.rmi;
 
 import java.rmi.*;
 
-public interface SavepointHandler extends Remote {
+public interface SavepointRemoteProxy extends Remote {
     int getSavepointId () throws RemoteException;
     String getSavepointName () throws RemoteException;}

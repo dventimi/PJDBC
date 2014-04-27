@@ -2,7 +2,7 @@ package org.pjdbc.rmi;
 
 import java.rmi.*;
 
-public interface ResultSetMetaDataHandler {
+public interface ResultSetMetaDataRemoteProxy {
     String getCatalogName (int column) throws RemoteException;
     String getColumnClassName (int column) throws RemoteException;
     int getColumnCount () throws RemoteException;

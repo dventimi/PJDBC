@@ -5,9 +5,9 @@ import java.sql.*;
 import java.util.*;
 import java.util.logging.*;
 
-public interface DriverHandler extends Remote {
+public interface DriverRemoteProxy extends Remote {
     boolean acceptsURL (String url) throws RemoteException;
-    ConnectionHandler connect (String url, Properties info) throws RemoteException;
+    ConnectionRemoteProxy connect (String url, Properties info) throws RemoteException;
     int getMajorVersion () throws RemoteException;
     int getMinorVersion () throws RemoteException;
     Logger getParentLogger () throws RemoteException;

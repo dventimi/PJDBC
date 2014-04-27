@@ -6,7 +6,7 @@ import java.util.*;
 import java.util.logging.*;
 import java.util.concurrent.*;
 
-public interface ConnectionHandler extends WrapperHandler, Remote {
+public interface ConnectionRemoteProxy extends WrapperRemoteProxy, Remote {
     Array createArrayOf (String typeName, Object[] elements) throws RemoteException;
     Blob createBlob () throws RemoteException;
     Clob createClob () throws RemoteException;

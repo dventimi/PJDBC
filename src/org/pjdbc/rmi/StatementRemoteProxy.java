@@ -4,7 +4,7 @@ import java.rmi.*;
 import java.sql.*;
 import java.util.*;
 
-public interface StatementHandler extends WrapperHandler, Remote {
+public interface StatementRemoteProxy extends WrapperRemoteProxy, Remote {
     public void addBatch (String sql) throws RemoteException;
     public void cancel () throws RemoteException;
     public void clearBatch () throws RemoteException;

@@ -7,7 +7,7 @@ import java.rmi.*;
 import java.sql.*;
 import java.util.*;
 
-public interface ResultSetHandler extends WrapperHandler, Remote {
+public interface ResultSetRemoteProxy extends WrapperRemoteProxy, Remote {
     boolean absolute (int row) throws RemoteException;
     void afterLast () throws RemoteException;
     void beforeFirst () throws RemoteException;

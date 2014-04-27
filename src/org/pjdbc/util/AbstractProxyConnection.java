@@ -12,13 +12,13 @@ public abstract class AbstractProxyConnection implements Connection {
 
     protected Connection getDelegate() {return this.delegates.get(0);}
 
-    protected List<Connection> getListeners() {return this.delegates.subList(1,this.delegates.size());}
+    protected List<Connection> getListeners() {return this.delegates.subList(1, this.delegates.size());}
 
     public Array createArrayOf (String typeName, Object[] elements) throws SQLException {return delegates.get(0).createArrayOf(typeName, elements);}
     public Blob createBlob () throws SQLException {return getDelegate().createBlob();}
     public Clob createClob () throws SQLException {return getDelegate().createClob();}
     public DatabaseMetaData getMetaData () throws SQLException {return getDelegate().getMetaData();}
-    public Map<String,Class<?>> getTypeMap () throws SQLException {return getDelegate().getTypeMap();}
+    public Map<String, Class<?>> getTypeMap () throws SQLException {return getDelegate().getTypeMap();}
     public NClob createNClob () throws SQLException {return getDelegate().createNClob();}
     public Properties getClientInfo () throws SQLException {return getDelegate().getClientInfo();}
     public SQLWarning getWarnings () throws SQLException {return getDelegate().getWarnings();}

@@ -6,7 +6,7 @@ import java.rmi.*;
 import java.sql.*;
 import java.util.*;
 
-public interface PreparedStatementHandler extends StatementHandler, Remote {
+public interface PreparedStatementRemoteProxy extends StatementRemoteProxy, Remote {
     void addBatch () throws RemoteException;
     void clearParameters () throws RemoteException;
     boolean execute () throws RemoteException;
