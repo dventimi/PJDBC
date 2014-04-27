@@ -7,8 +7,8 @@ import java.util.*;
 import java.util.logging.*;
 import org.pjdbc.util.*;
 
-public class LoggingDriver extends AbstractProxyDriver {
-    static {try {DriverManager.registerDriver(new LoggingDriver());} catch (Exception e) {throw new RuntimeException(e);}}
+public class LogDriver extends AbstractProxyDriver {
+    static {try {DriverManager.registerDriver(new LogDriver());} catch (Exception e) {throw new RuntimeException(e);}}
 
     protected boolean acceptsSubProtocol (String subprotocol) {
 	return "log".equals(subprotocol);}

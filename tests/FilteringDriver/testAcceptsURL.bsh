@@ -5,10 +5,10 @@ bsh -classpath pjdbc.jar <<EOF
 	source("tests/init.bsh");
 	import org.pjdbc.drivers.*;
 	getClass("org.pjdbc.drivers.MockDriver");
-	assertFalse(new FilteringDriver().acceptsURL("jdbc:filtering"));
-	assertFalse(new FilteringDriver().acceptsURL("jdbc:filter:"));
-	assertFalse(new FilteringDriver().acceptsURL("jdbc:filter:foo"));
-	assertTrue(new FilteringDriver().acceptsURL("jdbc:filter:jdbc:mock:foo"));
+	assertFalse(new FilterDriver().acceptsURL("jdbc:filtering"));
+	assertFalse(new FilterDriver().acceptsURL("jdbc:filter:"));
+	assertFalse(new FilterDriver().acceptsURL("jdbc:filter:foo"));
+	assertTrue(new FilterDriver().acceptsURL("jdbc:filter:jdbc:mock:foo"));
     } catch (e) {System.exit(1);}
 EOF
 

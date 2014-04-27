@@ -4,7 +4,7 @@ bsh -classpath pjdbc.jar <<EOF
     try {
 	source("tests/init.bsh");
 	import java.sql.*;
-	getClass("org.pjdbc.drivers.LoggingDriver");
+	getClass("org.pjdbc.drivers.LogDriver");
 	getClass("org.pjdbc.drivers.MockDriver");
 	assertNotNull(DriverManager.getConnection("jdbc:log:jdbc:mock:foo"));
     } catch (e) {System.exit(1);}

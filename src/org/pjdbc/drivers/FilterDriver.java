@@ -4,8 +4,8 @@ import java.sql.*;
 import java.util.*;
 import org.pjdbc.util.*;
 
-public class FilteringDriver extends AbstractProxyDriver {
-    static {try {DriverManager.registerDriver(new FilteringDriver());} catch (Exception e) {throw new RuntimeException(e);}}
+public class FilterDriver extends AbstractProxyDriver {
+    static {try {DriverManager.registerDriver(new FilterDriver());} catch (Exception e) {throw new RuntimeException(e);}}
 
     public static interface Filter {
 	public String apply (String sql);}
@@ -17,7 +17,7 @@ public class FilteringDriver extends AbstractProxyDriver {
 	return "filter".equals(subprotocol);}
 
     protected Filter getFilter () {
-	try {return (Filter)Class.forName(System.getProperty("org.pjdbc.drivers.FilteringDriver.Filter")).newInstance();} catch (Exception e) {}
+	try {return (Filter)Class.forName(System.getProperty("org.pjdbc.drivers.FilterDriver.Filter")).newInstance();} catch (Exception e) {}
 	return new AbstractFilter() {};}
 
     protected Statement proxyStatement (Statement delegate, Connection conn) throws SQLException {

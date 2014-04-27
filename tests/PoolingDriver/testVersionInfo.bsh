@@ -4,8 +4,8 @@ bsh -classpath pjdbc.jar <<EOF
     try {
 	source("tests/init.bsh");
 	import org.pjdbc.drivers.*;
-	assert(1==new PoolingDriver().getMajorVersion());
-	assert(0==new PoolingDriver().getMinorVersion());
+	assert(1==new PoolDriver().getMajorVersion());
+	assert(0==new PoolDriver().getMinorVersion());
     } catch (e) {System.exit(1);}
 EOF
 

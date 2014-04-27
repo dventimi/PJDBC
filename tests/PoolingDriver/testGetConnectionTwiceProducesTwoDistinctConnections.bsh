@@ -5,7 +5,7 @@ bsh -classpath pjdbc.jar <<EOF
 	source("tests/init.bsh");
 	import java.sql.*;
 	getClass("org.pjdbc.drivers.MockDriver");
-	getClass("org.pjdbc.drivers.PoolingDriver");
+	getClass("org.pjdbc.drivers.PoolDriver");
 	Connection foo1 = DriverManager.getConnection("jdbc:pool:jdbc:mock:foo");
 	Connection foo2 = DriverManager.getConnection("jdbc:pool:jdbc:mock:foo");
 	assert(foo1!=null);

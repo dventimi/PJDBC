@@ -4,7 +4,7 @@ bsh -classpath pjdbc.jar <<EOF
     try {
 	source("tests/init.bsh");
 	import org.pjdbc.drivers.*;
-	assertFalse(new FilteringDriver().jdbcCompliant());
+	assertFalse(new FilterDriver().jdbcCompliant());
     } catch (e) {System.exit(1);}
 EOF
 

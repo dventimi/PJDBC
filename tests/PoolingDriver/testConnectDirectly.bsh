@@ -5,11 +5,11 @@ bsh -classpath pjdbc.jar <<EOF
 	source("tests/init.bsh");
 	import org.pjdbc.drivers.*;
 	getClass("org.pjdbc.drivers.MockDriver");
-	assert(!new PoolingDriver().acceptsURL("foo"));
-	assert(new PoolingDriver().connect("foo", null)==null);
-	assert(new PoolingDriver().connect("jdbc:pool", null)==null);
-	assert(new PoolingDriver().connect("jdbc:pool:", null)==null);
-	assert(new PoolingDriver().connect("jdbc:pool:jdbc:mock:foo", null)!=null);
+	assert(!new PoolDriver().acceptsURL("foo"));
+	assert(new PoolDriver().connect("foo", null)==null);
+	assert(new PoolDriver().connect("jdbc:pool", null)==null);
+	assert(new PoolDriver().connect("jdbc:pool:", null)==null);
+	assert(new PoolDriver().connect("jdbc:pool:jdbc:mock:foo", null)!=null);
     } catch (e) {System.exit(1);}
 EOF
 

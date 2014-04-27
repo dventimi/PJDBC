@@ -6,8 +6,8 @@ import java.util.*;
 import java.util.concurrent.*;
 import org.pjdbc.util.*;
 
-public class PoolingDriver extends AbstractProxyDriver {
-    static {try {DriverManager.registerDriver(new PoolingDriver());} catch (Exception e) {throw new RuntimeException(e);}}
+public class PoolDriver extends AbstractProxyDriver {
+    static {try {DriverManager.registerDriver(new PoolDriver());} catch (Exception e) {throw new RuntimeException(e);}}
 
     private static final ConcurrentHashMap<Properties, BlockingQueue<Connection>> pools = new ConcurrentHashMap<Properties, BlockingQueue<Connection>>();
 
