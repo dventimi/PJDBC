@@ -3,7 +3,7 @@ package org.pjdbc.sql;
 import java.sql.*;
 import java.util.*;
 
-public class AbstractDatabaseMetaData extends AbstractWrapper implements DatabaseMetaData {
+public abstract class AbstractDatabaseMetaData extends AbstractWrapper implements DatabaseMetaData {
 
     // Data
 

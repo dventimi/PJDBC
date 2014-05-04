@@ -26,6 +26,7 @@ public abstract class AbstractCallableStatement extends AbstractPreparedStatemen
     public <T> T getObject (int parameterIndex, Class<T> type) throws SQLException {return d.getObject(parameterIndex, type);}
     public Array getArray (String parameterName) throws SQLException {return d.getArray(parameterName);}
     public Array getArray (int parameterIndex) throws SQLException {return d.getArray(parameterIndex);}
+    public BigDecimal getBigDecimal (String parameterName) throws SQLException {return d.getBigDecimal(parameterName);}
     public Blob getBlob (String parameterName) throws SQLException {return d.getBlob(parameterName);}
     public Blob getBlob (int parameterIndex) throws SQLException {return d.getBlob(parameterIndex);}
     public Clob getClob (String parameterName) throws SQLException {return d.getClob(parameterName);}
@@ -131,5 +132,4 @@ public abstract class AbstractCallableStatement extends AbstractPreparedStatemen
     public void setTime (String parameterName, Time x, Calendar cal) throws SQLException {d.setTime(parameterName, x, cal);}
     public void setTimestamp (String parameterName, Timestamp x) throws SQLException {d.setTimestamp(parameterName, x);}
     public void setTimestamp (String parameterName, Timestamp x, Calendar cal) throws SQLException {d.setTimestamp(parameterName, x, cal);}
-    public void setURL (String parameterName, URL val) throws SQLException {d.setURL(parameterName, val);}
-}
+    public void setURL (String parameterName, URL val) throws SQLException {d.setURL(parameterName, val);}}

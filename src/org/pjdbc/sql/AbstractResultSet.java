@@ -25,6 +25,7 @@ public abstract class AbstractResultSet extends AbstractWrapper implements Resul
     @Deprecated public BigDecimal getBigDecimal (String columnLabel, int scale) throws SQLException {return d.getBigDecimal(columnLabel, scale);}
     @Deprecated public BigDecimal getBigDecimal (int columnIndex, int scale) throws SQLException {return d.getBigDecimal(columnIndex, scale);}
     @Deprecated public InputStream getUnicodeStream (int columnIndex) throws SQLException {return d.getUnicodeStream(columnIndex);}
+    @Deprecated public InputStream getUnicodeStream(String columnLabel) throws SQLException {return d.getUnicodeStream(columnLabel);}
     public <T> T getObject (String columnLabel, Class<T> type) throws SQLException {return d.getObject(columnLabel, type);}
     public <T> T getObject (int columnIndex, Class<T> type) throws SQLException {return d.getObject(columnIndex, type);}
     public Array getArray (String columnLabel) throws SQLException {return d.getArray(columnLabel);}
