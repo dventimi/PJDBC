@@ -4,8 +4,13 @@ import java.sql.*;
 import java.util.*;
 
 public abstract class AbstractStatement extends AbstractWrapper implements Statement {
+
+    // Data
+
     private Connection conn;
     private List<Statement> delegates;
+
+    // Constructors
 
     AbstractStatement (Connection conn, Statement... stmts) throws SQLException {
 	super(stmts);
@@ -13,11 +18,18 @@ public abstract class AbstractStatement extends AbstractWrapper implements State
 	this.conn = conn;
 	this.delegates = Arrays.asList(stmts);}
 
+    // Proxying machinery
+
+    protected ResultSet wrap (ResultSet r) {
+	return r;}
+
+    // Statement API
+
     public Connection getConnection () throws SQLException {
 	return conn;}
     public ResultSet executeQuery (String sql) throws SQLException {
 	List<ResultSet> r = new ArrayList<ResultSet>(); 
-	for (Statement d : delegates) r.add(d.executeQuery(sql)); 
+	for (Statement d : delegates) r.add(wrap(d.executeQuery(sql))); 
 	return r.get(0);}
     public ResultSet getGeneratedKeys () throws SQLException {
 	List<ResultSet> r = new ArrayList<ResultSet>(); 
