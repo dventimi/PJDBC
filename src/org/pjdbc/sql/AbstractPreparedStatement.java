@@ -7,18 +7,11 @@ import java.sql.*;
 import java.util.*;
 
 public abstract class AbstractPreparedStatement extends AbstractStatement implements PreparedStatement {
-
-    // Data
-
     private PreparedStatement d;
-
-    // Constructors
 
     AbstractPreparedStatement (Connection conn, PreparedStatement stmt) throws SQLException {
 	super(conn, stmt);
 	this.d = stmt;}
-
-    // PreparedStatement API
 
     @Deprecated public void setUnicodeStream (int parameterIndex, InputStream x, int length) throws SQLException {d.setUnicodeStream(parameterIndex, x, length);}
     public ParameterMetaData getParameterMetaData () throws SQLException {return d.getParameterMetaData();}

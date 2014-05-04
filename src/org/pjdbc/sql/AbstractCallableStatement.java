@@ -7,18 +7,11 @@ import java.sql.*;
 import java.util.*;
 
 public abstract class AbstractCallableStatement extends AbstractPreparedStatement implements CallableStatement {
-
-    // Data
-
     private CallableStatement d;
-
-    // Constructors
 
     AbstractCallableStatement (Connection conn, CallableStatement stmt) throws SQLException {
 	super(conn, stmt);
 	this.d = stmt;}
-
-    // CallableStatement API
 
     @Deprecated public BigDecimal getBigDecimal (int parameterIndex) throws SQLException {return d.getBigDecimal(parameterIndex);}
     @Deprecated public BigDecimal getBigDecimal (int parameterIndex, int scale) throws SQLException {return d.getBigDecimal(parameterIndex, scale);}

@@ -1,7 +1,6 @@
 package org.pjdbc.sql;
 
 import java.sql.*;
-import java.util.*;
 
 public abstract class AbstractWrapper implements Wrapper {
     private Wrapper d;

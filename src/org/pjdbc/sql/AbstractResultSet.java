@@ -7,20 +7,13 @@ import java.sql.*;
 import java.util.*;
 
 public abstract class AbstractResultSet extends AbstractWrapper implements ResultSet {
-
-    // Data
-
     private Statement stmt;
     private ResultSet d;
-
-    // Constructors
 
     AbstractResultSet (Statement stmt, ResultSet rset) throws SQLException {
 	super(rset);
 	this.stmt = stmt;
 	this.d = rset;}
-
-    // ResultSet API
 
     @Deprecated public BigDecimal getBigDecimal (String columnLabel, int scale) throws SQLException {return d.getBigDecimal(columnLabel, scale);}
     @Deprecated public BigDecimal getBigDecimal (int columnIndex, int scale) throws SQLException {return d.getBigDecimal(columnIndex, scale);}

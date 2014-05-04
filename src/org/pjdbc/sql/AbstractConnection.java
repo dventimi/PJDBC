@@ -5,18 +5,11 @@ import java.util.*;
 import java.util.concurrent.*;
 
 public abstract class AbstractConnection extends AbstractWrapper implements Connection {
-
-    // Data
-
     private Connection d;
-
-    // Constructors
 
     AbstractConnection (Connection conn) throws SQLException {
 	super(conn);
 	this.d = conn;}
-
-    // Proxying machinery
 
     protected Statement wrap (Statement s) {
 	return s;}
@@ -29,8 +22,6 @@ public abstract class AbstractConnection extends AbstractWrapper implements Conn
 
     protected DatabaseMetaData wrap (DatabaseMetaData d) {
 	return d;}
-
-    // Connection API
 
     public Array createArrayOf (String typeName, Object[] elements) throws SQLException {return d.createArrayOf(typeName, elements);}
     public Blob createBlob () throws SQLException {return d.createBlob();}

@@ -1,31 +1,21 @@
 package org.pjdbc.sql;
 
 import java.sql.*;
-import java.util.*;
 
 public abstract class AbstractDatabaseMetaData extends AbstractWrapper implements DatabaseMetaData {
-
-    // Data
-
     private Connection conn;
     private DatabaseMetaData d;
-
-    // Constructors
 
     AbstractDatabaseMetaData (Connection conn, DatabaseMetaData stmt) throws SQLException {
 	super(stmt);
 	this.conn = conn;
 	this.d = stmt;}
 
-    // Proxying machinery
-
     protected Connection wrap (Connection c) {
 	return c;}
 
     protected ResultSet wrap (ResultSet r) {
 	return r;}
-
-    // DatabaseMetaData API
 
     public Connection getConnection () throws SQLException {return wrap(d.getConnection());}
     public ResultSet getAttributes (String catalog, String schemaPattern, String typeNamePattern, String attributeNamePattern) throws SQLException {return wrap(d.getAttributes(catalog, schemaPattern, typeNamePattern, attributeNamePattern));}

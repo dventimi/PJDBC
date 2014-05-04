@@ -1,28 +1,18 @@
 package org.pjdbc.sql;
 
 import java.sql.*;
-import java.util.*;
 
 public abstract class AbstractStatement extends AbstractWrapper implements Statement {
-
-    // Data
-
     private Connection conn;
     private Statement delegate;
-
-    // Constructors
 
     AbstractStatement (Connection conn, Statement stmt) throws SQLException {
 	super(stmt);
 	this.conn = conn;
 	this.delegate = stmt;}
 
-    // Proxying machinery
-
     protected ResultSet wrap (ResultSet r) {
 	return r;}
-
-    // Statement API
 
     public Connection getConnection () throws SQLException {return delegate.getConnection();}
     public ResultSet executeQuery (String sql) throws SQLException {return wrap(delegate.executeQuery(sql));}
