@@ -19,38 +19,41 @@ public abstract class AbstractDatabaseMetaData extends AbstractWrapper implement
 
     // Proxying machinery
 
+    protected Connection wrap (Connection c) {
+	return c;}
+
     protected ResultSet wrap (ResultSet r) {
 	return r;}
 
     // DatabaseMetaData API
 
-    public Connection getConnection () throws SQLException {return d.getConnection();}
-    public ResultSet getAttributes (String catalog, String schemaPattern, String typeNamePattern, String attributeNamePattern) throws SQLException {return d.getAttributes(catalog, schemaPattern, typeNamePattern, attributeNamePattern);}
-    public ResultSet getBestRowIdentifier (String catalog, String schema, String table, int scope, boolean nullable) throws SQLException {return d.getBestRowIdentifier(catalog, schema, table, scope, nullable);}
-    public ResultSet getCatalogs () throws SQLException {return d.getCatalogs();}
-    public ResultSet getClientInfoProperties () throws SQLException {return d.getClientInfoProperties();}
-    public ResultSet getColumnPrivileges (String catalog, String schema, String table, String columnNamePattern) throws SQLException {return d.getColumnPrivileges(catalog, schema, table, columnNamePattern);}
-    public ResultSet getColumns (String catalog, String schemaPattern, String tableNamePattern, String columnNamePattern) throws SQLException {return d.getColumns(catalog, schemaPattern, tableNamePattern, columnNamePattern);}
-    public ResultSet getCrossReference (String parentCatalog, String parentSchema, String parentTable, String foreignCatalog, String foreignSchema, String foreignTable) throws SQLException {return d.getCrossReference(parentCatalog, parentSchema, parentTable, foreignCatalog, foreignSchema, foreignTable);}
-    public ResultSet getExportedKeys (String catalog, String schema, String table) throws SQLException {return d.getExportedKeys(catalog, schema, table);}
-    public ResultSet getFunctionColumns (String catalog, String schemaPattern, String functionNamePattern, String columnNamePattern) throws SQLException {return d.getFunctionColumns(catalog, schemaPattern, functionNamePattern, columnNamePattern);}
-    public ResultSet getFunctions (String catalog, String schemaPattern, String functionNamePattern) throws SQLException {return d.getFunctions(catalog, schemaPattern, functionNamePattern);}
-    public ResultSet getImportedKeys (String catalog, String schema, String table) throws SQLException {return d.getImportedKeys(catalog, schema, table);}
-    public ResultSet getIndexInfo (String catalog, String schema, String table, boolean unique, boolean approximate) throws SQLException {return d.getIndexInfo(catalog, schema, table, unique, approximate);}
-    public ResultSet getPrimaryKeys (String catalog, String schema, String table) throws SQLException {return d.getPrimaryKeys(catalog, schema, table);}
-    public ResultSet getProcedureColumns (String catalog, String schemaPattern, String procedureNamePattern, String columnNamePattern) throws SQLException {return d.getProcedureColumns(catalog, schemaPattern, procedureNamePattern, columnNamePattern);}
-    public ResultSet getProcedures (String catalog, String schemaPattern, String procedureNamePattern) throws SQLException {return d.getProcedures(catalog, schemaPattern, procedureNamePattern);}
-    public ResultSet getPseudoColumns (String catalog, String schemaPattern, String tableNamePattern, String columnNamePattern) throws SQLException {return d.getPseudoColumns(catalog, schemaPattern, tableNamePattern, columnNamePattern);}
-    public ResultSet getSchemas () throws SQLException {return d.getSchemas();}
-    public ResultSet getSchemas (String catalog, String schemaPattern) throws SQLException {return d.getSchemas(catalog, schemaPattern);}
-    public ResultSet getSuperTables (String catalog, String schemaPattern, String tableNamePattern) throws SQLException {return d.getSuperTables(catalog, schemaPattern, tableNamePattern);}
-    public ResultSet getSuperTypes (String catalog, String schemaPattern, String typeNamePattern) throws SQLException {return d.getSuperTypes(catalog, schemaPattern, typeNamePattern);}
-    public ResultSet getTablePrivileges (String catalog, String schemaPattern, String tableNamePattern) throws SQLException {return d.getTablePrivileges(catalog, schemaPattern, tableNamePattern);}
-    public ResultSet getTableTypes () throws SQLException {return d.getTableTypes();}
-    public ResultSet getTables (String catalog, String schemaPattern, String tableNamePattern, String[] types) throws SQLException {return d.getTables(catalog, schemaPattern, tableNamePattern, types);}
-    public ResultSet getTypeInfo () throws SQLException {return d.getTypeInfo();}
-    public ResultSet getUDTs (String catalog, String schemaPattern, String typeNamePattern, int[] types) throws SQLException {return d.getUDTs(catalog, schemaPattern, typeNamePattern, types);}
-    public ResultSet getVersionColumns (String catalog, String schema, String table) throws SQLException {return d.getVersionColumns(catalog, schema, table);}
+    public Connection getConnection () throws SQLException {return wrap(d.getConnection());}
+    public ResultSet getAttributes (String catalog, String schemaPattern, String typeNamePattern, String attributeNamePattern) throws SQLException {return wrap(d.getAttributes(catalog, schemaPattern, typeNamePattern, attributeNamePattern));}
+    public ResultSet getBestRowIdentifier (String catalog, String schema, String table, int scope, boolean nullable) throws SQLException {return wrap(d.getBestRowIdentifier(catalog, schema, table, scope, nullable));}
+    public ResultSet getCatalogs () throws SQLException {return wrap(d.getCatalogs());}
+    public ResultSet getClientInfoProperties () throws SQLException {return wrap(d.getClientInfoProperties());}
+    public ResultSet getColumnPrivileges (String catalog, String schema, String table, String columnNamePattern) throws SQLException {return wrap(d.getColumnPrivileges(catalog, schema, table, columnNamePattern));}
+    public ResultSet getColumns (String catalog, String schemaPattern, String tableNamePattern, String columnNamePattern) throws SQLException {return wrap(d.getColumns(catalog, schemaPattern, tableNamePattern, columnNamePattern));}
+    public ResultSet getCrossReference (String parentCatalog, String parentSchema, String parentTable, String foreignCatalog, String foreignSchema, String foreignTable) throws SQLException {return wrap(d.getCrossReference(parentCatalog, parentSchema, parentTable, foreignCatalog, foreignSchema, foreignTable));}
+    public ResultSet getExportedKeys (String catalog, String schema, String table) throws SQLException {return wrap(d.getExportedKeys(catalog, schema, table));}
+    public ResultSet getFunctionColumns (String catalog, String schemaPattern, String functionNamePattern, String columnNamePattern) throws SQLException {return wrap(d.getFunctionColumns(catalog, schemaPattern, functionNamePattern, columnNamePattern));}
+    public ResultSet getFunctions (String catalog, String schemaPattern, String functionNamePattern) throws SQLException {return wrap(d.getFunctions(catalog, schemaPattern, functionNamePattern));}
+    public ResultSet getImportedKeys (String catalog, String schema, String table) throws SQLException {return wrap(d.getImportedKeys(catalog, schema, table));}
+    public ResultSet getIndexInfo (String catalog, String schema, String table, boolean unique, boolean approximate) throws SQLException {return wrap(d.getIndexInfo(catalog, schema, table, unique, approximate));}
+    public ResultSet getPrimaryKeys (String catalog, String schema, String table) throws SQLException {return wrap(d.getPrimaryKeys(catalog, schema, table));}
+    public ResultSet getProcedureColumns (String catalog, String schemaPattern, String procedureNamePattern, String columnNamePattern) throws SQLException {return wrap(d.getProcedureColumns(catalog, schemaPattern, procedureNamePattern, columnNamePattern));}
+    public ResultSet getProcedures (String catalog, String schemaPattern, String procedureNamePattern) throws SQLException {return wrap(d.getProcedures(catalog, schemaPattern, procedureNamePattern));}
+    public ResultSet getPseudoColumns (String catalog, String schemaPattern, String tableNamePattern, String columnNamePattern) throws SQLException {return wrap(d.getPseudoColumns(catalog, schemaPattern, tableNamePattern, columnNamePattern));}
+    public ResultSet getSchemas () throws SQLException {return wrap(d.getSchemas());}
+    public ResultSet getSchemas (String catalog, String schemaPattern) throws SQLException {return wrap(d.getSchemas(catalog, schemaPattern));}
+    public ResultSet getSuperTables (String catalog, String schemaPattern, String tableNamePattern) throws SQLException {return wrap(d.getSuperTables(catalog, schemaPattern, tableNamePattern));}
+    public ResultSet getSuperTypes (String catalog, String schemaPattern, String typeNamePattern) throws SQLException {return wrap(d.getSuperTypes(catalog, schemaPattern, typeNamePattern));}
+    public ResultSet getTablePrivileges (String catalog, String schemaPattern, String tableNamePattern) throws SQLException {return wrap(d.getTablePrivileges(catalog, schemaPattern, tableNamePattern));}
+    public ResultSet getTableTypes () throws SQLException {return wrap(d.getTableTypes());}
+    public ResultSet getTables (String catalog, String schemaPattern, String tableNamePattern, String[] types) throws SQLException {return wrap(d.getTables(catalog, schemaPattern, tableNamePattern, types));}
+    public ResultSet getTypeInfo () throws SQLException {return wrap(d.getTypeInfo());}
+    public ResultSet getUDTs (String catalog, String schemaPattern, String typeNamePattern, int[] types) throws SQLException {return wrap(d.getUDTs(catalog, schemaPattern, typeNamePattern, types));}
+    public ResultSet getVersionColumns (String catalog, String schema, String table) throws SQLException {return wrap(d.getVersionColumns(catalog, schema, table));}
     public RowIdLifetime getRowIdLifetime () throws SQLException {return d.getRowIdLifetime();}
     public String getCatalogSeparator () throws SQLException {return d.getCatalogSeparator();}
     public String getCatalogTerm () throws SQLException {return d.getCatalogTerm();}
@@ -197,5 +200,4 @@ public abstract class AbstractDatabaseMetaData extends AbstractWrapper implement
     public int getMaxTablesInSelect () throws SQLException {return d.getMaxTablesInSelect();}
     public int getMaxUserNameLength () throws SQLException {return d.getMaxUserNameLength();}
     public int getResultSetHoldability () throws SQLException {return d.getResultSetHoldability();}
-    public int getSQLStateType () throws SQLException {return d.getSQLStateType();}
-}
+    public int getSQLStateType () throws SQLException {return d.getSQLStateType();}}
