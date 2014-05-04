@@ -4,16 +4,13 @@ import java.sql.*;
 import java.util.*;
 
 public abstract class AbstractWrapper implements Wrapper {
-    private List<Wrapper> delegates;
+    private Wrapper d;
 
-    AbstractWrapper (Wrapper... wrappers) throws SQLException {
-	if (wrappers.length==0) throw new SQLException();
-	delegates = Arrays.asList(wrappers);}
+    AbstractWrapper (Wrapper wrapper) throws SQLException {
+	d = wrapper;}
 
     public boolean isWrapperFor (Class<?> iface) throws SQLException {
-	for (Wrapper d : delegates) return d.isWrapperFor(iface);
-	return false;}
+	return d.isWrapperFor(iface);}
 
     public <T> T unwrap (Class<T> iface) throws SQLException {
-	for (Wrapper d : delegates) return d.unwrap(iface);
-	return null;}}
+	return d.unwrap(iface);}}
