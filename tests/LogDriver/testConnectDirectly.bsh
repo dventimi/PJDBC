@@ -1,6 +1,4 @@
-#!/bin/sh
-set -e
-bsh -classpath pjdbc.jar <<EOF
+#!/usr/bin/bsh
     try {
 	source("init.bsh");
 	import org.pjdbc.drivers.*;
@@ -11,8 +9,3 @@ bsh -classpath pjdbc.jar <<EOF
 	assertNull(new LogDriver().connect("jdbc:log:", null));
 	assertNotNull(new LogDriver().connect("jdbc:log:jdbc:mock:foo", null));
     } catch (e) {System.exit(1);}
-EOF
-
-# Local Variables:
-# mode: java
-# End:

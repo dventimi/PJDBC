@@ -1,6 +1,4 @@
-#!/bin/sh
-set -e
-bsh -classpath pjdbc.jar <<EOF
+#!/usr/bin/bsh
     try {
 	source("init.bsh");
 	import java.sql.*;
@@ -15,8 +13,3 @@ bsh -classpath pjdbc.jar <<EOF
 	try{DriverManager.getConnection("jdbc: log:jdbc:\nfilter:jdbc\n:cat :  jdbc:\ntee:jdbc:sink :jdbc:mock:foo ;\njdbc:mock:bar");} catch (e) {i++;}
 	assert(i==4);
     } catch (e) {print(e); System.exit(1);}
-EOF
-
-# Local Variables:
-# mode: java
-# End:

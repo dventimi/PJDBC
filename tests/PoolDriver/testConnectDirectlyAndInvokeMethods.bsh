@@ -1,6 +1,4 @@
-#!/bin/sh
-set -e
-bsh -classpath pjdbc.jar <<EOF
+#!/usr/bin/bsh
     try {
 	source("init.bsh");
 	import java.sql.*;
@@ -16,8 +14,3 @@ bsh -classpath pjdbc.jar <<EOF
 	assertEquals("executeQuery[select * from person;]\n" +
 		     "executeQuery[insert into person (last_name, first_name, age) values ('David', 'Ventimiglia', 42);]", d.getLog("jdbc:mock:foo"));
     } catch (e) {System.exit(1);}
-EOF
-
-# Local Variables:
-# mode: java
-# End:

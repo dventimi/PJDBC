@@ -1,14 +1,7 @@
-#!/bin/sh
-set -e
-bsh -classpath pjdbc.jar <<EOF
+#!/usr/bin/bsh
     try {
 	source("init.bsh");
 	import org.pjdbc.drivers.*;
 	assert(1==new PoolDriver().getMajorVersion());
 	assert(0==new PoolDriver().getMinorVersion());
     } catch (e) {System.exit(1);}
-EOF
-
-# Local Variables:
-# mode: java
-# End:

@@ -1,6 +1,4 @@
-#!/bin/sh
-set -e
-bsh -classpath pjdbc.jar <<EOF
+#!/usr/bin/bsh
     try {
 	source("init.bsh");
 	import java.io.*;
@@ -27,8 +25,3 @@ bsh -classpath pjdbc.jar <<EOF
 		     "insert into person (last_name, first_name, age) values ('David', 'Ventimiglia', 42);", 
 		     out.toString().trim());
     } catch (e) {System.exit(1);}
-EOF
-
-# Local Variables:
-# mode: java
-# End:
