@@ -6,10 +6,19 @@ import java.util.concurrent.*;
 
 public abstract class AbstractConnection extends AbstractWrapper implements Connection {
     private Connection d;
+    private Driver driver;
+    private String url;
+    private Properties info;
 
     AbstractConnection (Connection conn) throws SQLException {
 	super(conn);
 	this.d = conn;}
+
+    AbstractConnection (Connection conn, String url, Properties info, Driver driver) throws SQLException {
+	this(conn);
+	this.url = url;
+	this.info = info;
+	this.driver = driver;}
 
     protected Statement wrap (Statement s) throws SQLException {
 	return new AbstractStatement(this, s){};}
