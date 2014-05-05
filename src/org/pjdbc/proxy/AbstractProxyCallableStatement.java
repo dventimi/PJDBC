@@ -1,4 +1,4 @@
-package org.pjdbc.util;
+package org.pjdbc.proxy;
 
 import java.io.*;
 import java.math.*;

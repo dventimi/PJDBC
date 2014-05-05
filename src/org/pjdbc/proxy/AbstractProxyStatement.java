@@ -1,4 +1,4 @@
-package org.pjdbc.util;
+package org.pjdbc.proxy;
 
 import java.sql.*;
 import java.util.*;

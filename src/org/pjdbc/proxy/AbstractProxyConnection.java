@@ -1,8 +1,9 @@
-package org.pjdbc.util;
+package org.pjdbc.proxy;
 
 import java.sql.*;
 import java.util.*;
 import java.util.concurrent.*;
+import org.pjdbc.util.*;
 
 public abstract class AbstractProxyConnection implements Connection {
     private Driver driver;
