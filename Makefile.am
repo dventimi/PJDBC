@@ -2,6 +2,7 @@ SRC_DIR = src
 LIB_DIR = lib
 BIN_DIR = bin
 OBJ_DIR = classes
+TESTS_ENVIRONMENT = CLASSPATH=pjdbc.jar
 
 TESTS =	tests/CatDriver/testJDBCCompliance.bsh \
 	tests/CatDriver/testConnectDirectlyAndInvokeMethods.bsh \
