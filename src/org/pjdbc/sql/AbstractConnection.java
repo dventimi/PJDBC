@@ -11,17 +11,17 @@ public abstract class AbstractConnection extends AbstractWrapper implements Conn
 	super(conn);
 	this.d = conn;}
 
-    protected Statement wrap (Statement s) {
-	return s;}
+    protected Statement wrap (Statement s) throws SQLException {
+	return new AbstractStatement(this, s){};}
 
-    protected PreparedStatement wrap (PreparedStatement p) {
-	return p;}
+    protected PreparedStatement wrap (PreparedStatement s) throws SQLException {
+	return new AbstractPreparedStatement(this, s){};}
 
-    protected CallableStatement wrap (CallableStatement c) {
-	return c;}
+    protected CallableStatement wrap (CallableStatement s) throws SQLException {
+	return new AbstractCallableStatement(this, s){};}
 
-    protected DatabaseMetaData wrap (DatabaseMetaData d) {
-	return d;}
+    protected DatabaseMetaData wrap (DatabaseMetaData d) throws SQLException {
+	return new AbstractDatabaseMetaData(this, d){};}
 
     public Array createArrayOf (String typeName, Object[] elements) throws SQLException {return d.createArrayOf(typeName, elements);}
     public Blob createBlob () throws SQLException {return d.createBlob();}

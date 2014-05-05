@@ -11,8 +11,8 @@ public abstract class AbstractStatement extends AbstractWrapper implements State
 	this.conn = conn;
 	this.delegate = stmt;}
 
-    protected ResultSet wrap (ResultSet r) {
-	return r;}
+    protected ResultSet wrap (ResultSet r) throws SQLException {
+	return new AbstractResultSet(this, r){};}
 
     public Connection getConnection () throws SQLException {return delegate.getConnection();}
     public ResultSet executeQuery (String sql) throws SQLException {return wrap(delegate.executeQuery(sql));}

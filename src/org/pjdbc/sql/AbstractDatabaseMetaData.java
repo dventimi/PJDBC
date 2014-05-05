@@ -11,13 +11,10 @@ public abstract class AbstractDatabaseMetaData extends AbstractWrapper implement
 	this.conn = conn;
 	this.d = stmt;}
 
-    protected Connection wrap (Connection c) {
-	return c;}
+    protected ResultSet wrap (ResultSet r) throws SQLException {
+	return new AbstractResultSet(r){};}
 
-    protected ResultSet wrap (ResultSet r) {
-	return r;}
-
-    public Connection getConnection () throws SQLException {return wrap(d.getConnection());}
+    public Connection getConnection () throws SQLException {return d.getConnection();}
     public ResultSet getAttributes (String catalog, String schemaPattern, String typeNamePattern, String attributeNamePattern) throws SQLException {return wrap(d.getAttributes(catalog, schemaPattern, typeNamePattern, attributeNamePattern));}
     public ResultSet getBestRowIdentifier (String catalog, String schema, String table, int scope, boolean nullable) throws SQLException {return wrap(d.getBestRowIdentifier(catalog, schema, table, scope, nullable));}
     public ResultSet getCatalogs () throws SQLException {return wrap(d.getCatalogs());}

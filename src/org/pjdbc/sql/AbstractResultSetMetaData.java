@@ -2,7 +2,7 @@ package org.pjdbc.sql;
 
 import java.sql.*;
 
-public class AbstractResultSetMetaData extends AbstractWrapper implements ResultSetMetaData {
+public abstract class AbstractResultSetMetaData extends AbstractWrapper implements ResultSetMetaData {
     private ResultSetMetaData d;
 
     AbstractResultSetMetaData (ResultSetMetaData stmt) throws SQLException {

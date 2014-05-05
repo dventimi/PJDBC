@@ -10,10 +10,13 @@ public abstract class AbstractResultSet extends AbstractWrapper implements Resul
     private Statement stmt;
     private ResultSet d;
 
-    AbstractResultSet (Statement stmt, ResultSet rset) throws SQLException {
+    AbstractResultSet (ResultSet rset) throws SQLException {
 	super(rset);
-	this.stmt = stmt;
 	this.d = rset;}
+
+    AbstractResultSet (Statement stmt, ResultSet rset) throws SQLException {
+	this(rset);
+	this.stmt = stmt;}
 
     @Deprecated public BigDecimal getBigDecimal (String columnLabel, int scale) throws SQLException {return d.getBigDecimal(columnLabel, scale);}
     @Deprecated public BigDecimal getBigDecimal (int columnIndex, int scale) throws SQLException {return d.getBigDecimal(columnIndex, scale);}
