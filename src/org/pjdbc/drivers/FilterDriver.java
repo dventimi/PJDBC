@@ -2,7 +2,7 @@ package org.pjdbc.drivers;
 
 import java.sql.*;
 import java.util.*;
-import org.pjdbc.proxy.*;
+import org.pjdbc.sql.*;
 import org.pjdbc.util.*;
 
 public class FilterDriver extends AbstractProxyDriver {
@@ -22,7 +22,7 @@ public class FilterDriver extends AbstractProxyDriver {
 	return new AbstractFilter() {};}
 
     protected Statement proxyStatement (Statement delegate, Connection conn) throws SQLException {
-	return new AbstractProxyStatement(delegate, conn) {
+	return new AbstractStatement(conn, delegate) {
 	    public void addBatch (String sql) throws SQLException {
 		super.addBatch(getFilter().apply(sql));}
 	    public boolean execute (String sql) throws SQLException {

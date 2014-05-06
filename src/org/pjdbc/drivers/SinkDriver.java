@@ -2,7 +2,7 @@ package org.pjdbc.drivers;
 
 import java.sql.*;
 import java.util.*;
-import org.pjdbc.proxy.*;
+import org.pjdbc.sql.*;
 import org.pjdbc.util.*;
 
 public class SinkDriver extends AbstractProxyDriver {
@@ -12,7 +12,7 @@ public class SinkDriver extends AbstractProxyDriver {
 	return "sink".equals(subprotocol);}
 
     protected Statement proxyStatement (Statement delegate, Connection conn) throws SQLException {
-	return new AbstractProxyStatement(delegate, conn) {
+	return new AbstractStatement(conn, delegate) {
 	    public void addBatch (String sql) throws SQLException {}
 	    public boolean execute (String sql) throws SQLException {return true;}
 	    public boolean execute (String sql, int[] columnIndexes) throws SQLException {return true;}
