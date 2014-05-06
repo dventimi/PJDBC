@@ -5,7 +5,7 @@ import java.sql.*;
 public abstract class AbstractParameterMetaData extends AbstractWrapper implements ParameterMetaData {
     private ParameterMetaData d;
 
-    AbstractParameterMetaData (ParameterMetaData stmt) throws SQLException {
+    public AbstractParameterMetaData (ParameterMetaData stmt) throws SQLException {
 	super(stmt);
 	this.d = stmt;}
 

@@ -10,11 +10,11 @@ public abstract class AbstractResultSet extends AbstractWrapper implements Resul
     private Statement stmt;
     private ResultSet d;
 
-    AbstractResultSet (ResultSet rset) throws SQLException {
+    public AbstractResultSet (ResultSet rset) throws SQLException {
 	super(rset);
 	this.d = rset;}
 
-    AbstractResultSet (Statement stmt, ResultSet rset) throws SQLException {
+    public AbstractResultSet (Statement stmt, ResultSet rset) throws SQLException {
 	this(rset);
 	this.stmt = stmt;}
 

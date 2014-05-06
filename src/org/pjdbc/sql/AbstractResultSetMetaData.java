@@ -5,7 +5,7 @@ import java.sql.*;
 public abstract class AbstractResultSetMetaData extends AbstractWrapper implements ResultSetMetaData {
     private ResultSetMetaData d;
 
-    AbstractResultSetMetaData (ResultSetMetaData stmt) throws SQLException {
+    public AbstractResultSetMetaData (ResultSetMetaData stmt) throws SQLException {
 	super(stmt);
 	this.d = stmt;}
 

@@ -42,7 +42,7 @@ public class MockDriver extends AbstractDriver {
 	logs.put(url, new MyPrintWriter(new ByteArrayOutputStream()));
 	final PrintWriter l = logs.get(url);
 	return (Connection)Proxy.newProxyInstance(getClass().getClassLoader(), new Class[]{Connection.class}, new InvocationHandler() {
-		public Object invoke (Object proxy, Method method, Object[] args) {
+		public Object invoke (Object proxy, Method method, Object[] args) throws SQLException {
 		    if ("createStatement".equals(method.getName()))
 			return (Statement) 
 			    Proxy.newProxyInstance(getClass().getClassLoader(), 
@@ -67,4 +67,6 @@ public class MockDriver extends AbstractDriver {
 							   return ("getURL".equals(method.getName())) ? url : null;}});
 		    if ("toString".equals(method.getName())) return "MockDriver[" + url + "]";
 		    if ("equals".equals(method.getName())) return proxy==args[0];
-		    return null;}});}}
+		    if ("isWrapperFor".equals(method.getName())) return false;
+		    if ("unwrap".equals(method.getName()) && args.length==1 && Connection.class.isInstance(args[0])) return this;
+		    throw new SQLException("%s unimplemented by MockDriver".format(method.getName()));}});}}

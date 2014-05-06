@@ -5,6 +5,7 @@ import java.lang.reflect.*;
 import java.sql.*;
 import java.util.*;
 import java.util.logging.*;
+import org.pjdbc.sql.*;
 import org.pjdbc.util.*;
 
 public class LogDriver extends AbstractProxyDriver {
@@ -14,10 +15,13 @@ public class LogDriver extends AbstractProxyDriver {
 	return "log".equals(subprotocol);}
 
     protected String getLogName (Statement stmt) throws SQLException {
-	return ((Wrapper)stmt.getConnection()).unwrap(Connection.class).getMetaData().getURL();}
+	System.out.println("stmt = " + stmt);
+	System.out.println("stmt.getConnection() = " + stmt.getConnection());
+	System.out.println("stmt.getConnection().unwrap(Connection.class) = " + stmt.getConnection().unwrap(Connection.class));
+	return stmt.getConnection().unwrap(Connection.class).getMetaData().getURL();}
 
     protected Statement proxyStatement (Statement delegate, Connection conn) throws SQLException {
-	return new AbstractProxyStatement(delegate, conn) {
+	return new AbstractStatement(conn, delegate) {
 	    private void log (String sql) throws SQLException {
 		Logger.getLogger(getLogName(this)).info(sql);}
 	    public void addBatch (String sql) throws SQLException {

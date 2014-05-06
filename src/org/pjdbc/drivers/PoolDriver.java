@@ -4,6 +4,7 @@ import java.lang.reflect.*;
 import java.sql.*;
 import java.util.*;
 import java.util.concurrent.*;
+import org.pjdbc.proxy.*;
 import org.pjdbc.util.*;
 
 public class PoolDriver extends AbstractProxyDriver {

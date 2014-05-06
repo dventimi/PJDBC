@@ -2,6 +2,7 @@ package org.pjdbc.drivers;
 
 import java.sql.*;
 import java.util.*;
+import org.pjdbc.proxy.*;
 import org.pjdbc.util.*;
 
 public class MapUserDriver extends AbstractProxyDriver {

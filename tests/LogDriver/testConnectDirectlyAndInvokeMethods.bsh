@@ -24,4 +24,4 @@
 	assertEquals("select * from person;\n" +
 		     "insert into person (last_name, first_name, age) values ('David', 'Ventimiglia', 42);", 
 		     out.toString().trim());
-    } catch (e) {System.exit(1);}
+    } catch (e) {e.printStackTrace(); System.exit(1);}

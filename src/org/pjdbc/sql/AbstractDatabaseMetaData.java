@@ -6,13 +6,13 @@ public abstract class AbstractDatabaseMetaData extends AbstractWrapper implement
     private Connection conn;
     private DatabaseMetaData d;
 
-    AbstractDatabaseMetaData (Connection conn, DatabaseMetaData stmt) throws SQLException {
+    protected ResultSet wrap (ResultSet r) throws SQLException {
+	return new AbstractResultSet(r){};}
+
+    public AbstractDatabaseMetaData (Connection conn, DatabaseMetaData stmt) throws SQLException {
 	super(stmt);
 	this.conn = conn;
 	this.d = stmt;}
-
-    protected ResultSet wrap (ResultSet r) throws SQLException {
-	return new AbstractResultSet(r){};}
 
     public Connection getConnection () throws SQLException {return d.getConnection();}
     public ResultSet getAttributes (String catalog, String schemaPattern, String typeNamePattern, String attributeNamePattern) throws SQLException {return wrap(d.getAttributes(catalog, schemaPattern, typeNamePattern, attributeNamePattern));}

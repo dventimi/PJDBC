@@ -9,7 +9,7 @@ import java.util.*;
 public abstract class AbstractPreparedStatement extends AbstractStatement implements PreparedStatement {
     private PreparedStatement d;
 
-    AbstractPreparedStatement (Connection conn, PreparedStatement stmt) throws SQLException {
+    public AbstractPreparedStatement (Connection conn, PreparedStatement stmt) throws SQLException {
 	super(conn, stmt);
 	this.d = stmt;}
 
