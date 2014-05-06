@@ -48,7 +48,9 @@ TESTS =	tests/CatDriver/testJDBCCompliance.bsh \
 	tests/FilterDriver/testAcceptsURL.bsh \
 	tests/FilterDriver/testConnectDirectly.bsh
 
-XFAIL_TESTS =
+XFAIL_TESTS = \
+	tests/TeeDriver/testConnectDirectlyAndInvokeMethods.bsh \
+	tests/DriverComposition/testTeePlusSinkButReverseOrder.bsh
 
 dist_pkgdata_DATA = @PACKAGE@.jar $(shell find $(srcdir)/$(LIB_DIR) -type f -iname '*.jar') 
 dist_java_JAVA = $(shell find $(srcdir)/$(SRC_DIR) -type f -iname '*.java')
