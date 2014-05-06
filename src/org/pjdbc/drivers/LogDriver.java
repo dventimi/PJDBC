@@ -15,13 +15,10 @@ public class LogDriver extends AbstractProxyDriver {
 	return "log".equals(subprotocol);}
 
     protected String getLogName (Statement stmt) throws SQLException {
-	System.out.println("stmt = " + stmt);
-	System.out.println("stmt.getConnection() = " + stmt.getConnection());
-	System.out.println("stmt.getConnection().unwrap(Connection.class) = " + stmt.getConnection().unwrap(Connection.class));
 	return stmt.getConnection().unwrap(Connection.class).getMetaData().getURL();}
 
     protected Statement proxyStatement (Statement delegate, Connection conn) throws SQLException {
-	return new AbstractStatement(conn, delegate) {
+	return new AbstractStatement(delegate, conn) {
 	    private void log (String sql) throws SQLException {
 		Logger.getLogger(getLogName(this)).info(sql);}
 	    public void addBatch (String sql) throws SQLException {

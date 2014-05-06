@@ -12,13 +12,13 @@ public abstract class AbstractConnection extends AbstractWrapper implements Conn
     protected Connection d;
 
     protected Statement wrap (Statement s) throws SQLException {
-	return new AbstractStatement(this, s){};}
+	return new AbstractStatement(s, this){};}
 
     protected PreparedStatement wrap (PreparedStatement s) throws SQLException {
-	return new AbstractPreparedStatement(this, s){};}
+	return new AbstractPreparedStatement(s, this){};}
 
     protected CallableStatement wrap (CallableStatement s) throws SQLException {
-	return new AbstractCallableStatement(this, s){};}
+	return new AbstractCallableStatement(s, this){};}
 
     protected DatabaseMetaData wrap (DatabaseMetaData d) throws SQLException {
 	return new AbstractDatabaseMetaData(this, d){};}

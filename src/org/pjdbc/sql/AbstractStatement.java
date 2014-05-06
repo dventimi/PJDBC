@@ -9,7 +9,7 @@ public abstract class AbstractStatement extends AbstractWrapper implements State
     protected ResultSet wrap (ResultSet r) throws SQLException {
 	return new AbstractResultSet(this, r){};}
 
-    public AbstractStatement (Connection conn, Statement stmt) throws SQLException {
+    public AbstractStatement (Statement stmt, Connection conn) throws SQLException {
 	super(stmt);
 	this.conn = conn;
 	this.delegate = stmt;}

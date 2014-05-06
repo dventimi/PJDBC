@@ -43,13 +43,13 @@ public abstract class AbstractProxyDriver extends AbstractDriver {
 	return new AbstractConnection(delegate, this, url, info) {};}
 
     protected Statement proxyStatement (Statement delegate, Connection conn) throws SQLException {
-	return new AbstractStatement(conn, delegate) {};}
+	return new AbstractStatement(delegate, conn) {};}
 
     protected CallableStatement proxyCallableStatement (CallableStatement delegate, Connection conn) throws SQLException {
-	return new AbstractCallableStatement(conn, delegate) {};}
+	return new AbstractCallableStatement(delegate, conn) {};}
 
     protected PreparedStatement proxyPreparedStatement (PreparedStatement delegate, Connection conn) throws SQLException {
-	return new AbstractPreparedStatement(conn, delegate) {};}
+	return new AbstractPreparedStatement(delegate, conn) {};}
 
     protected ResultSet proxyResultSet (Statement stmt, ResultSet delegate) throws SQLException {
 	return delegate;}

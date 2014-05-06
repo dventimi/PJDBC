@@ -22,7 +22,7 @@ public class FilterDriver extends AbstractProxyDriver {
 	return new AbstractFilter() {};}
 
     protected Statement proxyStatement (Statement delegate, Connection conn) throws SQLException {
-	return new AbstractStatement(conn, delegate) {
+	return new AbstractStatement(delegate, conn) {
 	    public void addBatch (String sql) throws SQLException {
 		super.addBatch(getFilter().apply(sql));}
 	    public boolean execute (String sql) throws SQLException {

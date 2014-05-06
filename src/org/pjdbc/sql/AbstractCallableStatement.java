@@ -9,8 +9,8 @@ import java.util.*;
 public abstract class AbstractCallableStatement extends AbstractPreparedStatement implements CallableStatement {
     private CallableStatement d;
 
-    public AbstractCallableStatement (Connection conn, CallableStatement stmt) throws SQLException {
-	super(conn, stmt);
+    public AbstractCallableStatement (CallableStatement stmt, Connection conn) throws SQLException {
+	super(stmt, conn);
 	this.d = stmt;}
 
     @Deprecated public BigDecimal getBigDecimal (int parameterIndex) throws SQLException {return d.getBigDecimal(parameterIndex);}

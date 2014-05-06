@@ -9,8 +9,8 @@ import java.util.*;
 public abstract class AbstractPreparedStatement extends AbstractStatement implements PreparedStatement {
     private PreparedStatement d;
 
-    public AbstractPreparedStatement (Connection conn, PreparedStatement stmt) throws SQLException {
-	super(conn, stmt);
+    public AbstractPreparedStatement (PreparedStatement stmt, Connection conn) throws SQLException {
+	super(stmt, conn);
 	this.d = stmt;}
 
     @Deprecated public void setUnicodeStream (int parameterIndex, InputStream x, int length) throws SQLException {d.setUnicodeStream(parameterIndex, x, length);}
