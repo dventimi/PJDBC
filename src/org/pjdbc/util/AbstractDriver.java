@@ -45,4 +45,3 @@ public abstract class AbstractDriver implements Driver {
     public DriverPropertyInfo[] getPropertyInfo (String url, Properties info) throws SQLException {return null;}
 
     public boolean jdbcCompliant () {return false;}}
-

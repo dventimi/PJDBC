@@ -39,5 +39,3 @@ public class LogDriver extends AbstractProxyDriver {
 		log(sql); return super.executeUpdate(sql, columnIndexes);}
 	    public int executeUpdate (String sql, String[] columnNames) throws SQLException {
 		log(sql); return super.executeUpdate(sql, columnNames);}};}}
-
-
