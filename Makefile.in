@@ -78,7 +78,6 @@ PRE_UNINSTALL = :
 POST_UNINSTALL = :
 build_triplet = @build@
 host_triplet = @host@
-XFAIL_TESTS =
 subdir = .
 DIST_COMMON = INSTALL NEWS README AUTHORS ChangeLog \
 	$(srcdir)/Makefile.in $(srcdir)/Makefile.am \
@@ -472,6 +471,10 @@ TESTS = tests/CatDriver/testJDBCCompliance.bsh \
 	tests/FilterDriver/testConnectIndirectly.bsh \
 	tests/FilterDriver/testAcceptsURL.bsh \
 	tests/FilterDriver/testConnectDirectly.bsh
+
+XFAIL_TESTS = \
+	tests/TeeDriver/testConnectDirectlyAndInvokeMethods.bsh \
+	tests/DriverComposition/testTeePlusSinkButReverseOrder.bsh
 
 dist_pkgdata_DATA = @PACKAGE@.jar $(shell find $(srcdir)/$(LIB_DIR) -type f -iname '*.jar') 
 dist_java_JAVA = $(shell find $(srcdir)/$(SRC_DIR) -type f -iname '*.java')
