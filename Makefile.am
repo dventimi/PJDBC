@@ -2,7 +2,6 @@ SRC_DIR = src
 LIB_DIR = lib
 BIN_DIR = bin
 OBJ_DIR = classes
-TESTS_ENVIRONMENT = CLASSPATH=pjdbc.jar
 
 TESTS =	tests/CatDriver/testJDBCCompliance.bsh \
 	tests/CatDriver/testConnectDirectlyAndInvokeMethods.bsh \
@@ -48,9 +47,7 @@ TESTS =	tests/CatDriver/testJDBCCompliance.bsh \
 	tests/FilterDriver/testAcceptsURL.bsh \
 	tests/FilterDriver/testConnectDirectly.bsh
 
-XFAIL_TESTS = \
-	tests/TeeDriver/testConnectDirectlyAndInvokeMethods.bsh \
-	tests/DriverComposition/testTeePlusSinkButReverseOrder.bsh
+XFAIL_TESTS =
 
 dist_pkgdata_DATA = @PACKAGE@.jar $(shell find $(srcdir)/$(LIB_DIR) -type f -iname '*.jar') 
 dist_java_JAVA = $(shell find $(srcdir)/$(SRC_DIR) -type f -iname '*.java')
@@ -62,6 +59,7 @@ AM_JAVACFLAGS = -sourcepath $(srcdir)/$(SRC_DIR) -Xlint:unchecked -Xlint:depreca
 EXTRA_DIST = $(LIB_DIR) $(BIN_DIR)/@PACKAGE@.in
 EXTRA_SCRIPTS = $(BIN_DIR)
 CLEANFILES =  @PACKAGE@ @PACKAGE@.jar
+TESTS_ENVIRONMENT = CLASSPATH=@PACKAGE@.jar
 
 $(shell mkdir -p $(OBJ_DIR))
 

@@ -20,7 +20,6 @@ public class TeeDriver extends AbstractProxyDriver {
     public Connection connect (String url, Properties info) throws SQLException {
         if (!acceptsURL(url)) return null;
         ArrayList<String> urls = new ArrayList<String>(Arrays.asList(subname(url).split(";")));
-        ArrayList<Connection> listeners = new ArrayList<Connection>();
-        Connection delegate = DriverManager.getConnection(urls.remove(0), info);
-        for (String s : urls) listeners.add(DriverManager.getConnection(s, info));
-        return proxyConnection(delegate, urls.get(0), info, listeners);}}
+        ArrayList<Connection> delegates = new ArrayList<Connection>();
+        for (String s : urls) delegates.add(DriverManager.getConnection(s, info));
+        return proxyConnection(urls.get(0), info, delegates.toArray(new Connection[0]));}}
