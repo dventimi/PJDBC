@@ -13,13 +13,13 @@
 #+STARTUP: hidestars
 #+STARTUP: odd
 
-* TODO Make AbstractProxyConnection etc. should broadcast operations to all delegates.
+* DONE Make AbstractProxyConnection etc. should broadcast operations to all delegates.
 * TODO Put all simply-overridden methods of AbstractProxyConnection etc. into super classes.
 * TODO Investigate turning the assertions in init.bsh into BeanShell commands.
 * TODO Investigate templatizing the delegation aspects of AbstractProxyConnection etc.
 * TODO Look at JWDriver for inspiration vis a vis connection pooling.
 * TODO Refactor the URL parsing machinery in AbstractDriver and AbstractProxyDriver.
-* TODO Create AbstractProxyXXX classes for the other java.sql.XXX types (e.g., CallableStatement, DatabaseMetaData, etc.)
+* DONE Create AbstractProxyXXX classes for the other java.sql.XXX types (e.g., CallableStatement, DatabaseMetaData, etc.)
 * TODO Finish RemoteDriver.java
 *** TODO Create InvocationHandler implementations for the other java.sql.XXX types (e.g., CallableStatement, etc.)
 *** TODO Write the code to handle URL parsing for this special case
@@ -34,5 +34,5 @@
 *** TODO Create a Driver Writer's Guide texinfo document.
 *** TODO Create a Developer's Guide either as a Markdown document.
 * TODO Move the init.bsh bootstrap tests into the java-project-template project.
-* TODO Write tests for the MapUser driver.
+* TODO Write tests for the UserMap driver.
 * TODO Make the PoolDriver pluggable.
