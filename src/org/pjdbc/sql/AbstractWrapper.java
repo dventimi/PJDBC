@@ -7,15 +7,16 @@ public abstract class AbstractWrapper implements Wrapper {
     private List<Wrapper> delegates = new ArrayList<Wrapper>();
 
     public AbstractWrapper (Wrapper wrapper) throws SQLException {
-	delegates.add(wrapper);}
+        this(new Wrapper[]{wrapper});}
 
     public AbstractWrapper (Wrapper[] wrappers) throws SQLException {
+        if (wrappers==null || wrappers.length==0) throw new SQLException();
 	delegates = Arrays.asList(wrappers);}
 
     public boolean isWrapperFor (Class<?> iface) throws SQLException {
 	if (iface.isInstance(this)) return true;
 	for (Wrapper d : delegates) if (!d.isWrapperFor(iface)) return false;
-	return false;}
+	return true;}
 
     @SuppressWarnings("unchecked")
     public <T> T unwrap (Class<T> iface) throws SQLException {
