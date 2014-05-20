@@ -1,5 +1,3 @@
-<!-- -*- mode: markdown; -*- -->
-
 PJDBC (README)
 ====================
 This is the README for the PJDBC application, which is kept in a
