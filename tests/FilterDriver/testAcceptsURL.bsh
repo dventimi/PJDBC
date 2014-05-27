@@ -1,10 +1,7 @@
-#!/usr/bin/bsh
-    try {
-	source("init.bsh");
-	import org.pjdbc.drivers.*;
-	getClass("org.pjdbc.drivers.MockDriver");
-	assertFalse(new FilterDriver().acceptsURL("jdbc:filtering"));
-	assertFalse(new FilterDriver().acceptsURL("jdbc:filter:"));
-	assertFalse(new FilterDriver().acceptsURL("jdbc:filter:foo"));
-	assertTrue(new FilterDriver().acceptsURL("jdbc:filter:jdbc:mock:foo"));
-    } catch (e) {System.exit(1);}
+import org.pjdbc.drivers.*;
+getClass("org.pjdbc.drivers.MockDriver");
+assertFalse(new FilterDriver().acceptsURL("jdbc:filtering"));
+assertFalse(new FilterDriver().acceptsURL("jdbc:filter:"));
+assertFalse(new FilterDriver().acceptsURL("jdbc:filter:foo"));
+assertTrue(new FilterDriver().acceptsURL("jdbc:filter:jdbc:mock:foo"));
+

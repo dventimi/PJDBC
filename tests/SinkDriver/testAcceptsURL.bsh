@@ -1,10 +1,7 @@
-#!/usr/bin/bsh
-    try {
-	source("init.bsh");
-	import org.pjdbc.drivers.*;
-	getClass("org.pjdbc.drivers.MockDriver");
-	assertFalse(new SinkDriver().acceptsURL("jdbc:sink"));
-	assertFalse(new SinkDriver().acceptsURL("jdbc:sink:"));
-	assertFalse(new SinkDriver().acceptsURL("jdbc:sink:foo"));
-	assertTrue(new SinkDriver().acceptsURL("jdbc:sink:jdbc:mock:foo"));
-    } catch (e) {System.exit(1);}
+import org.pjdbc.drivers.*;
+getClass("org.pjdbc.drivers.MockDriver");
+assertFalse(new SinkDriver().acceptsURL("jdbc:sink"));
+assertFalse(new SinkDriver().acceptsURL("jdbc:sink:"));
+assertFalse(new SinkDriver().acceptsURL("jdbc:sink:foo"));
+assertTrue(new SinkDriver().acceptsURL("jdbc:sink:jdbc:mock:foo"));
+

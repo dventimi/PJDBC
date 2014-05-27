@@ -1,10 +1,7 @@
-#!/usr/bin/bsh
-    try {
-	source("init.bsh");
-	import org.pjdbc.drivers.*;
-	getClass("org.pjdbc.drivers.MockDriver");
-	assertFalse(new LogDriver().acceptsURL("jdbc:log"));
-	assertFalse(new LogDriver().acceptsURL("jdbc:log:"));
-	assertFalse(new LogDriver().acceptsURL("jdbc:log:foo"));
-	assertTrue(new LogDriver().acceptsURL("jdbc:log:jdbc:mock:foo"));
-    } catch (e) {System.exit(1);}
+import org.pjdbc.drivers.*;
+getClass("org.pjdbc.drivers.MockDriver");
+assertFalse(new LogDriver().acceptsURL("jdbc:log"));
+assertFalse(new LogDriver().acceptsURL("jdbc:log:"));
+assertFalse(new LogDriver().acceptsURL("jdbc:log:foo"));
+assertTrue(new LogDriver().acceptsURL("jdbc:log:jdbc:mock:foo"));
+

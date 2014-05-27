@@ -1,11 +1,7 @@
-#!/usr/bin/bsh
-    try {
-	source("init.bsh");
-	import java.sql.*;
-	getClass("org.pjdbc.drivers.MockDriver");
-	getClass("org.pjdbc.drivers.PoolDriver");
-	Connection foo = DriverManager.getConnection("jdbc:pool:jdbc:mock:foo");
-	foo.close();
-	try {foo.createStatement();} catch (SQLException e) {return;}
-	assert(false);
-    } catch (e) {System.exit(1);}
+import java.sql.*;
+getClass("org.pjdbc.drivers.MockDriver");
+getClass("org.pjdbc.drivers.PoolDriver");
+Connection foo = DriverManager.getConnection("jdbc:pool:jdbc:mock:foo");
+foo.close();
+try {foo.createStatement();} catch (SQLException e) {return;}
+assert(false);

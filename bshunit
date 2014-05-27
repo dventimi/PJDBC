@@ -1,0 +1,5 @@
+#!/bin/sh
+
+bsh -classpath $1 <<EOF
+try {source("init.bsh"); source("$2");} catch (e) {e.printStackTrace(); System.exit(1);}
+EOF

@@ -1,7 +1,3 @@
-#!/usr/bin/bsh
-    try {
-	source("init.bsh");
-	import java.sql.*;
-	try{DriverManager.getConnection("jdbc:tee:jdbc:mock:foo");} catch (SQLException e) {return;}
-	fail("jdbc:tee:jdbc:mock:foo should have no registered driver!");
-    } catch (e) {System.exit(1);}
+import java.sql.*;
+try{DriverManager.getConnection("jdbc:tee:jdbc:mock:foo");} catch (SQLException e) {return;}
+fail("jdbc:tee:jdbc:mock:foo should have no registered driver!");

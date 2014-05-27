@@ -1,10 +1,7 @@
-#!/usr/bin/bsh
-    try {
-	source("init.bsh");
-	import org.pjdbc.drivers.*;
-	getClass("org.pjdbc.drivers.MockDriver");
-	assertFalse(new TeeDriver().acceptsURL("jdbc:tee"));
-	assertFalse(new TeeDriver().acceptsURL("jdbc:tee:"));
-	assertFalse(new TeeDriver().acceptsURL("jdbc:tee:foo"));
-	assertTrue(new TeeDriver().acceptsURL("jdbc:tee:jdbc:mock:foo;jdbc:mock:foo"));
-    } catch (e) {System.exit(1);}
+import org.pjdbc.drivers.*;
+getClass("org.pjdbc.drivers.MockDriver");
+assertFalse(new TeeDriver().acceptsURL("jdbc:tee"));
+assertFalse(new TeeDriver().acceptsURL("jdbc:tee:"));
+assertFalse(new TeeDriver().acceptsURL("jdbc:tee:foo"));
+assertTrue(new TeeDriver().acceptsURL("jdbc:tee:jdbc:mock:foo;jdbc:mock:foo"));
+
