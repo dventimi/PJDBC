@@ -14,12 +14,10 @@ public class FilterDriver extends AbstractProxyDriver {
     public static abstract class AbstractFilter implements Filter {
         public String apply (String sql) {return sql;}}
 
+    protected static Filter fltr  = new AbstractFilter() {};
+
     protected boolean acceptsSubProtocol (String subprotocol) {
         return "filter".equals(subprotocol);}
-
-    protected Filter getFilter () {
-        try {return (Filter)Class.forName(System.getProperty("org.pjdbc.drivers.FilterDriver.Filter")).newInstance();} catch (Exception e) {}
-        return new AbstractFilter() {};}
 
     protected Statement proxyStatement (Statement delegate, Connection conn) throws SQLException {
         return new AbstractStatement(delegate, conn) {
@@ -40,4 +38,10 @@ public class FilterDriver extends AbstractProxyDriver {
             public int executeUpdate (String sql, int[] columnIndexes) throws SQLException {
                 return super.executeUpdate(getFilter().apply(sql), columnIndexes);}
             public int executeUpdate (String sql, String[] columnNames) throws SQLException {
-                return super.executeUpdate(getFilter().apply(sql), columnNames);}};}}
+                return super.executeUpdate(getFilter().apply(sql), columnNames);}};}
+
+    public Filter getFilter () {
+	return fltr;}
+
+    public void setFilter (Filter filter) {
+	fltr = filter;}}
