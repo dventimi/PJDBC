@@ -467,7 +467,8 @@ TESTS = tests/CatDriver/testJDBCCompliance.bsh \
 	tests/FilterDriver/testVersionInfo.bsh \
 	tests/FilterDriver/testConnectIndirectly.bsh \
 	tests/FilterDriver/testAcceptsURL.bsh \
-	tests/FilterDriver/testConnectDirectly.bsh
+	tests/FilterDriver/testConnectDirectly.bsh \
+	tests/FilterDriver/testUpcaseFilter.bsh
 
 dist_pkgdata_DATA = @PACKAGE@.jar $(shell find $(srcdir)/$(LIB_DIR) -type f -iname '*.jar') 
 dist_java_JAVA = $(shell find $(srcdir)/$(SRC_DIR) -type f -iname '*.java')
