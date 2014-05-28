@@ -46,7 +46,8 @@ TESTS =	tests/CatDriver/testJDBCCompliance.bsh \
 	tests/FilterDriver/testConnectIndirectly.bsh \
 	tests/FilterDriver/testAcceptsURL.bsh \
 	tests/FilterDriver/testConnectDirectly.bsh \
-	tests/FilterDriver/testUpcaseFilter.bsh
+	tests/FilterDriver/testUpcaseFilter.bsh \
+	tests/FilterDriver/testAssertionFilter.bsh
 
 XFAIL_TESTS =
 
