@@ -36,3 +36,4 @@
 * TODO Move the init.bsh bootstrap tests into the java-project-template project.
 * TODO Write tests for the UserMap driver.
 * TODO Make the PoolDriver pluggable.
+* TODO Test PJDBC using the DOTS framework.
