@@ -1,5 +1,0 @@
-#!/usr/bin/bsh
-    try {
-	source("init.bsh");
-	fail();
-    } catch (e) {System.exit(1);}
