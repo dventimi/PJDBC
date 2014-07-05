@@ -84,4 +84,14 @@ rmi:
 	rmic -d . com.jw.server.RemoteResultSetImpl
 
 server:
-	java -Djava.security.policy=./java.policy com.jw.server.RemoteDriverImpl
+	@JAVA@ -Djava.security.policy=./java.policy com.jw.server.RemoteDriverImpl
+
+# ################################################################################
+# DOTS stuff
+# ################################################################################
+
+dots-server:
+	@JAVA@ -cp Perfmon.jar dots.perfmon.PerfMon -port 8001
+
+dots-client:
+	@JAVA@ -cp Dots.jar:/usr/share/java/postgresql-jdbc4.jar dots.framework.Dots -config pgsql.ini -case BTCJ1

@@ -1081,7 +1081,17 @@ rmi:
 	rmic -d . com.jw.server.RemoteResultSetImpl
 
 server:
-	java -Djava.security.policy=./java.policy com.jw.server.RemoteDriverImpl
+	@JAVA@ -Djava.security.policy=./java.policy com.jw.server.RemoteDriverImpl
+
+# ################################################################################
+# DOTS stuff
+# ################################################################################
+
+dots-server:
+	@JAVA@ -cp Perfmon.jar dots.perfmon.PerfMon -port 8001
+
+dots-client:
+	@JAVA@ -cp Dots.jar:/usr/share/java/postgresql-jdbc4.jar dots.framework.Dots -config pgsql.ini -case BTCJ1
 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.
