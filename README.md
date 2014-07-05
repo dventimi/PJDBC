@@ -1,11 +1,3 @@
-PJDBC (README)
-====================
-This is the README for the PJDBC application, which is kept in a
-GitHub repository at
-
-    https://bitbucket.org/neptunestation/PJDBC
-
-
 POSIX Installation
 --------------------
 
