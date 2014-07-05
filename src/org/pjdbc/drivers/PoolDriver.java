@@ -33,7 +33,7 @@ public class PoolDriver extends AbstractProxyDriver {
 	if (!acceptsURL(url)) return null;
 	Properties key = getPoolKey(subname(url), info);
 	Connection conn = null;
-	if (!pools.containsKey(key)) pools.putIfAbsent(key, new LinkedBlockingQueue<Connection>());
+	pools.putIfAbsent(key, new LinkedBlockingQueue<Connection>());
 	try {conn = pools.get(key).poll(1L, TimeUnit.SECONDS);} catch (InterruptedException e) {}
 	if (conn!=null) return conn;
-	return proxyConnection(conn!=null ? conn : DriverManager.getConnection(subname(url)), subname(url), info, this);}}
+	return proxyConnection(DriverManager.getConnection(subname(url)), subname(url), info, this);}}

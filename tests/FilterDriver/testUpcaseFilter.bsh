@@ -1,0 +1,9 @@
+import java.sql.*;
+import org.pjdbc.drivers.*;
+getClass("org.pjdbc.drivers.MockDriver");
+getClass("org.pjdbc.drivers.FilterDriver");
+DriverManager.getDriver("jdbc:filter:jdbc:mock:foo").setFilter(new FilterDriver.Filter() {
+	public String apply (String sql) {return sql==null ? null : sql.toUpperCase();}});
+DriverManager.getConnection("jdbc:filter:jdbc:mock:foo").createStatement().executeQuery("select * from person;");
+String log = ((MockDriver)DriverManager.getDriver("jdbc:mock:foo")).getLog("jdbc:mock:foo");
+assertEquals("executeQuery[SELECT * FROM PERSON;]", log);

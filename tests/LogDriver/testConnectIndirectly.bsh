@@ -1,8 +1,5 @@
-#!/usr/bin/bsh
-    try {
-	source("init.bsh");
-	import java.sql.*;
-	getClass("org.pjdbc.drivers.LogDriver");
-	getClass("org.pjdbc.drivers.MockDriver");
-	assertNotNull(DriverManager.getConnection("jdbc:log:jdbc:mock:foo"));
-    } catch (e) {System.exit(1);}
+import java.sql.*;
+getClass("org.pjdbc.drivers.LogDriver");
+getClass("org.pjdbc.drivers.MockDriver");
+assertNotNull(DriverManager.getConnection("jdbc:log:jdbc:mock:foo"));
+

@@ -31,7 +31,6 @@ create table if not exists phone (
 
 -- Create some sample data in the referencing table.
 insert into phone (person_id, phone_number) select id, '517-575-7086' from person where first_name = 'David' and last_name = 'Ventimiglia';
-insert into phone (person_id, phone_number) select id, '415-244-6112' from person where first_name = 'Julie' and last_name = 'Hata';
 
 -- Create a view, UPON WHICH THE DOMAIN KEY WILL BE BASED
 drop view if exists adult;

@@ -45,7 +45,9 @@ TESTS =	tests/CatDriver/testJDBCCompliance.bsh \
 	tests/FilterDriver/testVersionInfo.bsh \
 	tests/FilterDriver/testConnectIndirectly.bsh \
 	tests/FilterDriver/testAcceptsURL.bsh \
-	tests/FilterDriver/testConnectDirectly.bsh
+	tests/FilterDriver/testConnectDirectly.bsh \
+	tests/FilterDriver/testUpcaseFilter.bsh \
+	tests/FilterDriver/testAssertionFilter.bsh
 
 XFAIL_TESTS =
 
@@ -60,6 +62,9 @@ EXTRA_DIST = $(LIB_DIR) $(BIN_DIR)/@PACKAGE@.in
 EXTRA_SCRIPTS = $(BIN_DIR)
 CLEANFILES =  @PACKAGE@ @PACKAGE@.jar
 TESTS_ENVIRONMENT = CLASSPATH=@PACKAGE@.jar
+TEST_EXTENSIONS = .bsh
+BSH_LOG_COMPILER = ./bshunit
+AM_BSH_LOG_FLAGS = pjdbc.jar
 
 $(shell mkdir -p $(OBJ_DIR))
 

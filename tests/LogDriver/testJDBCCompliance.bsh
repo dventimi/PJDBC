@@ -1,6 +1,3 @@
-#!/usr/bin/bsh
-    try {
-	source("init.bsh");
-	import org.pjdbc.drivers.*;
-	assertFalse(new LogDriver().jdbcCompliant());
-    } catch (e) {System.exit(1);}
+import org.pjdbc.drivers.*;
+assertFalse(new LogDriver().jdbcCompliant());
+
