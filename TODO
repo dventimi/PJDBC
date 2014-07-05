@@ -15,7 +15,7 @@
 
 * DONE Make AbstractProxyConnection etc. should broadcast operations to all delegates.
 * TODO Put all simply-overridden methods of AbstractProxyConnection etc. into super classes.
-* TODO Investigate turning the assertions in init.bsh into BeanShell commands.
+* DONE Investigate turning the assertions in init.bsh into BeanShell commands.
 * TODO Investigate templatizing the delegation aspects of AbstractProxyConnection etc.
 * TODO Look at JWDriver for inspiration vis a vis connection pooling.
 * TODO Refactor the URL parsing machinery in AbstractDriver and AbstractProxyDriver.
