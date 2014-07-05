@@ -51,6 +51,7 @@ TESTS =	tests/CatDriver/testJDBCCompliance.bsh \
 
 XFAIL_TESTS =
 
+dist_bin_SCRIPTS = $(BIN_DIR)/bshunit
 dist_pkgdata_DATA = @PACKAGE@.jar $(shell find $(srcdir)/$(LIB_DIR) -type f -iname '*.jar') 
 dist_java_JAVA = $(shell find $(srcdir)/$(SRC_DIR) -type f -iname '*.java')
 javadir = $(datadir)/java
@@ -58,18 +59,18 @@ JAVAROOT = $(OBJ_DIR)
 CLASSPATH = $(shell find $(srcdir)/$(LIB_DIR) -name '*.jar' -printf '%p:')
 CLASSPATH_ENV = export CLASSPATH=$(shell find $(srcdir)/$(LIB_DIR) -name '*.jar' -printf '%p:');
 AM_JAVACFLAGS = -sourcepath $(srcdir)/$(SRC_DIR) -Xlint:unchecked -Xlint:deprecation
-EXTRA_DIST = $(LIB_DIR) $(BIN_DIR)/@PACKAGE@.in
+EXTRA_DIST = $(LIB_DIR) tests
 EXTRA_SCRIPTS = $(BIN_DIR)
 CLEANFILES =  @PACKAGE@ @PACKAGE@.jar
 TESTS_ENVIRONMENT = CLASSPATH=@PACKAGE@.jar
 TEST_EXTENSIONS = .bsh
-BSH_LOG_COMPILER = ./bshunit
+BSH_LOG_COMPILER = $(srcdir)/$(BIN_DIR)/bshunit
 AM_BSH_LOG_FLAGS = pjdbc.jar
 
 $(shell mkdir -p $(OBJ_DIR))
 
 @PACKAGE@.jar: classjava.stamp $(shell find $(srcdir)/$(SRC_DIR) -type f ! -iname '*.java')
-	cd $(srcdir)/$(SRC_DIR) ; find . -type f ! -iname '*.java' -exec cp --parents -u {} ../$(OBJ_DIR) \;
+	cd $(srcdir)/$(SRC_DIR) ; find . -type f ! -iname '*.java' -exec cp --parents -u {} $(abs_top_builddir)/$(OBJ_DIR) \;
 	touch $@
 	@JAR@ -uf $@ -C $(OBJ_DIR) .
 
