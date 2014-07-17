@@ -93,5 +93,34 @@ server:
 dots-server:
 	@JAVA@ -cp Perfmon.jar dots.perfmon.PerfMon -port 8001
 
-dots-client:
+dots-test: dots-BTCJ1 dots-BTCJ2 dots-BTCJ3 dots-BTCJ4 dots-BTCJ5 dots-BTCJ6 dots-BTCJ7 dots-BTCJ8 dots-ATCJ1 dots-ATCJ1
+
+dots-BTCJ1:
 	@JAVA@ -cp Dots.jar:/usr/share/java/postgresql-jdbc4.jar dots.framework.Dots -config pgsql.ini -case BTCJ1
+
+dots-BTCJ2:
+	@JAVA@ -cp Dots.jar:/usr/share/java/postgresql-jdbc4.jar dots.framework.Dots -config pgsql.ini -case BTCJ2
+
+dots-BTCJ3:
+	@JAVA@ -cp Dots.jar:/usr/share/java/postgresql-jdbc4.jar dots.framework.Dots -config pgsql.ini -case BTCJ3
+
+dots-BTCJ4:
+	@JAVA@ -cp Dots.jar:/usr/share/java/postgresql-jdbc4.jar dots.framework.Dots -config pgsql.ini -case BTCJ4
+
+dots-BTCJ5:
+	@JAVA@ -cp Dots.jar:/usr/share/java/postgresql-jdbc4.jar dots.framework.Dots -config pgsql.ini -case BTCJ5
+
+dots-BTCJ6:
+	@JAVA@ -cp Dots.jar:/usr/share/java/postgresql-jdbc4.jar dots.framework.Dots -config pgsql.ini -case BTCJ6
+
+dots-BTCJ7:
+	@JAVA@ -cp Dots.jar:/usr/share/java/postgresql-jdbc4.jar dots.framework.Dots -config pgsql.ini -case BTCJ7
+
+dots-BTCJ8:
+	@JAVA@ -cp Dots.jar:/usr/share/java/postgresql-jdbc4.jar dots.framework.Dots -config pgsql.ini -case BTCJ8
+
+dots-ATCJ1:
+	@JAVA@ -cp Dots.jar:/usr/share/java/postgresql-jdbc4.jar dots.framework.Dots -config pgsql.ini -case ATCJ1
+
+dots-ATCJ2:
+	@JAVA@ -cp Dots.jar:/usr/share/java/postgresql-jdbc4.jar dots.framework.Dots -config pgsql.ini -case ATCJ2
