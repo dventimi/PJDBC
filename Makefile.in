@@ -81,13 +81,20 @@ PRE_UNINSTALL = :
 POST_UNINSTALL = :
 build_triplet = @build@
 host_triplet = @host@
+target_triplet = @target@
 XFAIL_TESTS =
 subdir = .
 DIST_COMMON = INSTALL NEWS README AUTHORS ChangeLog \
 	$(srcdir)/Makefile.in $(srcdir)/Makefile.am \
 	$(top_srcdir)/configure $(am__configure_deps) \
-	$(dist_bin_SCRIPTS) $(dist_pkgdata_DATA) test-driver COPYING \
-	TODO config.guess config.sub install-sh missing
+	$(dist_bin_SCRIPTS) $(dist_pkgdata_DATA) \
+	$(top_srcdir)/build-aux/test-driver COPYING TODO \
+	build-aux/config.guess build-aux/config.sub \
+	build-aux/install-sh build-aux/missing \
+	$(top_srcdir)/build-aux/config.guess \
+	$(top_srcdir)/build-aux/config.sub \
+	$(top_srcdir)/build-aux/install-sh \
+	$(top_srcdir)/build-aux/missing
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps = $(top_srcdir)/configure.ac
 am__configure_deps = $(am__aclocal_m4_deps) $(CONFIGURE_DEPENDENCIES) \
@@ -307,7 +314,7 @@ AM_RECURSIVE_TARGETS = check recheck
 TEST_SUITE_LOG = test-suite.log
 am__test_logs1 = $(TESTS:=.log)
 TEST_LOGS = $(am__test_logs1:.bsh.log=.log)
-BSH_LOG_DRIVER = $(SHELL) $(top_srcdir)/test-driver
+BSH_LOG_DRIVER = $(SHELL) $(top_srcdir)/build-aux/test-driver
 BSH_LOG_COMPILE = $(BSH_LOG_COMPILER) $(AM_BSH_LOG_FLAGS) \
 	$(BSH_LOG_FLAGS)
 am__set_b = \
@@ -420,7 +427,11 @@ sbindir = @sbindir@
 sharedstatedir = @sharedstatedir@
 srcdir = @srcdir@
 sysconfdir = @sysconfdir@
+target = @target@
 target_alias = @target_alias@
+target_cpu = @target_cpu@
+target_os = @target_os@
+target_vendor = @target_vendor@
 top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
