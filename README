@@ -1,0 +1,9 @@
+PJDBC is a Proxying JDBC driver.  It enables the easy run-time
+customization of JDBC connections.  Listed below are some examples of
+the way that it can be used.
+
+* log queries
+* transform queries
+* connection pooling
+* user substitution
+* rmi tunnelling
