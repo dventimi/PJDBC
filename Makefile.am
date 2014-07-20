@@ -1,7 +1,11 @@
+# Make variables for definining important project directories
+
 SRC_DIR = src
 LIB_DIR = lib
 BIN_DIR = bin
 OBJ_DIR = classes
+
+# Automake variables for automated testing
 
 TESTS =	tests/CatDriver/testJDBCCompliance.bsh \
 	tests/CatDriver/testConnectDirectlyAndInvokeMethods.bsh \
@@ -51,28 +55,37 @@ TESTS =	tests/CatDriver/testJDBCCompliance.bsh \
 
 XFAIL_TESTS =
 
-dist_bin_SCRIPTS = $(BIN_DIR)/bshunit
-dist_pkgdata_DATA = @PACKAGE@.jar $(shell find $(srcdir)/$(LIB_DIR) -type f -iname '*.jar') 
-dist_java_JAVA = $(shell find $(srcdir)/$(SRC_DIR) -type f -iname '*.java')
-javadir = $(datadir)/java
-JAVAROOT = $(OBJ_DIR)
-CLASSPATH = $(shell find $(srcdir)/$(LIB_DIR) -name '*.jar' -printf '%p:')
-CLASSPATH_ENV = export CLASSPATH=$(shell find $(srcdir)/$(LIB_DIR) -name '*.jar' -printf '%p:');
-AM_JAVACFLAGS = -sourcepath $(srcdir)/$(SRC_DIR) -Xlint:unchecked -Xlint:deprecation
-EXTRA_DIST = $(LIB_DIR) tests
+# Automake variables for building and distribution
+
+EXTRA_DIST = $(LIB_DIR) tests $(SRC_DIR)
 EXTRA_SCRIPTS = $(BIN_DIR)
-CLEANFILES =  @PACKAGE@ @PACKAGE@.jar
+CLEANFILES = @PACKAGE@ @PACKAGE@.jar sources
 TESTS_ENVIRONMENT = CLASSPATH=@PACKAGE@.jar
 TEST_EXTENSIONS = .bsh
-BSH_LOG_COMPILER = $(srcdir)/$(BIN_DIR)/bshunit
+AM_JAVACFLAGS = -sourcepath $(srcdir)/$(SRC_DIR) -Xlint:unchecked -Xlint:deprecation
 AM_BSH_LOG_FLAGS = pjdbc.jar
+BSH_LOG_COMPILER = $(srcdir)/$(BIN_DIR)/bshunit
+dist_bin_SCRIPTS = $(BIN_DIR)/bshunit
+dist_pkgdata_DATA = @PACKAGE@.jar $(shell find $(srcdir)/$(LIB_DIR) -type f -iname '*.jar') 
 
-$(shell mkdir -p $(OBJ_DIR))
+# Make variable for setting the build class path
 
-@PACKAGE@.jar: classjava.stamp $(shell find $(srcdir)/$(SRC_DIR) -type f ! -iname '*.java')
-	cd $(srcdir)/$(SRC_DIR) ; find . -type f ! -iname '*.java' -exec cp --parents -u {} $(abs_top_builddir)/$(OBJ_DIR) \;
+CLASSPATH = $(shell find $(srcdir)/$(LIB_DIR) -name '*.jar' -printf '%p:')
+
+# Make target for creating the application binary
+
+@PACKAGE@.jar: sources
+	$(shell mkdir -p $(OBJ_DIR))
+	@JAVAC@ -sourcepath $(srcdir)/$(SRC_DIR) -d $(OBJ_DIR) -Xlint:unchecked -Xlint:deprecation -cp $(CLASSPATH) @sources
 	touch $@
 	@JAR@ -uf $@ -C $(OBJ_DIR) .
+
+# Make target for generating a list of source files to compile
+
+sources: $(shell find $(srcdir)/$(SRC_DIR) -iname "*.java")
+	echo $? > $@
+
+# Automake target for additional objects to clean
 
 clean-local:
 	rm -rf $(OBJ_DIR)
