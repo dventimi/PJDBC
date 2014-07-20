@@ -62,7 +62,7 @@ EXTRA_SCRIPTS = $(BIN_DIR)
 CLEANFILES = @PACKAGE@ @PACKAGE@.jar sources
 TESTS_ENVIRONMENT = CLASSPATH=@PACKAGE@.jar
 TEST_EXTENSIONS = .bsh
-AM_JAVACFLAGS = -sourcepath $(srcdir)/$(SRC_DIR) -Xlint:unchecked -Xlint:deprecation
+AM_JAVACFLAGS = -sourcepath $(srcdir)/$(SRC_DIR) -d $(OBJ_DIR) -Xlint:unchecked -Xlint:deprecation -cp $(CLASSPATH)
 AM_BSH_LOG_FLAGS = pjdbc.jar
 BSH_LOG_COMPILER = $(srcdir)/$(BIN_DIR)/bshunit
 dist_bin_SCRIPTS = $(BIN_DIR)/bshunit
@@ -76,7 +76,7 @@ CLASSPATH = $(shell find $(srcdir)/$(LIB_DIR) -name '*.jar' -printf '%p:')
 
 @PACKAGE@.jar: sources
 	$(shell mkdir -p $(OBJ_DIR))
-	@JAVAC@ -sourcepath $(srcdir)/$(SRC_DIR) -d $(OBJ_DIR) -Xlint:unchecked -Xlint:deprecation -cp $(CLASSPATH) @sources
+	@JAVAC@ $(JAVACFLAGS) $(AM_JAVACFLAGS) @sources
 	touch $@
 	@JAR@ -uf $@ -C $(OBJ_DIR) .
 
@@ -88,8 +88,7 @@ sources: $(shell find $(srcdir)/$(SRC_DIR) -iname "*.java")
 # Automake target for additional objects to clean
 
 clean-local:
-	rm -rf $(OBJ_DIR)
-
+	find $(OBJ_DIR) -iname "*.class" -exec rm {} \;
 rmi:
 	rmic -d . com.jw.server.RemoteDriverImpl
 	rmic -d . com.jw.server.RemoteConnectionImpl
