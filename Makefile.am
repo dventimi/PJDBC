@@ -15,8 +15,7 @@ TESTS_ENVIRONMENT = CLASSPATH=@PACKAGE@.jar
 TEST_EXTENSIONS = .bsh
 AM_JAVACFLAGS = -sourcepath $(srcdir)/$(SRC_DIR) -d $(OBJ_DIR) -Xlint:unchecked -Xlint:deprecation -cp $(CLASSPATH)
 AM_BSH_LOG_FLAGS = pjdbc.jar
-BSH_LOG_COMPILER = $(srcdir)/$(BIN_DIR)/bshunit
-dist_bin_SCRIPTS = $(BIN_DIR)/bshunit
+BSH_LOG_COMPILER = $(srcdir)/$(TST_DIR)/bshunit
 dist_pkgdata_DATA = @PACKAGE@.jar $(shell find $(srcdir)/$(LIB_DIR) -type f -iname '*.jar') 
 
 # Make variable for setting the build class path

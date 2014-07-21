@@ -589,7 +589,6 @@ ac_subst_vars='LTLIBOBJS
 LIBOBJS
 JAR
 JAVAC
-CYGPATH_PW
 AM_BACKSLASH
 AM_DEFAULT_VERBOSITY
 AM_DEFAULT_V
@@ -2443,13 +2442,6 @@ END
   fi
 fi
 
-case $host_os in #(
-  cygwin) :
-    CYGPATH_PW="cygpath -pw" ;; #(
-  *) :
-    CYGPATH_PW="echo" ;;
-esac
-
 
 if test "x$JAVAPREFIX" = x; then
         test "x$JAVAC" = x && for ac_prog in "gcj -C" guavac jikes javac
@@ -2550,7 +2542,7 @@ else
 JAVA_TEST=Test.java
 CLASS_TEST=Test.class
 cat << \EOF > $JAVA_TEST
-/* #line 2553 "configure" */
+/* #line 2545 "configure" */
 public class Test {
 }
 EOF
