@@ -363,7 +363,6 @@ INSTALL_PROGRAM = @INSTALL_PROGRAM@
 INSTALL_SCRIPT = @INSTALL_SCRIPT@
 INSTALL_STRIP_PROGRAM = @INSTALL_STRIP_PROGRAM@
 JAR = @JAR@
-JAVA = @JAVA@
 JAVAC = @JAVAC@
 LIBOBJS = @LIBOBJS@
 LIBS = @LIBS@
@@ -378,11 +377,9 @@ PACKAGE_TARNAME = @PACKAGE_TARNAME@
 PACKAGE_URL = @PACKAGE_URL@
 PACKAGE_VERSION = @PACKAGE_VERSION@
 PATH_SEPARATOR = @PATH_SEPARATOR@
-SED = @SED@
 SET_MAKE = @SET_MAKE@
 SHELL = @SHELL@
 STRIP = @STRIP@
-UUDECODE = @UUDECODE@
 VERSION = @VERSION@
 abs_builddir = @abs_builddir@
 abs_srcdir = @abs_srcdir@
@@ -439,57 +436,10 @@ SRC_DIR = src
 LIB_DIR = lib
 BIN_DIR = bin
 OBJ_DIR = classes
-
-# Automake variables for automated testing
-TESTS = tests/CatDriver/testJDBCCompliance.bsh \
-	tests/CatDriver/testConnectDirectlyAndInvokeMethods.bsh \
-	tests/CatDriver/testVersionInfo.bsh \
-	tests/CatDriver/testConnectIndirectly.bsh \
-	tests/CatDriver/testAcceptsURL.bsh \
-	tests/CatDriver/testConnectDirectly.bsh \
-	tests/TeeDriver/testJDBCCompliance.bsh \
-	tests/TeeDriver/testConnectDirectlyAndInvokeMethods.bsh \
-	tests/TeeDriver/testVersionInfo.bsh \
-	tests/TeeDriver/testAcceptsURL.bsh \
-	tests/TeeDriver/testConnectIndirectlyWithBadURLFails.bsh \
-	tests/TeeDriver/testConnectIndirectlyWithGoodURLSucceeds.bsh \
-	tests/TeeDriver/testConnectDirectly.bsh \
-	tests/PoolDriver/testGetConnectionTwiceProducesTwoDistinctConnections.bsh \
-	tests/PoolDriver/testJDBCCompliance.bsh \
-	tests/PoolDriver/testConnectDirectlyAndInvokeMethods.bsh \
-	tests/PoolDriver/testVersionInfo.bsh \
-	tests/PoolDriver/testCallMethodOnClosedPooledConnectionThrowsSQLException.bsh \
-	tests/PoolDriver/testConnectIndirectly.bsh \
-	tests/PoolDriver/testAcceptsURL.bsh \
-	tests/PoolDriver/testConnectDirectly.bsh \
-	tests/DriverComposition/testTeePlusSinkButReverseOrder.bsh \
-	tests/DriverComposition/testUrlsCanHaveWhitespace.bsh \
-	tests/DriverComposition/testProgressiveComposition.bsh \
-	tests/DriverComposition/testTeePlusSink.bsh \
-	tests/LogDriver/testJDBCCompliance.bsh \
-	tests/LogDriver/testConnectDirectlyAndInvokeMethods.bsh \
-	tests/LogDriver/testVersionInfo.bsh \
-	tests/LogDriver/testConnectIndirectly.bsh \
-	tests/LogDriver/testAcceptsURL.bsh \
-	tests/LogDriver/testConnectDirectly.bsh \
-	tests/SinkDriver/testJDBCCompliance.bsh \
-	tests/SinkDriver/testConnectDirectlyAndInvokeMethods.bsh \
-	tests/SinkDriver/testVersionInfo.bsh \
-	tests/SinkDriver/testConnectIndirectly.bsh \
-	tests/SinkDriver/testAcceptsURL.bsh \
-	tests/SinkDriver/testConnectDirectly.bsh \
-	tests/FilterDriver/testJDBCCompliance.bsh \
-	tests/FilterDriver/testConnectDirectlyAndInvokeMethods.bsh \
-	tests/FilterDriver/testVersionInfo.bsh \
-	tests/FilterDriver/testConnectIndirectly.bsh \
-	tests/FilterDriver/testAcceptsURL.bsh \
-	tests/FilterDriver/testConnectDirectly.bsh \
-	tests/FilterDriver/testUpcaseFilter.bsh \
-	tests/FilterDriver/testAssertionFilter.bsh
-
+TST_DIR = tests
 
 # Automake variables for building and distribution
-EXTRA_DIST = $(LIB_DIR) tests $(SRC_DIR)
+EXTRA_DIST = $(LIB_DIR) $(TST_DIR) $(SRC_DIR)
 EXTRA_SCRIPTS = $(BIN_DIR)
 CLEANFILES = @PACKAGE@ @PACKAGE@.jar sources
 TESTS_ENVIRONMENT = CLASSPATH=@PACKAGE@.jar
@@ -502,6 +452,54 @@ dist_pkgdata_DATA = @PACKAGE@.jar $(shell find $(srcdir)/$(LIB_DIR) -type f -ina
 
 # Make variable for setting the build class path
 CLASSPATH = $(shell find $(srcdir)/$(LIB_DIR) -name '*.jar' -printf '%p:')
+
+# Automake variables for automated testing
+TESTS = $(TST_DIR)/CatDriver/testJDBCCompliance.bsh \
+	$(TST_DIR)/CatDriver/testConnectDirectlyAndInvokeMethods.bsh \
+	$(TST_DIR)/CatDriver/testVersionInfo.bsh \
+	$(TST_DIR)/CatDriver/testConnectIndirectly.bsh \
+	$(TST_DIR)/CatDriver/testAcceptsURL.bsh \
+	$(TST_DIR)/CatDriver/testConnectDirectly.bsh \
+	$(TST_DIR)/TeeDriver/testJDBCCompliance.bsh \
+	$(TST_DIR)/TeeDriver/testConnectDirectlyAndInvokeMethods.bsh \
+	$(TST_DIR)/TeeDriver/testVersionInfo.bsh \
+	$(TST_DIR)/TeeDriver/testAcceptsURL.bsh \
+	$(TST_DIR)/TeeDriver/testConnectIndirectlyWithBadURLFails.bsh \
+	$(TST_DIR)/TeeDriver/testConnectIndirectlyWithGoodURLSucceeds.bsh \
+	$(TST_DIR)/TeeDriver/testConnectDirectly.bsh \
+	$(TST_DIR)/PoolDriver/testGetConnectionTwiceProducesTwoDistinctConnections.bsh \
+	$(TST_DIR)/PoolDriver/testJDBCCompliance.bsh \
+	$(TST_DIR)/PoolDriver/testConnectDirectlyAndInvokeMethods.bsh \
+	$(TST_DIR)/PoolDriver/testVersionInfo.bsh \
+	$(TST_DIR)/PoolDriver/testCallMethodOnClosedPooledConnectionThrowsSQLException.bsh \
+	$(TST_DIR)/PoolDriver/testConnectIndirectly.bsh \
+	$(TST_DIR)/PoolDriver/testAcceptsURL.bsh \
+	$(TST_DIR)/PoolDriver/testConnectDirectly.bsh \
+	$(TST_DIR)/DriverComposition/testTeePlusSinkButReverseOrder.bsh \
+	$(TST_DIR)/DriverComposition/testUrlsCanHaveWhitespace.bsh \
+	$(TST_DIR)/DriverComposition/testProgressiveComposition.bsh \
+	$(TST_DIR)/DriverComposition/testTeePlusSink.bsh \
+	$(TST_DIR)/LogDriver/testJDBCCompliance.bsh \
+	$(TST_DIR)/LogDriver/testConnectDirectlyAndInvokeMethods.bsh \
+	$(TST_DIR)/LogDriver/testVersionInfo.bsh \
+	$(TST_DIR)/LogDriver/testConnectIndirectly.bsh \
+	$(TST_DIR)/LogDriver/testAcceptsURL.bsh \
+	$(TST_DIR)/LogDriver/testConnectDirectly.bsh \
+	$(TST_DIR)/SinkDriver/testJDBCCompliance.bsh \
+	$(TST_DIR)/SinkDriver/testConnectDirectlyAndInvokeMethods.bsh \
+	$(TST_DIR)/SinkDriver/testVersionInfo.bsh \
+	$(TST_DIR)/SinkDriver/testConnectIndirectly.bsh \
+	$(TST_DIR)/SinkDriver/testAcceptsURL.bsh \
+	$(TST_DIR)/SinkDriver/testConnectDirectly.bsh \
+	$(TST_DIR)/FilterDriver/testJDBCCompliance.bsh \
+	$(TST_DIR)/FilterDriver/testConnectDirectlyAndInvokeMethods.bsh \
+	$(TST_DIR)/FilterDriver/testVersionInfo.bsh \
+	$(TST_DIR)/FilterDriver/testConnectIndirectly.bsh \
+	$(TST_DIR)/FilterDriver/testAcceptsURL.bsh \
+	$(TST_DIR)/FilterDriver/testConnectDirectly.bsh \
+	$(TST_DIR)/FilterDriver/testUpcaseFilter.bsh \
+	$(TST_DIR)/FilterDriver/testAssertionFilter.bsh
+
 all: all-am
 
 .SUFFIXES:
@@ -1062,6 +1060,8 @@ sources: $(shell find $(srcdir)/$(SRC_DIR) -iname "*.java")
 
 clean-local:
 	-rm -rf $(OBJ_DIR)
+
+# Experimental targets
 
 rmi:
 	rmic -d . com.jw.server.RemoteDriverImpl

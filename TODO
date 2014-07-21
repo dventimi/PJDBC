@@ -37,3 +37,195 @@
 * TODO Write tests for the UserMap driver.
 * TODO Make the PoolDriver pluggable.
 * TODO Test PJDBC using the DOTS framework.
+* NeptuneStation
+*** PJDBC
+    PJDBC provides a suite of Java JDBC drivers, as well as a library
+    for building new drivers, that seamlessly intercept or "proxy"
+    calls to the underlying database.
+***** AbstractInterceptingDriver
+*** RadiumSalt
+***** General Description
+      RadiumSalt is a new kind of database programming environment.
+      Designed specifically for Relational DataBase Management Systems
+      (RDBMSs), it creates the appearance of augmenting a database with
+      additional, enriching new "features".  
+      - SQL interface
+      - Tables
+      - Views
+      - Foreign Key Constraints
+      - Triggers
+      - Translation between SQL dialects
+      - Understands different SQL dialects
+      - Provides ANSI SQL as a "lingua franca" among dialects
+      - SQL convenience features
+      - Reversed SQL (e.g. from <table> where <predicates> select <fields>)
+      - QUEL support
+      - Auto-joining in queries
+***** Tasks
+******* TODO Rename Salt to something brand-agnostic.
+******* TODO Move STGroup storage out of AbstractSalt.
+******* TODO Store multiple STGroups.
+******* TODO Associate STGroups with database products.
+********* m Salts
+********* n Databases
+********* m x n mapping
+******* TODO Make database product names into String constants (or enums).
+******* TODO Should be able to set STGroup contents with a String.
+******* TODO Or an STGroup.
+******* TODO Or loaded from a file.
+******* TODO Database product names ultimately should come from a .properties file.
+******* TODO As should the Group file names and locations.
+******* TODO Have GOT to find a way to make macro expansion re-entrant.
+******* TODO Should abstract out the command recognition, so it's pluggable.
+	- Simple regex based.
+	- ANTLR parser based.
+******* TODO getSTGroup() should return a db-specific group.
+******* TODO Read about java.util.Properties
+******* TODO Read about Java enumerations.
+***** Design Aspects
+******* Fundamentally, a translator (or translators)
+******* Collection of translators
+******* Not tied to PJDBC
+******* Not tied to ANTLR/StringTemplate
+******* But, all of my translators will use ANTLR/StringTemplate
+******* Has a Java API
+******* Has interfaces
+******* Has a command-line interface
+******* Coupling to PJDB is another interface (or, a bridge)
+*** Atomic
+*** Feature List
+***** Actions
+******* Create domain constraint
+******* Drop domain constraint
+******* List constraints
+******* (Automatically) set up management table(s)
+******* (Optional, and possibly automatic) Heal broken constraints
+******* Management tables either exposed directly, or views on them
+	Gives application writers access to key information that's
+        exposed.
+	- Name of the constraint
+	- Target table
+	- Target column
+	- Related tables
+	- Domain view
+	- Error code that it returns
+*** Implementation Notes
+***** Elements
+******* Views
+******* Tables
+******* Triggers
+***** Generic System Catalog
+***** Table(s) to manage pieces of domain constraints
+***** Tool written in Java
+***** Components
+******* Functional API in Java
+********* Input Data Structure
+	  Capture all the relevant information related to the
+          particular action (create/drop).  Drop probably doesn't
+          require a complex data structure, since we probably only
+          need the name.  With that, we can sift through the domain
+          constraint catalog, find the constraint, find its pieces
+          (views, triggers).  Create probably needs a more complex
+          data structure, since we need the following information (not
+          necessarily exhaustive):
+	  - Target table
+	  - Target column
+	  - Domain view
+********* Intermediate Data Structure (optional?)
+	  Functional API should map the input data structure to an
+          output data structure, which captures the final information
+          needed to actually create the domain constraint.
+          Platform-specific code (probably using templates) will then
+          serialize this out to the appropriate SQL statements to
+          create the constraint.  The data structure probably will map
+          closely to the exact internal representation, having:
+	  - Target table
+	  - Target column
+	  - Domain view
+	  - Related tables parsed out of the view
+	  - Error code
+********* Serialization Module
+	  Probably using StringTemplate templates which essentially
+          provide output grammars.  In essence, each particular
+          template/grammar is sort of a "dialect" corresponding to a
+          particular database product.  Probably don't need to get
+          more abstract than this.  Perhaps it'll just be one
+          template group file, per database (e.g., Oracle, MSSQL,
+          SQLite, etc.)
+******* DSL UI
+********* Input Grammar
+********* ANTLR Parser
+********* Drives Functional API
+********* Output of this component is the Input Data Structure
+******* HenPlus Plugin
+	- Wraps the previous two components.
+	- Outputs the input data structure.
+	- Manages the actual database connection.
+	- Has to be aware of the database product (perhaps via
+          driver).
+	- Using the Functional API, selects appropriate template.
+	- At first, just hard-code an "interpreter"
+	- Command:  domainconstraint name (table.column) references (view.column)
+***** Parts (taken from [[file:~/work/project-x/scratch.sql::Turn%20on%20SQLite%20foreign%20key%20support%20which%20is%20not%20on%20by%20default][scratch.sql]])
+******* Domain key view
+******* Text-serialized version of input data struct
+******* Complementary domain key view
+******* Domain key trigger on referencing table
+******* complementary trigger on referenced tables
+******* Error code
+***** Tables
+******* DOMAIN-CONSTRAINT
+	- id
+	- name
+	- data
+	- error-code
+******* CONSTRAINT-COMPONENT
+	- id
+	- domain-constraint-id
+	- system-component-id
+	- component-type-id
+******* COMPONENT-TYPE
+	- id
+	- code
+	- description
+***** Views
+******* SYSTEM-CATALOG
+	- name (text)
+	- type (text)
+***** Functions (in JAVA API)
+***** Handlers
+      handle Class level proxying
+***** Method Handlers
+      handle Class-Method level proxying
+***** Actual Method Handlers
+      handle overloaded methods
+***** Hooks
+      0..n per actual method handler
+***** Total Handler Table
+      | Class      | Method                  | Params | Hook |
+      |------------+-------------------------+--------+------|
+      | Connection | createStatement         |        |      |
+      | Connection | createPreparedStatement |        |      |
+      | Connection | createCallableProcedure |        |      |
+      | Statement  | execute                 |        |      |
+***** Proxying individual methods
+      - In general, a Proxy supports every method on every method it implements.
+      - A delegating Proxy delegates calls to an underlying delegate.
+      - However, you can choose to override whichever methods you want.
+      - Can we make a delegating Proxy that overrides only a particular method?
+      - Can we then make such a Proxy that overrides that one particular method, by adding hooks to it?
+      - Proxy.newProxyInstance(ClassLoader, Class[], InvocationHandler) <-- generic operation
+      - Proxy.newProxyInstance(ClassLoader, Class[], DelegatingInvocationHandler) <-- has (and may use a delegate) for any or all operations.
+      - Proxy.newProxyInstance(ClassLoader, Class[], MethodOverrideInvocationHandler)
+	- Is a DelegatingInvocationHandler
+	- Automatically delegates all method calls to the delegate, save for ONE.
+	- For that ONE METHOD, it does something else.
+*** Tasks
+***** TODO Get jdep or something like it to help with compilation
+***** TODO Get Radium Salt's macro expansion to work recursively.
+***** TODO Move PJDBC and RadiumSalt into completely seperate projects.
+*** Experimental
+     #+CAPTION: This is the caption for the next figure link (or table)
+     #+LABEL:   fig:SED-HR4049
+     #+ATTR_HTML: alt="Galaxy Image" title="Galaxy!"
+     [[~/Downloads/background.jpg]]

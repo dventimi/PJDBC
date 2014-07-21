@@ -4,12 +4,7 @@ AC_CONFIG_AUX_DIR([build-aux])
 AC_CANONICAL_TARGET
 AM_INIT_AUTOMAKE([-Wno-portability])
 AC_CONFIG_SRCDIR([src/org/pjdbc/util/AbstractDriver.java])
-AS_CASE([$host_os], [cygwin], [CYGPATH_PW="cygpath -pw"], [CYGPATH_PW="echo"])
-AC_SUBST([CYGPATH_PW])
-AC_CHECK_CLASSPATH
 AC_PROG_JAVAC
-AC_PROG_JAVA
-AC_PROG_SED
 AC_PROG_JAR
 AC_PROG_INSTALL
 AC_CONFIG_FILES([Makefile])
