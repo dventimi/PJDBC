@@ -1061,7 +1061,8 @@ sources: $(shell find $(srcdir)/$(SRC_DIR) -iname "*.java")
 # Automake target for additional objects to clean
 
 clean-local:
-	find $(OBJ_DIR) -iname "*.class" -exec rm {} \;
+	-rm -rf $(OBJ_DIR)
+
 rmi:
 	rmic -d . com.jw.server.RemoteDriverImpl
 	rmic -d . com.jw.server.RemoteConnectionImpl
