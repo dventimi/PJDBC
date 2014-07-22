@@ -1,4 +1,4 @@
-SUBDIRS = tests
+SUBDIRS = src tests
 
 SRC_DIR = src
 OBJ_DIR = classes
@@ -28,10 +28,6 @@ rmi:
 
 server:
 	@JAVA@ -Djava.security.policy=./java.policy com.jw.server.RemoteDriverImpl
-
-# ################################################################################
-# DOTS stuff
-# ################################################################################
 
 dots-server:
 	@JAVA@ -cp Perfmon.jar dots.perfmon.PerfMon -port 8001
