@@ -1,0 +1,47 @@
+TESTS =	CatDriver/testJDBCCompliance.bsh \
+	CatDriver/testConnectDirectlyAndInvokeMethods.bsh \
+	CatDriver/testVersionInfo.bsh \
+	CatDriver/testConnectIndirectly.bsh \
+	CatDriver/testAcceptsURL.bsh \
+	CatDriver/testConnectDirectly.bsh \
+	TeeDriver/testJDBCCompliance.bsh \
+	TeeDriver/testConnectDirectlyAndInvokeMethods.bsh \
+	TeeDriver/testVersionInfo.bsh \
+	TeeDriver/testAcceptsURL.bsh \
+	TeeDriver/testConnectIndirectlyWithBadURLFails.bsh \
+	TeeDriver/testConnectIndirectlyWithGoodURLSucceeds.bsh \
+	TeeDriver/testConnectDirectly.bsh \
+	PoolDriver/testGetConnectionTwiceProducesTwoDistinctConnections.bsh \
+	PoolDriver/testJDBCCompliance.bsh \
+	PoolDriver/testConnectDirectlyAndInvokeMethods.bsh \
+	PoolDriver/testVersionInfo.bsh \
+	PoolDriver/testCallMethodOnClosedPooledConnectionThrowsSQLException.bsh \
+	PoolDriver/testConnectIndirectly.bsh \
+	PoolDriver/testAcceptsURL.bsh \
+	PoolDriver/testConnectDirectly.bsh \
+	DriverComposition/testTeePlusSinkButReverseOrder.bsh \
+	DriverComposition/testUrlsCanHaveWhitespace.bsh \
+	DriverComposition/testProgressiveComposition.bsh \
+	DriverComposition/testTeePlusSink.bsh \
+	LogDriver/testJDBCCompliance.bsh \
+	LogDriver/testConnectDirectlyAndInvokeMethods.bsh \
+	LogDriver/testVersionInfo.bsh \
+	LogDriver/testConnectIndirectly.bsh \
+	LogDriver/testAcceptsURL.bsh \
+	LogDriver/testConnectDirectly.bsh \
+	SinkDriver/testJDBCCompliance.bsh \
+	SinkDriver/testConnectDirectlyAndInvokeMethods.bsh \
+	SinkDriver/testVersionInfo.bsh \
+	SinkDriver/testConnectIndirectly.bsh \
+	SinkDriver/testAcceptsURL.bsh \
+	SinkDriver/testConnectDirectly.bsh \
+	FilterDriver/testJDBCCompliance.bsh \
+	FilterDriver/testConnectDirectlyAndInvokeMethods.bsh \
+	FilterDriver/testVersionInfo.bsh \
+	FilterDriver/testConnectIndirectly.bsh \
+	FilterDriver/testAcceptsURL.bsh \
+	FilterDriver/testConnectDirectly.bsh \
+	FilterDriver/testUpcaseFilter.bsh \
+	FilterDriver/testAssertionFilter.bsh
+
+XFAIL_TESTS =
