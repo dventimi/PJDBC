@@ -1,46 +1,26 @@
-# Make variables for definining important project directories
-
 SRC_DIR = src
-LIB_DIR = lib
-BIN_DIR = bin
 OBJ_DIR = classes
 TST_DIR = tests
 
-# Automake variables for building and distribution
-
-EXTRA_DIST = $(LIB_DIR) $(TST_DIR) $(SRC_DIR)
-EXTRA_SCRIPTS = $(BIN_DIR)
-CLEANFILES = @PACKAGE@ @PACKAGE@.jar sources
+AM_JAVACFLAGS = -sourcepath $(srcdir)/$(SRC_DIR) -d $(OBJ_DIR) -Xlint:unchecked -Xlint:deprecation
+EXTRA_DIST = $(SRC_DIR) $(TST_DIR)
+CLEANFILES = @PACKAGE@.jar sources
 TESTS_ENVIRONMENT = CLASSPATH=@PACKAGE@.jar
 TEST_EXTENSIONS = .bsh
-AM_JAVACFLAGS = -sourcepath $(srcdir)/$(SRC_DIR) -d $(OBJ_DIR) -Xlint:unchecked -Xlint:deprecation -cp $(CLASSPATH)
-AM_BSH_LOG_FLAGS = pjdbc.jar
+AM_BSH_LOG_FLAGS = @PACKAGE@.jar
 BSH_LOG_COMPILER = $(srcdir)/$(TST_DIR)/bshunit
-dist_pkgdata_DATA = @PACKAGE@.jar $(shell find $(srcdir)/$(LIB_DIR) -type f -iname '*.jar') 
-
-# Make variable for setting the build class path
-
-CLASSPATH = $(shell find $(srcdir)/$(LIB_DIR) -name '*.jar' -printf '%p:')
-
-# Make target for creating the application binary
+dist_pkgdata_DATA = @PACKAGE@.jar
 
 @PACKAGE@.jar: sources
 	$(shell mkdir -p $(OBJ_DIR))
 	@JAVAC@ $(JAVACFLAGS) $(AM_JAVACFLAGS) @sources
-	touch $@
-	@JAR@ -uf $@ -C $(OBJ_DIR) .
-
-# Make target for generating a list of source files to compile
+	@JAR@ -cf $@ -C $(OBJ_DIR) .
 
 sources: $(shell find $(srcdir)/$(SRC_DIR) -iname "*.java")
 	echo $? > $@
 
-# Automake target for additional objects to clean
-
 clean-local:
 	-rm -rf $(OBJ_DIR)
-
-# Automake variables for automated testing
 
 TESTS =	$(TST_DIR)/CatDriver/testJDBCCompliance.bsh \
 	$(TST_DIR)/CatDriver/testConnectDirectlyAndInvokeMethods.bsh \
@@ -89,8 +69,6 @@ TESTS =	$(TST_DIR)/CatDriver/testJDBCCompliance.bsh \
 	$(TST_DIR)/FilterDriver/testAssertionFilter.bsh
 
 XFAIL_TESTS =
-
-# Experimental targets
 
 rmi:
 	rmic -d . com.jw.server.RemoteDriverImpl
