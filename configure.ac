@@ -7,5 +7,7 @@ AC_CONFIG_SRCDIR([src/org/pjdbc/util/AbstractDriver.java])
 AC_PROG_JAVAC
 AC_PROG_JAR
 AC_PROG_INSTALL
-AC_CONFIG_FILES([Makefile])
+AC_CONFIG_FILES([
+        Makefile
+        tests/Makefile])
 AC_OUTPUT

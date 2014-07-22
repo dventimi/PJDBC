@@ -1,3 +1,5 @@
+SUBDIRS = tests
+
 SRC_DIR = src
 OBJ_DIR = classes
 TST_DIR = tests
@@ -5,10 +7,6 @@ TST_DIR = tests
 AM_JAVACFLAGS = -sourcepath $(srcdir)/$(SRC_DIR) -d $(OBJ_DIR) -Xlint:unchecked -Xlint:deprecation
 EXTRA_DIST = $(SRC_DIR) $(TST_DIR)
 CLEANFILES = @PACKAGE@.jar sources
-TESTS_ENVIRONMENT = CLASSPATH=@PACKAGE@.jar
-TEST_EXTENSIONS = .bsh
-AM_BSH_LOG_FLAGS = @PACKAGE@.jar
-BSH_LOG_COMPILER = $(srcdir)/$(TST_DIR)/bshunit
 dist_pkgdata_DATA = @PACKAGE@.jar
 
 @PACKAGE@.jar: sources
@@ -21,54 +19,6 @@ sources: $(shell find $(srcdir)/$(SRC_DIR) -iname "*.java")
 
 clean-local:
 	-rm -rf $(OBJ_DIR)
-
-TESTS =	$(TST_DIR)/CatDriver/testJDBCCompliance.bsh \
-	$(TST_DIR)/CatDriver/testConnectDirectlyAndInvokeMethods.bsh \
-	$(TST_DIR)/CatDriver/testVersionInfo.bsh \
-	$(TST_DIR)/CatDriver/testConnectIndirectly.bsh \
-	$(TST_DIR)/CatDriver/testAcceptsURL.bsh \
-	$(TST_DIR)/CatDriver/testConnectDirectly.bsh \
-	$(TST_DIR)/TeeDriver/testJDBCCompliance.bsh \
-	$(TST_DIR)/TeeDriver/testConnectDirectlyAndInvokeMethods.bsh \
-	$(TST_DIR)/TeeDriver/testVersionInfo.bsh \
-	$(TST_DIR)/TeeDriver/testAcceptsURL.bsh \
-	$(TST_DIR)/TeeDriver/testConnectIndirectlyWithBadURLFails.bsh \
-	$(TST_DIR)/TeeDriver/testConnectIndirectlyWithGoodURLSucceeds.bsh \
-	$(TST_DIR)/TeeDriver/testConnectDirectly.bsh \
-	$(TST_DIR)/PoolDriver/testGetConnectionTwiceProducesTwoDistinctConnections.bsh \
-	$(TST_DIR)/PoolDriver/testJDBCCompliance.bsh \
-	$(TST_DIR)/PoolDriver/testConnectDirectlyAndInvokeMethods.bsh \
-	$(TST_DIR)/PoolDriver/testVersionInfo.bsh \
-	$(TST_DIR)/PoolDriver/testCallMethodOnClosedPooledConnectionThrowsSQLException.bsh \
-	$(TST_DIR)/PoolDriver/testConnectIndirectly.bsh \
-	$(TST_DIR)/PoolDriver/testAcceptsURL.bsh \
-	$(TST_DIR)/PoolDriver/testConnectDirectly.bsh \
-	$(TST_DIR)/DriverComposition/testTeePlusSinkButReverseOrder.bsh \
-	$(TST_DIR)/DriverComposition/testUrlsCanHaveWhitespace.bsh \
-	$(TST_DIR)/DriverComposition/testProgressiveComposition.bsh \
-	$(TST_DIR)/DriverComposition/testTeePlusSink.bsh \
-	$(TST_DIR)/LogDriver/testJDBCCompliance.bsh \
-	$(TST_DIR)/LogDriver/testConnectDirectlyAndInvokeMethods.bsh \
-	$(TST_DIR)/LogDriver/testVersionInfo.bsh \
-	$(TST_DIR)/LogDriver/testConnectIndirectly.bsh \
-	$(TST_DIR)/LogDriver/testAcceptsURL.bsh \
-	$(TST_DIR)/LogDriver/testConnectDirectly.bsh \
-	$(TST_DIR)/SinkDriver/testJDBCCompliance.bsh \
-	$(TST_DIR)/SinkDriver/testConnectDirectlyAndInvokeMethods.bsh \
-	$(TST_DIR)/SinkDriver/testVersionInfo.bsh \
-	$(TST_DIR)/SinkDriver/testConnectIndirectly.bsh \
-	$(TST_DIR)/SinkDriver/testAcceptsURL.bsh \
-	$(TST_DIR)/SinkDriver/testConnectDirectly.bsh \
-	$(TST_DIR)/FilterDriver/testJDBCCompliance.bsh \
-	$(TST_DIR)/FilterDriver/testConnectDirectlyAndInvokeMethods.bsh \
-	$(TST_DIR)/FilterDriver/testVersionInfo.bsh \
-	$(TST_DIR)/FilterDriver/testConnectIndirectly.bsh \
-	$(TST_DIR)/FilterDriver/testAcceptsURL.bsh \
-	$(TST_DIR)/FilterDriver/testConnectDirectly.bsh \
-	$(TST_DIR)/FilterDriver/testUpcaseFilter.bsh \
-	$(TST_DIR)/FilterDriver/testAssertionFilter.bsh
-
-XFAIL_TESTS =
 
 rmi:
 	rmic -d . com.jw.server.RemoteDriverImpl
