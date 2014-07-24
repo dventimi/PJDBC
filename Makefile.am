@@ -10,7 +10,7 @@ CLEANFILES = @PACKAGE@.jar sources
 dist_pkgdata_DATA = @PACKAGE@.jar
 
 @PACKAGE@.jar: sources
-	$(shell mkdir -p $(OBJ_DIR))
+	mkdir -p $(OBJ_DIR)
 	@JAVAC@ $(JAVACFLAGS) $(AM_JAVACFLAGS) @sources
 	@JAR@ -cf $@ -C $(OBJ_DIR) .
 
