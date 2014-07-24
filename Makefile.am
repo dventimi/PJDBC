@@ -1,3 +1,5 @@
+include sources.am
+
 SUBDIRS = src tests
 
 SRC_DIR = src
@@ -14,7 +16,7 @@ dist_pkgdata_DATA = @PACKAGE@.jar
 	@JAVAC@ $(JAVACFLAGS) $(AM_JAVACFLAGS) @sources
 	@JAR@ -cf $@ -C $(OBJ_DIR) .
 
-sources: $(shell find $(srcdir)/$(SRC_DIR) -iname "*.java")
+sources: $(SOURCES)
 	echo $? > $@
 
 clean-local:
