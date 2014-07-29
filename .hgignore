@@ -21,3 +21,5 @@ pjdbc-*
 dots_log
 sources
 aclocal.m4
+*.class
+jar_args
