@@ -8,6 +8,8 @@ AC_PROG_SED
 AC_PROG_JAVAC
 AC_PROG_JAR
 AC_PROG_INSTALL
+JAVA_SOURCES=$(find src -iname "*.java" -printf "%p ")
+AC_SUBST([JAVA_SOURCES])
 AC_CONFIG_FILES([
         Makefile
         src/Makefile
