@@ -1,5 +1,3 @@
-include sources.am
-
 SUBDIRS = src tests
 
 SRC_DIR = src
@@ -11,13 +9,10 @@ EXTRA_DIST = $(SRC_DIR) $(TST_DIR)
 CLEANFILES = @PACKAGE@.jar sources
 dist_pkgdata_DATA = @PACKAGE@.jar
 
-@PACKAGE@.jar: sources
-	@JAVAC@ $(JAVACFLAGS) $(AM_JAVACFLAGS) @sources
+@PACKAGE@.jar: @JAVA_SOURCES@
+	@JAVAC@ $(JAVACFLAGS) $(AM_JAVACFLAGS) $?
 	find $(SRC_DIR) ! -iname "*.java" ! -iname "Makefile*" -type f | cut -d/ -f2- | @SED@ "s/^/-C $(SRC_DIR) /" > jar_args
 	@JAR@ -cf $@ @jar_args
-
-sources: $(SOURCES)
-	echo $? > $@
 
 clean-local:
 	-rm -rf $(OBJ_DIR)
