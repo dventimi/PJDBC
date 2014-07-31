@@ -1,1 +1,1 @@
-info_TEXINFOS = pjdbc.texinfo
+info_TEXINFOS = pjdbc.texi
