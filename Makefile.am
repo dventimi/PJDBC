@@ -1,2 +1,2 @@
-SUBDIRS = src tests
-EXTRA_DIST = src tests
+SUBDIRS = src doc tests
+EXTRA_DIST = src doc tests
