@@ -1,4 +1,3 @@
-AC_PREREQ([2.62])
 AC_INIT([PJDBC], [0.9], [http://www.pjdbc.org])
 AC_CONFIG_AUX_DIR([build-aux])
 AC_CANONICAL_TARGET
