@@ -9,4 +9,7 @@ CLEANFILES = @PACKAGE@.jar jar_args javac_args
 	@JAR@ -cf $@ @jar_args
 
 clean-local:
-	-find . -name "*.class" -exec rm {} \;
+	-rm -rf `find $(srcdir) -type f -iname "*.class"`
+
+dist-hook:
+	-rm -rf `find $(distdir) -type f -iname "*.class"`
