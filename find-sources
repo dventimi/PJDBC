@@ -1,3 +1,3 @@
 #!/bin/sh
-echo "SOURCES =" > src/sources.am
-find src -name "*.java" | cut -d/ -f2- | sed 's/^/SOURCES += /' >> src/sources.am
+echo "SOURCES =" > sources.am
+find src -name "*.java" | sed 's/^/SOURCES += /' >> sources.am
