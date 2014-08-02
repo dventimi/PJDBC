@@ -1,14 +1,9 @@
 include sources.am
 
-dist_pkgdata_DATA = pjdbc.jar
-AM_JAVACFLAGS = -Xlint:unchecked -Xlint:deprecation
-CLEANFILES = pjdbc.jar pjdbc.arg
+dist_pkgdata_DATA = @PACKAGE@.jar
+BUILT_SOURCES = @PACKAGE@.jar @PACKAGE@.arg
 EXTRA_DIST = $(SOURCES)
-
-BUILT_SOURCES = pjdbc.jar pjdbc.arg
-
-OBJEXT = jar
-
+CLEANFILES = @PACKAGE@.jar @PACKAGE@.arg
 SUFFIXES = .arg .jar
 
 .arg.jar:
@@ -16,7 +11,7 @@ SUFFIXES = .arg .jar
 	@JAVAC@ $(JAVACFLAGS) $(AM_JAVACFLAGS) -d $(builddir)/java-$@ @$?
 	@JAR@ -cf $(builddir)/$@ -C $(builddir)/java-$@ .
 
-pjdbc.arg: $(SOURCES)
+@PACKAGE@.arg: $(SOURCES)
 	echo $? > $@
 
 clean-local:
