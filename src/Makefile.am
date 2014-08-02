@@ -3,11 +3,12 @@ include sources.am
 dist_pkgdata_DATA = @PACKAGE@.jar
 AM_JAVACFLAGS = -Xlint:unchecked -Xlint:deprecation
 CLEANFILES = @PACKAGE@.jar javac_args
+EXTRA_DIST = $(SOURCES)
 
 @PACKAGE@.jar: javac_args
 	-mkdir -p $(builddir)/java
 	@JAVAC@ $(JAVACFLAGS) $(AM_JAVACFLAGS) -d $(builddir)/java @javac_args
-	@JAR@ -cf $@ -C $(builddir)/java .
+	@JAR@ -cf $(builddir)/$@ -C $(builddir)/java .
 
 javac_args: $(SOURCES)
 	echo $? > $@
@@ -17,3 +18,4 @@ clean-local:
 
 dist-hook:
 	-rm -rf `find $(distdir) -type f -iname "*.class"`
+
