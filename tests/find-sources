@@ -1,0 +1,3 @@
+#!/bin/sh
+echo "TESTS =" > sources.am
+find . -name "*.bsh" | sed 's/^/TESTS += /' >> sources.am
