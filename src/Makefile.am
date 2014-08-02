@@ -1,21 +1,24 @@
 include sources.am
 
-dist_pkgdata_DATA = @PACKAGE@.jar
+dist_pkgdata_DATA = pjdbc.jar
 AM_JAVACFLAGS = -Xlint:unchecked -Xlint:deprecation
-CLEANFILES = @PACKAGE@.jar javac_args
+CLEANFILES = pjdbc.jar pjdbc.arg
 EXTRA_DIST = $(SOURCES)
 
-@PACKAGE@.jar: javac_args
-	-mkdir -p $(builddir)/java
-	@JAVAC@ $(JAVACFLAGS) $(AM_JAVACFLAGS) -d $(builddir)/java @javac_args
-	@JAR@ -cf $(builddir)/$@ -C $(builddir)/java .
+BUILT_SOURCES = pjdbc.jar pjdbc.arg
 
-javac_args: $(SOURCES)
+OBJEXT = jar
+
+SUFFIXES = .arg .jar
+
+.arg.jar:
+	-mkdir -p $(builddir)/java-$@
+	@JAVAC@ $(JAVACFLAGS) $(AM_JAVACFLAGS) -d $(builddir)/java-$@ @$?
+	@JAR@ -cf $(builddir)/$@ -C $(builddir)/java-$@ .
+
+pjdbc.arg: $(SOURCES)
 	echo $? > $@
 
 clean-local:
-	-rm -rf $(builddir)/java
-
-dist-hook:
-	-rm -rf `find $(distdir) -type f -iname "*.class"`
+	-rm -rf $(builddir)/java-*
 
