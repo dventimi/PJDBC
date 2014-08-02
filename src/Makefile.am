@@ -17,4 +17,3 @@ SUFFIXES = .arg .jar
 
 clean-local:
 	-rm -rf $(builddir)/.classes
-
