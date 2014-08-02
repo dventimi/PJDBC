@@ -1,4 +1,4 @@
-include tests.am
+include sources.am
 
 TEST_EXTENSIONS = .bsh
 AM_BSH_LOG_FLAGS = $(top_builddir)/src/@PACKAGE@.jar
