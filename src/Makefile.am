@@ -8,6 +8,7 @@ SUFFIXES = .arg .jar
 
 .arg.jar:
 	-mkdir -p $(builddir)/java-$@
+	cd $(srcdir) && find . -type f ! -iregex "\(.*\.java\|.*\.in\|.*\.am\|.*find-sources\)" -exec cp --parents {} $(abs_builddir)/java-$@ \;
 	@JAVAC@ $(JAVACFLAGS) $(AM_JAVACFLAGS) -d $(builddir)/java-$@ @$?
 	@JAR@ -cf $(builddir)/$@ -C $(builddir)/java-$@ .
 
