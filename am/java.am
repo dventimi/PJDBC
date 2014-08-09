@@ -16,7 +16,7 @@ SUFFIXES = .arg .jar
 	! -iname "@" \
 	! -iregex ".*\.classes.*" \
 	-exec cp --parents {} $(abs_builddir)/.classes \;
-	@JAVAC@ $(JAVACFLAGS) $(AM_JAVACFLAGS) -d $(builddir)/.classes -sourcepath $(srcdir) @$?
+	@JAVAC@ $(JAVACFLAGS) $(AM_JAVACFLAGS) -d $(builddir)/.classes -sourcepath $(srcdir) -cp @CLASSPATH@ @$?
 	@JAR@ -cf $(builddir)/$@ -C $(builddir)/.classes .
 
 @PACKAGE@.arg: $(SOURCES)
