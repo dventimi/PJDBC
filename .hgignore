@@ -25,3 +25,5 @@ aclocal.m4
 jar_args
 javac_args
 *.info
+*.arg
+.classes
