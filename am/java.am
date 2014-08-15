@@ -4,7 +4,7 @@ EXTRA_DIST = $(SOURCES)
 CLEANFILES = @PACKAGE@.jar @PACKAGE@.arg
 SUFFIXES = .arg .jar
 
-.arg.jar: resources
+.arg.jar: Makefile
 	-mkdir -p $(builddir)/.classes
 	cd $(srcdir) && find . -type f \
 	! -iname "*.java" \
