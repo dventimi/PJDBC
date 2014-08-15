@@ -10,4 +10,3 @@ assertNotNull(d.getLog("jdbc:mock:foo"));
 assertEquals("executeQuery[select * from person;]\n"+
 	     "executeQuery[insert into person (last_name, first_name, age) values ('David', 'Ventimiglia', 42);]", 
 	     d.getLog("jdbc:mock:foo"));
-

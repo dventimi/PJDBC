@@ -2,4 +2,3 @@ import java.sql.*;
 getClass("org.pjdbc.drivers.CatDriver");
 getClass("org.pjdbc.drivers.MockDriver");
 assertNotNull(DriverManager.getConnection("jdbc:cat:jdbc:mock:foo"));
-
