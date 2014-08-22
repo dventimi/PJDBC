@@ -14,6 +14,6 @@ AC_ARG_VAR([JAVACFLAGS],[The flags to pass to the Java compiler])
 AC_CONFIG_FILES([
         Makefile
         doc/Makefile
-        src/Makefile
+        java/Makefile
         tests/Makefile])
 AC_OUTPUT
