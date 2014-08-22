@@ -1,1 +1,1 @@
-SUBDIRS = doc src tests
+SUBDIRS = doc java tests
