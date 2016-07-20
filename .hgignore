@@ -27,3 +27,10 @@ javac_args
 *.info
 *.arg
 .classes
+GPATH
+GRTAGS
+GSYMS
+GTAGS
+HTML
+jarargs
+
