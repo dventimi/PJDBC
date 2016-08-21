@@ -1,8 +1,0 @@
-import org.pjdbc.drivers.*;
-getClass("org.pjdbc.drivers.MockDriver");
-assertFalse(new FilterDriver().acceptsURL("foo"));
-assertNull(new FilterDriver().connect("foo", null));
-assertNull(new FilterDriver().connect("jdbc:filtering", null));
-assertNull(new FilterDriver().connect("jdbc:filter:", null));
-assertNotNull(new FilterDriver().connect("jdbc:filter:jdbc:mock:foo", null));
-

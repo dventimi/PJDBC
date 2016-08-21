@@ -1,3 +1,0 @@
-import org.pjdbc.drivers.*;
-assert(!new PoolDriver().jdbcCompliant());
-

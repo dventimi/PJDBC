@@ -1,5 +1,0 @@
-import java.sql.*;
-getClass("org.pjdbc.drivers.MockDriver");
-getClass("org.pjdbc.drivers.SinkDriver");
-assertNotNull(DriverManager.getConnection("jdbc:sink:jdbc:mock:foo"));
-
