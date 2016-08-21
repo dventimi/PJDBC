@@ -1,1 +1,0 @@
-SUBDIRS = doc java tests

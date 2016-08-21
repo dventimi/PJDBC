@@ -1,3 +1,0 @@
-#!/bin/sh
-echo "SOURCES =" > sources.am
-find . -name "*.java" | sed 's/^/SOURCES += /' >> sources.am
