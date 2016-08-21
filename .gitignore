@@ -8,3 +8,4 @@ config.*
 java
 *.log
 *.trs
+target
