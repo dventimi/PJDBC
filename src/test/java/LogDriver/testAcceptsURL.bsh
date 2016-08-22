@@ -1,0 +1,7 @@
+import org.pjdbc.drivers.*;
+getClass("org.pjdbc.drivers.MockDriver");
+assertFalse(new LogDriver().acceptsURL("jdbc:log"));
+assertFalse(new LogDriver().acceptsURL("jdbc:log:"));
+assertFalse(new LogDriver().acceptsURL("jdbc:log:foo"));
+assertTrue(new LogDriver().acceptsURL("jdbc:log:jdbc:mock:foo"));
+

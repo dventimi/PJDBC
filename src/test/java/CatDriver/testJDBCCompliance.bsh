@@ -1,0 +1,2 @@
+import org.pjdbc.drivers.*;
+assertFalse(new CatDriver().jdbcCompliant());

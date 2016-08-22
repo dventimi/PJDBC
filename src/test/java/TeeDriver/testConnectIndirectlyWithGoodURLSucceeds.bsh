@@ -1,0 +1,4 @@
+import java.sql.*;
+getClass("org.pjdbc.drivers.MockDriver");
+getClass("org.pjdbc.drivers.TeeDriver");
+DriverManager.getConnection("jdbc:tee:jdbc:mock:foo;jdbc:mock:foo");

@@ -1,0 +1,8 @@
+import org.pjdbc.drivers.*;
+getClass("org.pjdbc.drivers.MockDriver");
+assert(!new PoolDriver().acceptsURL("foo"));
+assert(new PoolDriver().connect("foo", null)==null);
+assert(new PoolDriver().connect("jdbc:pool", null)==null);
+assert(new PoolDriver().connect("jdbc:pool:", null)==null);
+assert(new PoolDriver().connect("jdbc:pool:jdbc:mock:foo", null)!=null);
+

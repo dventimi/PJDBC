@@ -1,0 +1,4 @@
+import org.pjdbc.drivers.*;
+assert(1==new PoolDriver().getMajorVersion());
+assert(0==new PoolDriver().getMinorVersion());
+
