@@ -1,2 +1,3 @@
 org.pjdbc.drivers.MockDriver
 org.pjdbc.drivers.CatDriver
+org.pjdbc.drivers.LogDriver
