@@ -1,4 +1,0 @@
-import org.pjdbc.drivers.*;
-assertEquals(1, new CatDriver().getMajorVersion());
-assertEquals(0, new CatDriver().getMinorVersion());
-
