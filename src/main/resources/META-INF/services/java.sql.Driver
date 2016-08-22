@@ -1,1 +1,2 @@
 org.pjdbc.drivers.MockDriver
+org.pjdbc.drivers.CatDriver
