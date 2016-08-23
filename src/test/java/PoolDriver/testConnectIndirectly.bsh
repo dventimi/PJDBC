@@ -1,5 +1,0 @@
-import java.sql.*;
-getClass("org.pjdbc.drivers.MockDriver");
-getClass("org.pjdbc.drivers.PoolDriver");
-assert(DriverManager.getConnection("jdbc:pool:jdbc:mock:foo")!=null);
-
