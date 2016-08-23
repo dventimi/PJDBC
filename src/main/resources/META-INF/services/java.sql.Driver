@@ -1,3 +1,6 @@
 org.pjdbc.drivers.MockDriver
 org.pjdbc.drivers.CatDriver
 org.pjdbc.drivers.LogDriver
+org.pjdbc.drivers.TeeDriver
+org.pjdbc.drivers.SinkDriver
+org.pjdbc.drivers.FilterDriver
