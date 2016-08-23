@@ -4,3 +4,4 @@ org.pjdbc.drivers.LogDriver
 org.pjdbc.drivers.TeeDriver
 org.pjdbc.drivers.SinkDriver
 org.pjdbc.drivers.FilterDriver
+org.pjdbc.drivers.PoolDriver
