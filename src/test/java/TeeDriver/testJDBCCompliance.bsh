@@ -1,3 +1,0 @@
-import org.pjdbc.drivers.*;
-assertFalse(new TeeDriver().jdbcCompliant());
-
