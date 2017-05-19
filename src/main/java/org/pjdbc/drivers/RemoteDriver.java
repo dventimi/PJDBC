@@ -1,11 +1,11 @@
 package org.pjdbc.drivers;
 
+import java.lang.reflect.*;
 import java.rmi.registry.*;
 import java.sql.*;
 import java.util.*;
 import org.pjdbc.rmi.*;
-import org.pjdbc.util.*;
-import java.lang.reflect.*;
+import org.pjdbc.sql.*;
 
 public class RemoteDriver extends AbstractDriver {
     private static class DriverHandler implements InvocationHandler {

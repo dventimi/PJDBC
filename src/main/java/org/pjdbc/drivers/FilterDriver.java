@@ -3,7 +3,6 @@ package org.pjdbc.drivers;
 import java.sql.*;
 import java.util.*;
 import org.pjdbc.sql.*;
-import org.pjdbc.util.*;
 
 public class FilterDriver extends AbstractProxyDriver {
     static {try {DriverManager.registerDriver(new FilterDriver());} catch (Exception e) {throw new RuntimeException(e);}}

@@ -6,7 +6,6 @@ import java.sql.*;
 import java.util.*;
 import java.util.logging.*;
 import org.pjdbc.sql.*;
-import org.pjdbc.util.*;
 
 public class LogDriver extends AbstractProxyDriver {
     static {try {DriverManager.registerDriver(new LogDriver());} catch (Exception e) {throw new RuntimeException(e);}}

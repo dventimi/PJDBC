@@ -5,7 +5,6 @@ import java.sql.*;
 import java.util.*;
 import java.util.concurrent.*;
 import org.pjdbc.sql.*;
-import org.pjdbc.util.*;
 
 public class PoolDriver extends AbstractProxyDriver {
     static {try {DriverManager.registerDriver(new PoolDriver());} catch (Exception e) {throw new RuntimeException(e);}}

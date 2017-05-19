@@ -1,23 +1,23 @@
-package org.pjdbc.util;
+package org.pjdbc.sql;
 
 import java.sql.*;
 import java.util.*;
 import java.util.logging.*;
 
 public abstract class AbstractDriver implements Driver {
-    public static String protocol (String url) {
+    protected String protocol (String url) {
 	return (""+url).split(":").length > 0 ? (""+url).split(":")[0].trim() : null;}
 
-    public static String subprotocol (String url) {
+    protected String subprotocol (String url) {
 	return (""+url).split(":").length > 1 ? (""+url).split(":")[1].trim() : null;}
 
-    public static String subname (String url) {
+    protected String subname (String url) {
 	return (""+url).split(":").length > 2 ? join(slice(Arrays.asList((""+url).split(":")), 2), ":") : null;}
 
-    public static String join (List<String> items, String delimiter) {
+    protected String join (List<String> items, String delimiter) {
 	return new ArrayList<String>(items).toString().replace("[", "").replace("]","").replace(", ", delimiter);}
 
-    public static List<String> slice (List<String> items, int... interval) throws IllegalArgumentException {
+    protected List<String> slice (List<String> items, int... interval) throws IllegalArgumentException {
 	if (interval.length==1) return items.subList(interval[0], items.size());
 	if (interval.length==2) return items.subList(interval[0], interval[1]);
 	throw new IllegalArgumentException("Wrong interval:  " + interval);}
@@ -28,6 +28,7 @@ public abstract class AbstractDriver implements Driver {
 
     protected abstract boolean acceptsSubName (String subname);
 
+    @Override
     public boolean acceptsURL (String url) {
 	String clean = (""+url).trim().replaceAll("(?s)\\s","").toLowerCase();
 	if (!(""+clean).matches("(?is)jdbc\\s*:.*:.*")) return false;
@@ -36,12 +37,17 @@ public abstract class AbstractDriver implements Driver {
 	if (!acceptsSubName(subname(""+clean))) return false;
 	return true;}
 
+    @Override
     public int getMajorVersion () {return 1;}
 
+    @Override
     public int getMinorVersion () {return 0;}
 
+    @Override
     public Logger getParentLogger () throws SQLFeatureNotSupportedException {throw new SQLFeatureNotSupportedException();}
 
-    public DriverPropertyInfo[] getPropertyInfo (String url, Properties info) throws SQLException {return null;}
+    @Override
+    public DriverPropertyInfo[] getPropertyInfo (String url, Properties info) throws SQLException {return new DriverPropertyInfo[]{};}
 
+    @Override
     public boolean jdbcCompliant () {return false;}}

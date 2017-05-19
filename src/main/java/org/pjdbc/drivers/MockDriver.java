@@ -4,7 +4,7 @@ import java.io.*;
 import java.lang.reflect.*;
 import java.sql.*;
 import java.util.*;
-import org.pjdbc.util.*;
+import org.pjdbc.sql.*;
 
 public class MockDriver extends AbstractDriver {
     static {try {DriverManager.registerDriver(new MockDriver());} catch (Exception e) {throw new RuntimeException(e);}}
