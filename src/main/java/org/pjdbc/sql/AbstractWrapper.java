@@ -9,7 +9,7 @@ public abstract class AbstractWrapper implements Wrapper {
     public AbstractWrapper (Wrapper wrapper) throws SQLException {
         this(new Wrapper[]{wrapper});}
 
-    public AbstractWrapper (Wrapper[] wrappers) throws SQLException {
+    public AbstractWrapper (Wrapper... wrappers) throws SQLException {
         if (wrappers==null || wrappers.length==0) throw new SQLException();
 	delegates = Arrays.asList(wrappers);}
 
@@ -26,4 +26,4 @@ public abstract class AbstractWrapper implements Wrapper {
 	if (iface.isInstance(this)) return (T)this;
 	for (Wrapper d : delegates) if (iface.isInstance(d)) return (T)d;
 	for (Wrapper d : delegates) return d.unwrap(iface);
-	throw new SQLException("Cannot unwrap to %s".format(iface.getName()));}}
+	throw new SQLException(String.format("Cannot unwrap to %s", iface.getName()));}}

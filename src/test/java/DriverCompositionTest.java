@@ -29,12 +29,12 @@ public class DriverCompositionTest {
 	    Statement stmt = c.createStatement();
 	    stmt.executeQuery("select * from person;");
 	    stmt.executeQuery("insert into person (last_name, first_name, age) values ('David', 'Ventimiglia', 42);");
-	    assertNotNull(foo.getLog("jdbc:mock:foo"));
-	    assertNotNull(bar.getLog("jdbc:mock:bar"));
+	    assertNotNull(MockDriver.getLog("jdbc:mock:foo"));
+	    assertNotNull(MockDriver.getLog("jdbc:mock:bar"));
 	    assertEquals("executeQuery[select * from person;]\n"+
 			 "executeQuery[insert into person (last_name, first_name, age) values ('David', 'Ventimiglia', 42);]",
-			 foo.getLog("jdbc:mock:foo"));
-	    assertEquals("", bar.getLog("jdbc:mock:bar"));}
+			 MockDriver.getLog("jdbc:mock:foo"));
+	    assertEquals("", MockDriver.getLog("jdbc:mock:bar"));}
 	catch (Exception e) {fail(e.getMessage());}}
 
     @Test
@@ -47,12 +47,12 @@ public class DriverCompositionTest {
 	    Statement stmt = c.createStatement();
 	    stmt.executeQuery("select * from person;");
 	    stmt.executeQuery("insert into person (last_name, first_name, age) values ('David', 'Ventimiglia', 42);");
-	    assertNotNull(foo.getLog("jdbc:mock:foo"));
-	    assertNotNull(bar.getLog("jdbc:mock:bar"));
-	    assertEquals("", foo.getLog("jdbc:mock:foo"));
+	    assertNotNull(MockDriver.getLog("jdbc:mock:foo"));
+	    assertNotNull(MockDriver.getLog("jdbc:mock:bar"));
+	    assertEquals("", MockDriver.getLog("jdbc:mock:foo"));
 	    assertEquals("executeQuery[select * from person;]\n"+
 			 "executeQuery[insert into person (last_name, first_name, age) values ('David', 'Ventimiglia', 42);]",
-			 bar.getLog("jdbc:mock:bar"));}
+			 MockDriver.getLog("jdbc:mock:bar"));}
 	catch (Exception e) {fail(e.getMessage());}}
 
     @Test @Ignore

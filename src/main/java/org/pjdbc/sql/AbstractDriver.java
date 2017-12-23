@@ -31,10 +31,10 @@ public abstract class AbstractDriver implements Driver {
     @Override
     public boolean acceptsURL (String url) {
 	String clean = (""+url).trim().replaceAll("(?s)\\s","").toLowerCase();
-	if (!(""+clean).matches("(?is)jdbc\\s*:.*:.*")) return false;
-	if (!acceptsProtocol(protocol(""+clean))) return false;
-	if (!acceptsSubProtocol(subprotocol(""+clean))) return false;
-	if (!acceptsSubName(subname(""+clean))) return false;
+	if (!clean.matches("(?is)jdbc\\s*:.*:.*")) return false;
+	if (!acceptsProtocol(protocol(clean))) return false;
+	if (!acceptsSubProtocol(subprotocol(clean))) return false;
+	if (!acceptsSubName(subname(clean))) return false;
 	return true;}
 
     @Override

@@ -20,7 +20,7 @@ public class MockDriver extends AbstractDriver {
 	public LoggingInvocationHandler (PrintWriter log) {
 	    this.l = log;}
 	public Object invoke (Object proxy, Method method, Object[] args) {
-	    l.println(method.getName() + (args!=null && args.length>0 ? Arrays.asList(args) : new ArrayList()));
+	    l.println(method.getName() + (args!=null && args.length>0 ? Arrays.asList(args) : new ArrayList<Object>()));
 	    return null;}}
 
     private static Map<String, MyPrintWriter> logs = new HashMap<String, MyPrintWriter>();
@@ -41,27 +41,27 @@ public class MockDriver extends AbstractDriver {
 	if (!acceptsURL(url)) return null;
 	logs.put(url, new MyPrintWriter(new ByteArrayOutputStream()));
 	final PrintWriter l = logs.get(url);
-	return (Connection)Proxy.newProxyInstance(getClass().getClassLoader(), new Class[]{Connection.class}, new InvocationHandler() {
+	return (Connection)Proxy.newProxyInstance(getClass().getClassLoader(), new Class<?>[]{Connection.class}, new InvocationHandler() {
 		public Object invoke (Object proxy, Method method, Object[] args) throws SQLException {
 		    if ("createStatement".equals(method.getName()))
 			return (Statement)
 			    Proxy.newProxyInstance(getClass().getClassLoader(),
-						   new Class[]{Statement.class},
+						   new Class<?>[]{Statement.class},
 						   new LoggingInvocationHandler(l));
 		    if ("prepareCall".equals(method.getName()))
 			return (CallableStatement)
 			    Proxy.newProxyInstance(getClass().getClassLoader(),
-						   new Class[]{CallableStatement.class},
+						   new Class<?>[]{CallableStatement.class},
 						   new LoggingInvocationHandler(l));
 		    if ("prepareStatement".equals(method.getName()))
 			return (PreparedStatement)
 			    Proxy.newProxyInstance(getClass().getClassLoader(),
-						   new Class[]{PreparedStatement.class},
+						   new Class<?>[]{PreparedStatement.class},
 						   new LoggingInvocationHandler(l));
 		    if ("getMetaData".equals(method.getName()))
 			return (DatabaseMetaData)
 			    Proxy.newProxyInstance(getClass().getClassLoader(),
-						   new Class[]{DatabaseMetaData.class},
+						   new Class<?>[]{DatabaseMetaData.class},
 						   new InvocationHandler() {
 						       public Object invoke (Object proxy, Method method, Object[] args) {
 							   return ("getURL".equals(method.getName())) ? url : null;}});
@@ -69,4 +69,4 @@ public class MockDriver extends AbstractDriver {
 		    if ("equals".equals(method.getName())) return proxy==args[0];
 		    if ("isWrapperFor".equals(method.getName())) return false;
 		    if ("unwrap".equals(method.getName()) && args.length==1 && Connection.class.isInstance(args[0])) return this;
-		    throw new SQLException("%s unimplemented by MockDriver".format(method.getName()));}});}}
+		    throw new SQLException(String.format("%s unimplemented by MockDriver", method.getName()));}});}}

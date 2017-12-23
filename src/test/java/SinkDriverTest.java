@@ -14,13 +14,13 @@ public class SinkDriverTest {
     @Test
     public void connectDirectlyAndInvokeMethods () {
 	try {
-	    Connection c = (Connection)(new SinkDriver().connect("jdbc:sink:jdbc:mock:foo", null));
+	    Connection c = (new SinkDriver().connect("jdbc:sink:jdbc:mock:foo", null));
 	    MockDriver d = (MockDriver)DriverManager.getDriver("jdbc:mock:foo");
 	    Statement stmt = c.createStatement();
 	    stmt.executeQuery("select * from person;");
 	    stmt.executeQuery("insert into person (last_name, first_name, age) values ('David', 'Ventimiglia', 42);");
-	    assertNotNull(d.getLog("jdbc:mock:foo"));
-	    assertEquals("", d.getLog("jdbc:mock:foo"));}
+	    assertNotNull(MockDriver.getLog("jdbc:mock:foo"));
+	    assertEquals("", MockDriver.getLog("jdbc:mock:foo"));}
 	catch (Exception e) {fail(e.getMessage());}}
 
     @Test

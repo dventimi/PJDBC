@@ -13,21 +13,21 @@ public class TeeDriverTest {
 
     public void connectDirectlyAndInvokeMethods () {
 	try {
-	    Connection c = (Connection)(new TeeDriver().connect("jdbc:tee:jdbc:mock:foo;jdbc:mock:bar", null));
+	    Connection c = (new TeeDriver().connect("jdbc:tee:jdbc:mock:foo;jdbc:mock:bar", null));
 	    MockDriver foo = (MockDriver)DriverManager.getDriver("jdbc:mock:foo");
 	    MockDriver bar = (MockDriver)DriverManager.getDriver("jdbc:mock:bar");
 	    assertSame(foo, bar);
 	    Statement stmt = c.createStatement();
 	    stmt.executeQuery("select * from person");
 	    stmt.executeQuery("insert into person (last_name, first_name, age) values ('David', 'Ventimiglia', 42)");
-	    assertNotNull(foo.getLog("jdbc:mock:foo"));
+	    assertNotNull(MockDriver.getLog("jdbc:mock:foo"));
 	    assertEquals("executeQuery[select * from person]\n"+
 			 "executeQuery[insert into person (last_name, first_name, age) values ('David', 'Ventimiglia', 42)]",
-			 foo.getLog("jdbc:mock:foo"));
-	    assertNotNull(bar.getLog("jdbc:mock:bar"));
+			 MockDriver.getLog("jdbc:mock:foo"));
+	    assertNotNull(MockDriver.getLog("jdbc:mock:bar"));
 	    assertEquals("executeQuery[select * from person]\n"+
 			 "executeQuery[insert into person (last_name, first_name, age) values ('David', 'Ventimiglia', 42)]",
-			 foo.getLog("jdbc:mock:bar"));}
+			 MockDriver.getLog("jdbc:mock:bar"));}
 	catch (Exception e) {fail(e.getMessage());}}
 
     public void connectDirectly () {

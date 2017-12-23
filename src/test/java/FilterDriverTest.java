@@ -29,20 +29,20 @@ public class FilterDriverTest {
 		.getConnection("jdbc:filter:jdbc:mock:foo")
 		.createStatement()
 		.executeQuery("create assertion foo check (0=(select count(*) from person))");
-	    String log = ((MockDriver)DriverManager.getDriver("jdbc:mock:foo")).getLog("jdbc:mock:foo");
+	    String log = MockDriver.getLog("jdbc:mock:foo");
 	    assertEquals("executeQuery[FOO,0,(SELECT COUNT(*) FROM PERSON)]", log);}
 	catch (Exception e) {fail(e.getMessage());}}
 
     @Test
     public void connectDirectlyAndInvokeMethods () {
 	try {
-	    Connection c = (Connection)(new FilterDriver().connect("jdbc:filter:jdbc:mock:foo", null));
+	    Connection c = (new FilterDriver().connect("jdbc:filter:jdbc:mock:foo", null));
 	    MockDriver d = (MockDriver)DriverManager.getDriver("jdbc:mock:foo");
 	    Statement stmt = c.createStatement();
 	    String query = "select * from person;";
 	    stmt.executeQuery(query);
-	    assertNotNull(d.getLog("jdbc:mock:foo"));
-	    assertEquals("executeQuery[select * from person;]", d.getLog("jdbc:mock:foo"));}
+	    assertNotNull(MockDriver.getLog("jdbc:mock:foo"));
+	    assertEquals("executeQuery[select * from person;]", MockDriver.getLog("jdbc:mock:foo"));}
 	catch (Exception e) {fail(e.getMessage());}}
 
     @Test
@@ -70,7 +70,7 @@ public class FilterDriverTest {
 	    ((FilterDriver)DriverManager.getDriver("jdbc:filter:jdbc:mock:foo")).setFilter(new FilterDriver.Filter() {
 		    public String apply (String sql) {return sql==null ? null : sql.toUpperCase();}});
 	    DriverManager.getConnection("jdbc:filter:jdbc:mock:foo").createStatement().executeQuery("select * from person;");
-	    String log = ((MockDriver)DriverManager.getDriver("jdbc:mock:foo")).getLog("jdbc:mock:foo");
+	    String log = MockDriver.getLog("jdbc:mock:foo");
 	    assertEquals("executeQuery[SELECT * FROM PERSON;]", log);}
 	catch (Exception e) {fail(e.getMessage());}}
 

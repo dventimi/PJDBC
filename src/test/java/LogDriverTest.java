@@ -20,16 +20,16 @@ public class LogDriverTest {
 	    Logger.getLogger("jdbc:mock:foo").setLevel(Level.INFO);
 	    Logger.getLogger("jdbc:mock:foo").setUseParentHandlers(false);
 	    Logger.getLogger("jdbc:mock:foo").addHandler(new StreamHandler(out, new SimpleFormatter()));
-	    Connection c = (Connection)(new LogDriver().connect("jdbc:log:jdbc:mock:foo", null));
+	    Connection c = (new LogDriver().connect("jdbc:log:jdbc:mock:foo", null));
 	    MockDriver d = (MockDriver)DriverManager.getDriver("jdbc:mock:foo");
 	    Statement stmt = c.createStatement();
 	    stmt.executeQuery("select * from person;");
 	    stmt.executeQuery("insert into person (last_name, first_name, age) values ('David', 'Ventimiglia', 42);");
 	    for (Handler h : Logger.getLogger("jdbc:mock:foo").getHandlers()) h.flush();
-	    assertNotNull(d.getLog("jdbc:mock:foo"));
+	    assertNotNull(MockDriver.getLog("jdbc:mock:foo"));
 	    assertEquals("executeQuery[select * from person;]\n" +
 			 "executeQuery[insert into person (last_name, first_name, age) values ('David', 'Ventimiglia', 42);]",
-			 d.getLog("jdbc:mock:foo"));
+			 MockDriver.getLog("jdbc:mock:foo"));
 	    assertEquals("select * from person;\n" +
 			 "insert into person (last_name, first_name, age) values ('David', 'Ventimiglia', 42);",
 			 out.toString().trim());}
